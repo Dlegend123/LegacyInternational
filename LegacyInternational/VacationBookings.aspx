@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="VacationBookings.aspx.cs" Inherits="LegacyInternational.VacationBookings" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <asp:Table>
+    <div>
+    <asp:Table runat="server">
         <!--Departure Location-->
         <asp:TableRow>
             <asp:TableCell>
@@ -8,6 +9,27 @@
             </asp:TableCell>
             <asp:TableCell>
                 <asp:TextBox runat="server" ID="Country"></asp:TextBox>
+            </asp:TableCell>
+        </asp:TableRow>
+        
+        <!--Destination-->
+        <asp:TableRow>
+           <asp:TableCell>
+                <asp:TextBox runat="server" ID="ACity"></asp:TextBox>
+            </asp:TableCell>
+            <asp:TableCell>
+                <asp:TextBox runat="server" ID="ACountry"></asp:TextBox>
+            </asp:TableCell>
+        </asp:TableRow>
+        <!--Date-->
+        <asp:TableRow>
+            <asp:TableCell>
+                <!--Start Date-->
+                <asp:TextBox runat="server" ID="SDate"></asp:TextBox>
+            </asp:TableCell>
+            <asp:TableCell>
+                <!--End Date-->
+                <asp:TextBox runat="server" ID="EDate"></asp:TextBox>
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow BorderStyle="Solid" BorderWidth="3px">
@@ -22,26 +44,6 @@
 
             </asp:TableCell>
        </asp:TableRow>
-        <!--Destination-->
-        <asp:TableRow>
-            <asp:TableCell>
-
-            </asp:TableCell>
-            <asp:TableCell>
-
-            </asp:TableCell>
-        </asp:TableRow>
-        <!--Date-->
-        <asp:TableRow>
-            <asp:TableCell>
-                <!--Start Date-->
-                <asp:TextBox runat="server" ID="SDate"></asp:TextBox>
-            </asp:TableCell>
-            <asp:TableCell>
-                <!--End Date-->
-                <asp:TextBox runat="server" ID="EDate"></asp:TextBox>
-            </asp:TableCell>
-        </asp:TableRow>
         <asp:TableRow>
             <asp:TableCell>
                 <!--Departure Flights-->
@@ -60,4 +62,5 @@
             </asp:TableCell>
         </asp:TableRow>
     </asp:Table>
+        </div>
 </asp:Content>

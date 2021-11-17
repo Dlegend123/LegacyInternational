@@ -18,20 +18,24 @@ namespace LegacyInternational
     {
 
         [WebMethod]
-        public string HelloWorld()
+        public List<flightlist> Flights(string Country, string City, string Date)
         {
-            return "Hello World";
+            Model1 model1 = new Model1();
+            List<airportlist> Airports = model1.airportlists.Where(x => x.location.city == City && x.location.country == Country).ToList();
+
+            return model1.flightlists.Where(x => Airports.Any(l => l.airport_id == x.departure_airport_id && x.departure_datetime == Date)).ToList();
+            
         }
         [WebMethod]
-        public List<Flight> Flights(string Country, string City, string Date)
+        public bool CreateBooking(int Flight_id, string Name, string DOB)
         {
-            List<Flight> Flights = new List<Flight>();
-            return Flights;
-        }
-        [WebMethod]
-        public bool CreateBooking(string Flight_id, string Name, string DOB)
-        {
-            List<Flight> Flights = new List<Flight>();
+            Model1 model1 = new Model1();
+            bookflight bookflight = new bookflight();
+            bookflight.username = Name;
+            bookflight.dob = DOB;
+            bookflight.flight_id = Flight_id;
+            model1.bookflights.Add(bookflight);
+            model1.SaveChangesAsync();
             return true;
         }
     }

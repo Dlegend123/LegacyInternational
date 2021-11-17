@@ -18,19 +18,21 @@ namespace LegacyInternational
     {
 
         [WebMethod]
-        public string HelloWorld()
+        public List<string> RoomTypes(string CheckIn, string CheckOut)
         {
-            return "Hello World";
+            Model1 model1 = new Model1();
+            List<string> RoomTypes= new List<string>();
+            model1.cruiselists.Where(x => x.start_datetime == CheckIn && x.end_datetime == CheckOut)
+                .ToList().ForEach(l=>l.cruiserooms.ToList().ForEach(j=>RoomTypes.Add(j.type)));
+            
+            return RoomTypes;
         }
         [WebMethod]
-        public List<Cruise> Cruises()
+        public bool CreateBooking(bookcruise bookcruise)
         {
-            List<Cruise> Cruises = new List<Cruise>();
-            return Cruises;
-        }
-        [WebMethod]
-        public bool CreateBooking(string RoomType, Cruise Cruise)
-        {
+            Model1 model1 = new Model1();
+            model1.bookcruises.Add(bookcruise);
+            model1.SaveChangesAsync();
             return true;
         }
     }

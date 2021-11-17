@@ -364,7 +364,6 @@
     <Compile Include="Contact.aspx.designer.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Cruise.cs" />
     <Compile Include="cruiseline.cs" />
     <Compile Include="cruiselist.cs" />
     <Compile Include="cruiseroom.cs" />
@@ -380,7 +379,6 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Flight.cs" />
     <Compile Include="flightlist.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

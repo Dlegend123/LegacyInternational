@@ -33,22 +33,22 @@ namespace LegacyInternational
         protected global::System.Web.UI.WebControls.TextBox Country;
 
         /// <summary>
-        /// SearchInput control.
+        /// ACity control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox SearchInput;
+        protected global::System.Web.UI.WebControls.TextBox ACity;
 
         /// <summary>
-        /// SearchSubmit control.
+        /// ACountry control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button SearchSubmit;
+        protected global::System.Web.UI.WebControls.TextBox ACountry;
 
         /// <summary>
         /// SDate control.
@@ -67,6 +67,24 @@ namespace LegacyInternational
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox EDate;
+
+        /// <summary>
+        /// SearchInput control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox SearchInput;
+
+        /// <summary>
+        /// SearchSubmit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button SearchSubmit;
 
         /// <summary>
         /// DepartureFlights control.
