@@ -154,8 +154,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="About.aspx" />
-    <Content Include="Account\AddPhoneNumber.aspx" />
-    <Content Include="Account\Confirm.aspx" />
     <Content Include="Account\Forgot.aspx" />
     <Content Include="Account\Lockout.aspx" />
     <Content Include="Account\Login.aspx" />
@@ -228,20 +226,6 @@
     <Content Include="Site.Mobile.Master" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Account\AddPhoneNumber.aspx.cs">
-      <DependentUpon>AddPhoneNumber.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Account\AddPhoneNumber.aspx.designer.cs">
-      <DependentUpon>AddPhoneNumber.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Account\Confirm.aspx.cs">
-      <DependentUpon>Confirm.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Account\Confirm.aspx.designer.cs">
-      <DependentUpon>Confirm.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Account\Forgot.aspx.cs">
       <DependentUpon>Forgot.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -385,7 +369,26 @@
     </Compile>
     <Compile Include="location.cs" />
     <Compile Include="Model1.cs" />
+    <Compile Include="Models\admin.cs" />
+    <Compile Include="Models\airlinelist.cs" />
+    <Compile Include="Models\airportlist.cs" />
+    <Compile Include="Models\AspNetRole.cs" />
+    <Compile Include="Models\AspNetUser.cs" />
+    <Compile Include="Models\AspNetUserClaim.cs" />
+    <Compile Include="Models\AspNetUserLogin.cs" />
+    <Compile Include="Models\bookcruise.cs" />
+    <Compile Include="Models\bookflight.cs" />
+    <Compile Include="Models\cruiseline.cs" />
+    <Compile Include="Models\cruiselist.cs" />
+    <Compile Include="Models\cruiseroom.cs" />
+    <Compile Include="Models\C__MigrationHistory.cs" />
+    <Compile Include="Models\flightlist.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\location.cs" />
+    <Compile Include="Models\Model1.cs" />
+    <Compile Include="Models\portlist.cs" />
+    <Compile Include="Models\user.cs" />
+    <Compile Include="Models\useraddress.cs" />
     <Compile Include="portlist.cs" />
     <Compile Include="Profile.aspx.cs">
       <DependentUpon>Profile.aspx</DependentUpon>

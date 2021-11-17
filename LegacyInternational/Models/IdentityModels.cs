@@ -14,8 +14,8 @@ namespace LegacyInternational.Models
     // You can add User data for the user by adding more properties to your User class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
-        [Required]
-        public byte[] ProfilePic { get; set; }
+       // [Required]
+        //public byte[] ProfilePic { get; set; }
         public ClaimsIdentity GenerateUserIdentity(ApplicationUserManager manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -33,7 +33,7 @@ namespace LegacyInternational.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("JTBDBConnectionString", throwIfV1Schema: false)
+            : base("name=Model11", throwIfV1Schema: false)
         {
         }
 
