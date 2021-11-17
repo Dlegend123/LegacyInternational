@@ -58,16 +58,13 @@ namespace LegacyInternational
         {
             //Departure Flights
             DepartureFlights.Rows.Clear();
-            DataCollect(1)
-                .ForEach(p => QuickFunction(p,0, DepartureFlights));
+            DataCollect(1).ForEach(p => QuickFunction(p,0, DepartureFlights));
             //Return Flights
             ReturnFlights.Rows.Clear();
-            DataCollect(2)
-                .ForEach(p => QuickFunction(p, 1, ReturnFlights));
+            DataCollect(2).ForEach(p => QuickFunction(p, 1, ReturnFlights));
             //Cruises and Room types
             Cruises.Rows.Clear();
-            DataCollect()
-                .ForEach(p => QuickFunction(p, 2, Cruises));
+            DataCollect().ForEach(p => QuickFunction(p, 2, Cruises));
         }
         List<cruiselist> DataCollect()
         {
