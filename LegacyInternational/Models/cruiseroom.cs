@@ -23,6 +23,8 @@ namespace LegacyInternational.Models
 
         public int? cruise_id { get; set; }
 
+        public int? num_of_adults { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<bookcruise> bookcruises { get; set; }
 

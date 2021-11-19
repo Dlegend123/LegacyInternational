@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Services;
+using LegacyInternational.Models;
 
 namespace LegacyInternational
 {
@@ -20,9 +21,9 @@ namespace LegacyInternational
         [WebMethod]
         public List<string> RoomTypes(string CheckIn, string CheckOut)
         {
-            Model1 model1 = new Model1();
+            JTBDBModel JTBDBModel = new JTBDBModel();
             List<string> RoomTypes= new List<string>();
-            model1.cruiselists.Where(x => x.start_datetime == CheckIn && x.end_datetime == CheckOut)
+            JTBDBModel.cruiselists.Where(x => x.start_datetime == CheckIn && x.end_datetime == CheckOut)
                 .ToList().ForEach(l=>l.cruiserooms.ToList().ForEach(j=>RoomTypes.Add(j.type)));
             
             return RoomTypes;
@@ -30,9 +31,9 @@ namespace LegacyInternational
         [WebMethod]
         public bool CreateBooking(bookcruise bookcruise)
         {
-            Model1 model1 = new Model1();
-            model1.bookcruises.Add(bookcruise);
-            model1.SaveChangesAsync();
+            JTBDBModel JTBDBModel = new JTBDBModel();
+            JTBDBModel.bookcruises.Add(bookcruise);
+            JTBDBModel.SaveChangesAsync();
             return true;
         }
     }

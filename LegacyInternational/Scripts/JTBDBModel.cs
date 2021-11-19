@@ -3,12 +3,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Linq;
 
-namespace LegacyInternational
+namespace LegacyInternational.Scripts
 {
-    public partial class Model1 : DbContext
+    public partial class JTBDBModel : DbContext
     {
-        public Model1()
-            : base("name=Model11")
+        public JTBDBModel()
+            : base("name=JTBDBModel")
         {
         }
 
@@ -29,7 +29,6 @@ namespace LegacyInternational
         public virtual DbSet<location> locations { get; set; }
         public virtual DbSet<portlist> portlists { get; set; }
         public virtual DbSet<user> users { get; set; }
-        public virtual DbSet<useraddress> useraddresses { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -71,8 +70,9 @@ namespace LegacyInternational
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<location>()
-                .HasOptional(e => e.airportlist)
-                .WithRequired(e => e.location);
+                .HasMany(e => e.airportlists)
+                .WithRequired(e => e.location)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<location>()
                 .HasMany(e => e.portlists)
@@ -84,33 +84,8 @@ namespace LegacyInternational
                 .IsFixedLength();
 
             modelBuilder.Entity<user>()
-                .Property(e => e.email)
-                .IsFixedLength();
-
-            modelBuilder.Entity<user>()
                 .HasMany(e => e.bookflights)
                 .WithRequired(e => e.user)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<useraddress>()
-                .Property(e => e.username)
-                .IsFixedLength();
-
-            modelBuilder.Entity<useraddress>()
-                .Property(e => e.city)
-                .IsFixedLength();
-
-            modelBuilder.Entity<useraddress>()
-                .Property(e => e.country)
-                .IsFixedLength();
-
-            modelBuilder.Entity<useraddress>()
-                .Property(e => e.zipcode)
-                .IsFixedLength();
-
-            modelBuilder.Entity<useraddress>()
-                .HasMany(e => e.bookflights)
-                .WithRequired(e => e.useraddress)
                 .WillCascadeOnDelete(false);
         }
     }

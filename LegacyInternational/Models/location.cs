@@ -12,6 +12,7 @@ namespace LegacyInternational.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public location()
         {
+            airportlists = new HashSet<airportlist>();
             portlists = new HashSet<portlist>();
         }
 
@@ -25,7 +26,8 @@ namespace LegacyInternational.Models
         [Required]
         public string country { get; set; }
 
-        public virtual airportlist airportlist { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<airportlist> airportlists { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<portlist> portlists { get; set; }

@@ -317,13 +317,10 @@
     <Compile Include="Account\VerifyPhoneNumber.aspx.designer.cs">
       <DependentUpon>VerifyPhoneNumber.aspx</DependentUpon>
     </Compile>
-    <Compile Include="admin.cs" />
-    <Compile Include="airlinelist.cs" />
     <Compile Include="AirlineService.asmx.cs">
       <DependentUpon>AirlineService.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="airportlist.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="About.aspx.cs">
       <DependentUpon>About.aspx</DependentUpon>
@@ -335,12 +332,6 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="AspNetRole.cs" />
-    <Compile Include="AspNetUser.cs" />
-    <Compile Include="AspNetUserClaim.cs" />
-    <Compile Include="AspNetUserLogin.cs" />
-    <Compile Include="bookcruise.cs" />
-    <Compile Include="bookflight.cs" />
     <Compile Include="Contact.aspx.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -348,14 +339,10 @@
     <Compile Include="Contact.aspx.designer.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
     </Compile>
-    <Compile Include="cruiseline.cs" />
-    <Compile Include="cruiselist.cs" />
-    <Compile Include="cruiseroom.cs" />
     <Compile Include="CruiseService.asmx.cs">
       <DependentUpon>CruiseService.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="C__MigrationHistory.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -363,12 +350,9 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="flightlist.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="location.cs" />
-    <Compile Include="Model1.cs" />
     <Compile Include="Models\admin.cs" />
     <Compile Include="Models\airlinelist.cs" />
     <Compile Include="Models\airportlist.cs" />
@@ -384,12 +368,10 @@
     <Compile Include="Models\C__MigrationHistory.cs" />
     <Compile Include="Models\flightlist.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\JTBDBModel.cs" />
     <Compile Include="Models\location.cs" />
-    <Compile Include="Models\Model1.cs" />
     <Compile Include="Models\portlist.cs" />
     <Compile Include="Models\user.cs" />
-    <Compile Include="Models\useraddress.cs" />
-    <Compile Include="portlist.cs" />
     <Compile Include="Profile.aspx.cs">
       <DependentUpon>Profile.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -398,6 +380,24 @@
       <DependentUpon>Profile.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scripts\admin.cs" />
+    <Compile Include="Scripts\airlinelist.cs" />
+    <Compile Include="Scripts\airportlist.cs" />
+    <Compile Include="Scripts\AspNetRole.cs" />
+    <Compile Include="Scripts\AspNetUser.cs" />
+    <Compile Include="Scripts\AspNetUserClaim.cs" />
+    <Compile Include="Scripts\AspNetUserLogin.cs" />
+    <Compile Include="Scripts\bookcruise.cs" />
+    <Compile Include="Scripts\bookflight.cs" />
+    <Compile Include="Scripts\cruiseline.cs" />
+    <Compile Include="Scripts\cruiselist.cs" />
+    <Compile Include="Scripts\cruiseroom.cs" />
+    <Compile Include="Scripts\C__MigrationHistory.cs" />
+    <Compile Include="Scripts\flightlist.cs" />
+    <Compile Include="Scripts\JTBDBModel.cs" />
+    <Compile Include="Scripts\location.cs" />
+    <Compile Include="Scripts\portlist.cs" />
+    <Compile Include="Scripts\user.cs" />
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -413,8 +413,6 @@
       <DependentUpon>Site.Mobile.Master</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
-    <Compile Include="user.cs" />
-    <Compile Include="useraddress.cs" />
     <Compile Include="VacationBookings.aspx.cs">
       <DependentUpon>VacationBookings.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

@@ -1,4 +1,4 @@
-namespace LegacyInternational
+namespace LegacyInternational.Scripts
 {
     using System;
     using System.Collections.Generic;
@@ -25,6 +25,8 @@ namespace LegacyInternational
         public string check_out_date { get; set; }
 
         public int? room_num { get; set; }
+
+        public int? num_of_adults { get; set; }
 
         public virtual cruiselist cruiselist { get; set; }
 

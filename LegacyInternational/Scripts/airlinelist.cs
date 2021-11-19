@@ -1,4 +1,4 @@
-namespace LegacyInternational
+namespace LegacyInternational.Scripts
 {
     using System;
     using System.Collections.Generic;
@@ -6,26 +6,25 @@ namespace LegacyInternational
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("cruiseroom")]
-    public partial class cruiseroom
+    [Table("airlinelist")]
+    public partial class airlinelist
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public cruiseroom()
+        public airlinelist()
         {
-            bookcruises = new HashSet<bookcruise>();
+            flightlists = new HashSet<flightlist>();
         }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int room_num { get; set; }
+        public int airline_id { get; set; }
 
-        public string type { get; set; }
+        [Required]
+        public string airline_name { get; set; }
 
-        public int? cruise_id { get; set; }
+        public string logo_path { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<bookcruise> bookcruises { get; set; }
-
-        public virtual cruiselist cruiselist { get; set; }
+        public virtual ICollection<flightlist> flightlists { get; set; }
     }
 }

@@ -2,7 +2,6 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div>
     <asp:Table runat="server">
-        <!--Departure Location-->
         <asp:TableRow>
             <asp:TableCell>
                 <asp:TextBox runat="server" ID="City"></asp:TextBox>
@@ -11,8 +10,6 @@
                 <asp:TextBox runat="server" ID="Country"></asp:TextBox>
             </asp:TableCell>
         </asp:TableRow>
-        
-        <!--Destination-->
         <asp:TableRow>
            <asp:TableCell>
                 <asp:TextBox runat="server" ID="ACity"></asp:TextBox>
@@ -21,15 +18,17 @@
                 <asp:TextBox runat="server" ID="ACountry"></asp:TextBox>
             </asp:TableCell>
         </asp:TableRow>
-        <!--Date-->
         <asp:TableRow>
             <asp:TableCell>
-                <!--Start Date-->
                 <asp:TextBox runat="server" ID="SDate"></asp:TextBox>
             </asp:TableCell>
             <asp:TableCell>
-                <!--End Date-->
                 <asp:TextBox runat="server" ID="EDate"></asp:TextBox>
+            </asp:TableCell>
+        </asp:TableRow>
+        <asp:TableRow>
+            <asp:TableCell>
+                <asp:TextBox runat="server" ID="NAdults"></asp:TextBox>
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow BorderStyle="Solid" BorderWidth="3px">
@@ -46,15 +45,12 @@
        </asp:TableRow>
         <asp:TableRow>
             <asp:TableCell>
-                <!--Departure Flights-->
                 <asp:Table runat="server" ID="DepartureFlights" CssClass="table table-dark table-striped table-bordered" BorderStyle="Solid" ForeColor="WhiteSmoke"  BorderWidth="3px" >
 
                 </asp:Table>
-                <!--Return Flights-->
                 <asp:Table runat="server" ID="ReturnFlights" CssClass="table table-dark table-striped table-bordered" BorderStyle="Solid" ForeColor="WhiteSmoke"  BorderWidth="3px" >
 
                 </asp:Table>
-                <!--Cruises and Room types-->
                 <asp:Table runat="server" ID="Cruises" CssClass="table table-dark table-striped table-bordered" BorderStyle="Solid" ForeColor="WhiteSmoke"  BorderWidth="3px" >
 
                 </asp:Table>

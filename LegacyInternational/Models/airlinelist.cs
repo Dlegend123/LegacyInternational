@@ -20,7 +20,7 @@ namespace LegacyInternational.Models
         public int airline_id { get; set; }
 
         [Required]
-        public string airline { get; set; }
+        public string airline_name { get; set; }
 
         public string logo_path { get; set; }
 

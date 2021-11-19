@@ -1,4 +1,4 @@
-namespace LegacyInternational
+namespace LegacyInternational.Scripts
 {
     using System;
     using System.Collections.Generic;
@@ -19,9 +19,8 @@ namespace LegacyInternational
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int cruiseline_id { get; set; }
 
-        [Column("cruiseline")]
         [Required]
-        public string cruiseline1 { get; set; }
+        public string cruiseline_name { get; set; }
 
         public string logo_path { get; set; }
 

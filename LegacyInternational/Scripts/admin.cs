@@ -1,4 +1,4 @@
-namespace LegacyInternational
+namespace LegacyInternational.Scripts
 {
     using System;
     using System.Collections.Generic;

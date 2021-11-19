@@ -1,4 +1,4 @@
-namespace LegacyInternational
+namespace LegacyInternational.Scripts
 {
     using System;
     using System.Collections.Generic;
@@ -28,12 +28,13 @@ namespace LegacyInternational
         [StringLength(50)]
         public string dob { get; set; }
 
-        public int? address_id { get; set; }
+        [StringLength(50)]
+        public string address { get; set; }
 
         [StringLength(10)]
         public string contact_num { get; set; }
 
-        [StringLength(10)]
+        [StringLength(50)]
         public string email { get; set; }
 
         [Required]
@@ -44,7 +45,5 @@ namespace LegacyInternational
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<bookflight> bookflights { get; set; }
-
-        public virtual useraddress useraddress { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-namespace LegacyInternational
+namespace LegacyInternational.Scripts
 {
     using System;
     using System.Collections.Generic;
@@ -6,15 +6,15 @@ namespace LegacyInternational
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("portlist")]
-    public partial class portlist
+    [Table("airportlist")]
+    public partial class airportlist
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int port_id { get; set; }
+        public int airport_id { get; set; }
 
         [Required]
-        public string port_name { get; set; }
+        public string airport { get; set; }
 
         public int location_id { get; set; }
 

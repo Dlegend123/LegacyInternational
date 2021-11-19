@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LegacyInternational.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -20,22 +21,22 @@ namespace LegacyInternational
         [WebMethod]
         public List<flightlist> Flights(string Country, string City, string Date)
         {
-            Model1 model1 = new Model1();
-            List<airportlist> Airports = model1.airportlists.Where(x => x.location.city == City && x.location.country == Country).ToList();
+            JTBDBModel JTBDBModel = new JTBDBModel();
+            List<airportlist> Airports = JTBDBModel.airportlists.Where(x => x.location.city == City && x.location.country == Country).ToList();
 
-            return model1.flightlists.Where(x => Airports.Any(l => l.airport_id == x.departure_airport_id && x.departure_datetime == Date)).ToList();
+            return JTBDBModel.flightlists.Where(x => Airports.Any(l => l.airport_id == x.departure_airport_id && x.departure_datetime == Date)).ToList();
             
         }
         [WebMethod]
         public bool CreateBooking(int Flight_id, string Name, string DOB)
         {
-            Model1 model1 = new Model1();
+            JTBDBModel JTBDBModel = new JTBDBModel();
             bookflight bookflight = new bookflight();
             bookflight.username = Name;
             bookflight.dob = DOB;
             bookflight.flight_id = Flight_id;
-            model1.bookflights.Add(bookflight);
-            model1.SaveChangesAsync();
+            JTBDBModel.bookflights.Add(bookflight);
+            JTBDBModel.SaveChangesAsync();
             return true;
         }
     }
