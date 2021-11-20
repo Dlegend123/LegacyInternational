@@ -63,7 +63,7 @@ namespace LegacyInternational
         List<cruiselist> DataCollect()
         {
             List<cruiselist> Cruises;
-            List<portlist> portlists = JTBDBModel.portlists.Where(x=>x.location.country==ACountry.Text&&x.location.city==ACity.Text).ToList();
+            List<portlist> portlists = JTBDBModel.portlists.Where(x=>x.location.country==Country.Text&&x.location.city==City.Text).ToList();
             int count= Int32.Parse(NAdults.Text);
             Cruises = JTBDBModel.cruiselists.Where(x =>x.cruiserooms.Any(b=>b.num_of_adults>= count)&& portlists.Any(l=>l.port_id==x.departure_port_id && x.start_datetime==SDate.Text&&x.end_datetime==EDate.Text))
                 .ToList();
@@ -72,11 +72,18 @@ namespace LegacyInternational
         }
         List<flightlist> DataCollect(int y)
         {
-            List<airportlist> Airports = JTBDBModel.airportlists.Where(x => x.location.city == City.Text && x.location.country == Country.Text).ToList();
             if (y == 1)
-                return JTBDBModel.flightlists.Where(x => Airports.Any(l => l.airport_id == x.departure_airport_id &&x.departure_datetime==SDate.Text)).ToList();
+            {
+                List<airportlist> Airports = JTBDBModel.airportlists.Where(x => x.location.city == ACity.Text && x.location.country == ACountry.Text).ToList();
+
+                return JTBDBModel.flightlists.Where(x => Airports.Any(l => l.airport_id == x.departure_airport_id && x.departure_datetime == SDate.Text)).ToList();
+            }
             else
-                return JTBDBModel.flightlists.Where(x => Airports.Any(l => l.airport_id == x.arrival_airport_id &&x.arrival_datetime==EDate.Text)).ToList();
+            {
+                List<airportlist> Airports = JTBDBModel.airportlists.Where(x => x.location.city == City.Text && x.location.country == Country.Text).ToList();
+
+                return JTBDBModel.flightlists.Where(x => Airports.Any(l => l.airport_id == x.arrival_airport_id && x.arrival_datetime == EDate.Text)).ToList();
+            }
         }
         void QuickFunction(object x,int k,Table AddTo)
         {

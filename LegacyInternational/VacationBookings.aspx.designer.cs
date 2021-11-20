@@ -15,24 +15,6 @@ namespace LegacyInternational
     {
 
         /// <summary>
-        /// City control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox City;
-
-        /// <summary>
-        /// Country control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Country;
-
-        /// <summary>
         /// ACity control.
         /// </summary>
         /// <remarks>
@@ -49,6 +31,24 @@ namespace LegacyInternational
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox ACountry;
+
+        /// <summary>
+        /// City control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox City;
+
+        /// <summary>
+        /// Country control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox Country;
 
         /// <summary>
         /// SDate control.
@@ -76,15 +76,6 @@ namespace LegacyInternational
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox NAdults;
-
-        /// <summary>
-        /// SearchInput control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox SearchInput;
 
         /// <summary>
         /// SearchSubmit control.

@@ -6,24 +6,97 @@
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%: Page.Title %> - My ASP.NET Application</title>
+    <base href="./" />
+    <link href="~/Images/Logox.png" rel="shortcut icon" type="image/x-icon" class="img-fluid" />
+    <title><%: Page.Title %></title>
+    <style>
+        body {
+            background: url(/Images/loginback.jpg) no-repeat center center fixed;
+            background-size:cover;
+            margin:0;
+            height:stretch;
+            width:stretch;
+        }
 
+        html{
+            margin:0;
+            padding:0;
+        }
+        div {
+            text-align: center;
+            word-wrap:anywhere;
+        }
+
+     </style>
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
     </asp:PlaceHolder>
-    <webopt:bundlereference runat="server" path="~/Content/css" />
-    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-
+    <web opt:bundlereference runat="server" path="~/Content/css" />
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+        <script src="Scripts/bootstrap.bundle.min.js" ></script>
 </head>
 <body>
     <form runat="server">
-        <asp:ScriptManager runat="server">
-            <Scripts>
+        <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-static-top">
+            <div class="container-fluid">
+                
+                    <a class="navbar-brand" aria-current="page" href="./">
+                        <img src="~/Images/Logox.png" style="padding-right:1em; border-right:1px solid;height:30px;width:45px;" runat="server"/>
+                    </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item" >
+                      <a class="nav-link active" aria-current="page" href="./" style="font-size:larger" runat="server">Home</a>
+                    </li>
+                    <li class="nav-item" >
+                      <a class="nav-link" href="VacationBookings.aspx" style="font-size:larger" runat="server">VacationBookings</a>
+                    </li>
+                        <li class="nav-item">
+                      <a class="nav-link" href="About" style="font-size:larger" runat="server">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="Contact" style="font-size:larger" runat="server">Contact Us</a>
+                    </li>
+                    </ul>
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <asp:LoginView runat="server" ViewStateMode="Disabled">
+                        <AnonymousTemplate>
+                            <ul class="navbar-nav">
+                                <li><a class="nav-link" runat="server" href="~/Account/Register">Register</a></li>
+                                <li><a class="nav-link" runat="server" href="~/Account/Login">Log in</a></li>
+                            </ul>
+                        </AnonymousTemplate>
+                        <LoggedInTemplate>
+                            <ul class="navbar-nav">
+                                <li><a class="nav-link" runat="server" href="~/Account/Manage" title="Manage your account">Hello, <%: Context.User.Identity.GetUserName()  %> !</a></li>
+                                <li>
+                                    <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Log off" LogoutPageUrl="~/" OnLoggingOut="Unnamed_LoggingOut" />
+                                </li>
+                            </ul>
+                        </LoggedInTemplate>
+                    </asp:LoginView>
+
+                    </ul>
+                    </div>
+            </div>
+        </nav>
+        </header>
+        <main role="main">
+        
+
+                        
+            <asp:ScriptManager runat="server">
+            
+           <Scripts>
                 <%--To learn more about bundling scripts in ScriptManager see https://go.microsoft.com/fwlink/?LinkID=301884 --%>
                 <%--Framework Scripts--%>
                 <asp:ScriptReference Name="MsAjaxBundle" />
                 <asp:ScriptReference Name="jquery" />
-                <asp:ScriptReference Name="bootstrap" />
                 <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
                 <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
                 <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
@@ -36,50 +109,15 @@
                 <%--Site Scripts--%>
             </Scripts>
         </asp:ScriptManager>
-
-        <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" runat="server" href="~/">Application name</a>
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li><a runat="server" href="~/">Home</a></li>
-                        <li><a runat="server" href="~/About">About</a></li>
-                        <li><a runat="server" href="~/Contact">Contact</a></li>
-                    </ul>
-                    <asp:LoginView runat="server" ViewStateMode="Disabled">
-                        <AnonymousTemplate>
-                            <ul class="nav navbar-nav navbar-right">
-                                <li><a runat="server" href="~/Account/Register">Register</a></li>
-                                <li><a runat="server" href="~/Account/Login">Log in</a></li>
-                            </ul>
-                        </AnonymousTemplate>
-                        <LoggedInTemplate>
-                            <ul class="nav navbar-nav navbar-right">
-                                <li><a runat="server" href="~/Account/Manage" title="Manage your account">Hello, <%: Context.User.Identity.GetUserName()  %> !</a></li>
-                                <li>
-                                    <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Log off" LogoutPageUrl="~/" OnLoggingOut="Unnamed_LoggingOut" />
-                                </li>
-                            </ul>
-                        </LoggedInTemplate>
-                    </asp:LoginView>
-                </div>
-            </div>
-        </div>
-        <div class="container body-content">
-            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server" >
             </asp:ContentPlaceHolder>
-            <hr />
-            <footer>
-                <p>&copy; <%: DateTime.Now.Year %> - My ASP.NET Application</p>
-            </footer>
-        </div>
+                    
+            
+        
+     </main>
     </form>
+    <footer class="fixed-bottom border-top border-light bg-dark container-fluid" style="text-align:right;" >
+                <p style="margin-bottom: auto;margin-right:20px;color:whitesmoke;font-family:fantasy">&copy; <%: DateTime.Now.Year %> - Legacy International</p>
+            </footer>
 </body>
 </html>
