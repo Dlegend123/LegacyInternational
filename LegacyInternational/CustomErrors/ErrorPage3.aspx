@@ -7,7 +7,7 @@
             <tr>
             <td>
         <h1>Status : 404 Not Found</h1>
-        <h2>Description: The server can not find the requested resource.</h2>
+        <h2>Description: The server cannot find the requested resource.</h2>
         <h4 id="ErrorSource" runat="server"></h4>
         <h5 id="InnerEx" runat="server"></h5>
         <h6 id="StackTrace" runat="server"></h6>
