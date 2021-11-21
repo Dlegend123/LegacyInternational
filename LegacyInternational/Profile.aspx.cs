@@ -19,14 +19,22 @@ namespace LegacyInternational
             LNameCell.Controls.Add(new LiteralControl(jTBDBModel.users.Where(x => x.username == user.UserName).First().last_name));
             CNumber.Controls.Add(new LiteralControl(jTBDBModel.users.Where(x => x.username == user.UserName).First().contact_num));
             DOBCell.Controls.Add(new LiteralControl(jTBDBModel.users.Where(x => x.username == user.UserName).First().dob));
-            Image image = new Image
+
+            if (jTBDBModel.users.Where(x => x.username == user.UserName).First().ProfilePic.Max() != 0)
             {
-                CssClass = "img-fluid",
-                ImageUrl = "data:image/jpeg;base64," + Convert.ToBase64String(jTBDBModel.users.Where(x => x.username == user.UserName).First().ProfilePic)
-            };
-            image.Style.Add("max-height", "40vh");
-            image.Style.Add("max-width", "40vw");
-            ProfilePicCell.Controls.Add(image);
+                Image image = new Image
+                {
+                    CssClass = "img-fluid",
+                    ImageUrl = "data:image/jpeg;base64," + Convert.ToBase64String(jTBDBModel.users.Where(x => x.username == user.UserName).First().ProfilePic)
+                };
+                image.Style.Add("max-height", "40vh");
+                image.Style.Add("max-width", "40vw");
+                ProfilePicCell.Controls.Add(image);
+            }
+            else
+            {
+                ProfilePicCell.Controls.Add(new LiteralControl("<br /> No Image <br />"));
+            }
         }
         void QuickFunction(object x, int k, Table AddTo)
         {

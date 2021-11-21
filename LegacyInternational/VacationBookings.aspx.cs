@@ -51,14 +51,44 @@ namespace LegacyInternational
         protected void SearchSubmit_Click(object sender, EventArgs e)
         {
             //Departure Flights
-            DepartureFlights.Rows.Clear();
+           //DepartureFlights.Rows.Clear();
             DataCollect(1).ForEach(p => QuickFunction(p,0, DepartureFlights));
             //Return Flights
-            ReturnFlights.Rows.Clear();
+            //ReturnFlights.Rows.Clear();
             DataCollect(2).ForEach(p => QuickFunction(p, 1, ReturnFlights));
             //Cruises and Room types
-            Cruises.Rows.Clear();
+            //Cruises.Rows.Clear();
             DataCollect().ForEach(p => QuickFunction(p, 2, Cruises));
+
+            
+            if (Cruises.Rows.Count == 0 || ReturnFlights.Rows.Count == 0 || DepartureFlights.Rows.Count == 0)
+            {
+                if (Cruises.Rows.Count == 0)
+                {
+                    TableCell tableCell = new TableCell();
+                    TableRow tableRow = new TableRow();
+                    tableCell.Controls.Add(new LiteralControl("<br/>No Results Found<br/>"));
+                    tableRow.Cells.Add(tableCell);
+                    Cruises.Rows.Add(tableRow);
+                    
+                }
+                if (ReturnFlights.Rows.Count == 0)
+                {
+                    TableCell tableCell = new TableCell();
+                    TableRow tableRow = new TableRow();
+                    tableCell.Controls.Add(new LiteralControl("<br /> No Results Found <br />"));
+                    tableRow.Cells.Add(tableCell);
+                    ReturnFlights.Rows.Add(tableRow);
+                }
+                if (DepartureFlights.Rows.Count == 0)
+                {
+                    TableCell tableCell = new TableCell();
+                    TableRow tableRow = new TableRow();
+                    tableCell.Controls.Add(new LiteralControl("<br /> No Results Found <br />"));
+                    tableRow.Cells.Add(tableCell);
+                    DepartureFlights.Rows.Add(tableRow);
+                }
+            }
         }
         List<cruiselist> DataCollect()
         {

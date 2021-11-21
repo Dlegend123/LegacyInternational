@@ -185,8 +185,15 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="CruiseService.asmx" />
+    <Content Include="CustomErrors\Error Page5.aspx" />
+    <Content Include="CustomErrors\ErrorPage1.aspx" />
+    <Content Include="CustomErrors\ErrorPage2.aspx" />
+    <Content Include="CustomErrors\ErrorPage3.aspx" />
+    <Content Include="CustomErrors\ErrorPage4.aspx" />
+    <Content Include="CustomErrors\Images\HeadLogo.png" />
+    <Content Include="CustomErrors\Images\loginback.jpg" />
+    <Content Include="CustomErrors\Images\Logox.png" />
     <Content Include="Default.aspx" />
-    <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Account\Web.config" />
     <Content Include="Images\HeadLogo.png" />
@@ -452,6 +459,41 @@
     <Compile Include="CruiseService.asmx.cs">
       <DependentUpon>CruiseService.asmx</DependentUpon>
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CustomErrors\Error Page5.aspx.cs">
+      <DependentUpon>Error Page5.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomErrors\Error Page5.aspx.designer.cs">
+      <DependentUpon>Error Page5.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomErrors\ErrorPage1.aspx.cs">
+      <DependentUpon>ErrorPage1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomErrors\ErrorPage1.aspx.designer.cs">
+      <DependentUpon>ErrorPage1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomErrors\ErrorPage2.aspx.cs">
+      <DependentUpon>ErrorPage2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomErrors\ErrorPage2.aspx.designer.cs">
+      <DependentUpon>ErrorPage2.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomErrors\ErrorPage3.aspx.cs">
+      <DependentUpon>ErrorPage3.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomErrors\ErrorPage3.aspx.designer.cs">
+      <DependentUpon>ErrorPage3.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomErrors\ErrorPage4.aspx.cs">
+      <DependentUpon>ErrorPage4.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomErrors\ErrorPage4.aspx.designer.cs">
+      <DependentUpon>ErrorPage4.aspx</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>

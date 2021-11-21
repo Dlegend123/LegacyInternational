@@ -12,7 +12,7 @@
                         </asp:TableCell>
                     </asp:TableRow>
                     <asp:TableRow>
-                        <asp:TableCell ID="ProfilePicCell" runat="server">
+                        <asp:TableCell ID="ProfilePicCell" runat="server" HorizontalAlign="Center">
                         </asp:TableCell>
                     </asp:TableRow>
                     <asp:TableRow>
@@ -41,7 +41,6 @@
                             <h5>First Name:</h5>
                         </asp:TableCell>
                         <asp:TableCell ID="CNumber" runat="server">
-                            <!--Contact Number-->
                         </asp:TableCell>
                     </asp:TableRow>
                     <asp:TableRow>
@@ -49,7 +48,6 @@
                             <h5>Date Of Birth:</h5>
                         </asp:TableCell>
                         <asp:TableCell ID="DOBCell" runat="server">
-                            <!--Date of Birth-->
                         </asp:TableCell>
                     </asp:TableRow>
                 </asp:Table>
@@ -77,7 +75,6 @@
                 </asp:Table>
                 
                         </asp:TableCell>
-                        <!--Previous Bookings-->
                     </asp:TableRow>
                 </asp:Table>
             </asp:TableCell>
