@@ -93,11 +93,25 @@ namespace LegacyInternational
         List<cruiselist> DataCollect()
         {
             List<cruiselist> Cruises;
-            List<portlist> portlists = JTBDBModel.portlists.Where(x=>x.location.country==Country.Text&&x.location.city==City.Text).ToList();
-            int count= Int32.Parse(NAdults.Text);
-            Cruises = JTBDBModel.cruiselists.Where(x =>x.cruiserooms.Any(b=>b.num_of_adults>= count)&& portlists.Any(l=>l.port_id==x.departure_port_id && x.start_datetime==SDate.Text&&x.end_datetime==EDate.Text))
+            List<portlist> portlists = new List<portlist>();
+            if (string.IsNullOrEmpty(Country.Text) || string.IsNullOrEmpty(City.Text))
+            {
+                if (string.IsNullOrEmpty(Country.Text) && string.IsNullOrEmpty(City.Text))
+                    portlists = JTBDBModel.portlists.ToList();
+                else
+                {
+                    if (string.IsNullOrEmpty(Country.Text))
+                        portlists = JTBDBModel.portlists.Where(x => x.location.city == City.Text).ToList();
+                    else
+                        portlists = JTBDBModel.portlists.Where(x => x.location.country == Country.Text).ToList();
+                }
+            }
+            else
+                portlists = JTBDBModel.portlists.Where(x => x.location.country == Country.Text && x.location.city == City.Text).ToList();
+            int count = string.IsNullOrEmpty(NAdults.Text) ? 0 : Int32.Parse(NAdults.Text);
+            Cruises = JTBDBModel.cruiselists.Where(x => x.cruiserooms.Any(b => b.num_of_adults >= count) && portlists.Any(l => l.port_id == x.departure_port_id && x.start_datetime == SDate.Text && x.end_datetime == EDate.Text))
                 .ToList();
-           
+
             return Cruises;
         }
         List<flightlist> DataCollect(int y)
@@ -105,7 +119,18 @@ namespace LegacyInternational
             if (y == 1)
             {
                 List<airportlist> Airports = JTBDBModel.airportlists.Where(x => x.location.city == ACity.Text && x.location.country == ACountry.Text).ToList();
-
+                if (string.IsNullOrEmpty(ACountry.Text) || string.IsNullOrEmpty(ACity.Text))
+                {
+                    if (string.IsNullOrEmpty(ACountry.Text) && string.IsNullOrEmpty(ACity.Text))
+                        Airports = JTBDBModel.airportlists.ToList();
+                    else
+                    {
+                        if (string.IsNullOrEmpty(Country.Text))
+                            Airports = JTBDBModel.airportlists.Where(x => x.location.city == ACity.Text).ToList();
+                        else
+                            Airports = JTBDBModel.airportlists.Where(x => x.location.country == ACountry.Text).ToList();
+                    }
+                }
                 return JTBDBModel.flightlists.Where(x => Airports.Any(l => l.airport_id == x.departure_airport_id && x.departure_datetime == SDate.Text)).ToList();
             }
             else

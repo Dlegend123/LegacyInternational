@@ -37,11 +37,15 @@
         <asp:TableRow>
             <asp:TableCell>
                 <h5>
-                    Period
+                    Start Date
                 </h5>
-                <asp:TextBox runat="server" ID="SDate" placeholder="Start Date"></asp:TextBox>
-                 <br />
-                <asp:TextBox runat="server" ID="EDate" placeholder="End Date"></asp:TextBox>
+                <asp:TextBox runat="server" ID="SDate" placeholder="mm/dd/yyyy"></asp:TextBox>
+            </asp:TableCell>
+            <asp:TableCell>
+                <h5>
+                    End Date
+                </h5>
+                <asp:TextBox runat="server" ID="EDate" placeholder="mm/dd/yyyy"></asp:TextBox>
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>
