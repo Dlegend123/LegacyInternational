@@ -51,13 +51,13 @@ namespace LegacyInternational
         protected void SearchSubmit_Click(object sender, EventArgs e)
         {
             //Departure Flights
-           //DepartureFlights.Rows.Clear();
+            DepartureFlights.Rows.Clear();
             DataCollect(1).ForEach(p => QuickFunction(p,0, DepartureFlights));
             //Return Flights
-            //ReturnFlights.Rows.Clear();
+            ReturnFlights.Rows.Clear();
             DataCollect(2).ForEach(p => QuickFunction(p, 1, ReturnFlights));
             //Cruises and Room types
-            //Cruises.Rows.Clear();
+            Cruises.Rows.Clear();
             DataCollect().ForEach(p => QuickFunction(p, 2, Cruises));
 
             
@@ -116,9 +116,9 @@ namespace LegacyInternational
         }
         List<flightlist> DataCollect(int y)
         {
+            List<airportlist> Airports = new List<airportlist>();
             if (y == 1)
             {
-                List<airportlist> Airports = JTBDBModel.airportlists.Where(x => x.location.city == ACity.Text && x.location.country == ACountry.Text).ToList();
                 if (string.IsNullOrEmpty(ACountry.Text) || string.IsNullOrEmpty(ACity.Text))
                 {
                     if (string.IsNullOrEmpty(ACountry.Text) && string.IsNullOrEmpty(ACity.Text))
@@ -135,14 +135,23 @@ namespace LegacyInternational
             }
             else
             {
-                List<airportlist> Airports = JTBDBModel.airportlists.Where(x => x.location.city == City.Text && x.location.country == Country.Text).ToList();
-
+                if (string.IsNullOrEmpty(Country.Text) || string.IsNullOrEmpty(City.Text))
+                {
+                    if (string.IsNullOrEmpty(ACountry.Text) && string.IsNullOrEmpty(City.Text))
+                        Airports = JTBDBModel.airportlists.ToList();
+                    else
+                    {
+                        if (string.IsNullOrEmpty(Country.Text))
+                            Airports = JTBDBModel.airportlists.Where(x => x.location.city == City.Text).ToList();
+                        else
+                            Airports = JTBDBModel.airportlists.Where(x => x.location.country == Country.Text).ToList();
+                    }
+                }
                 return JTBDBModel.flightlists.Where(x => Airports.Any(l => l.airport_id == x.arrival_airport_id && x.arrival_datetime == EDate.Text)).ToList();
             }
         }
         void QuickFunction(object x,int k,Table AddTo)
         {
-
             Button button = new Button();
             TableRow tableRow = new TableRow
             {
