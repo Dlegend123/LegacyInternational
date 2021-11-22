@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LegacyInternational
+namespace LegacyInternational.Account
 {
 
 

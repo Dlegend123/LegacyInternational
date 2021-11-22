@@ -43,17 +43,17 @@ namespace LegacyInternational
             manager.UserValidator = new UserValidator<ApplicationUser>(manager)
             {
                 AllowOnlyAlphanumericUserNames = false,
-                RequireUniqueEmail = true
+                RequireUniqueEmail = false
             };
 
             // Configure validation logic for passwords
             manager.PasswordValidator = new PasswordValidator
             {
-                RequiredLength = 6,
-                RequireNonLetterOrDigit = true,
                 RequireDigit = true,
+                RequiredLength = 6,
                 RequireLowercase = true,
                 RequireUppercase = true,
+                RequireNonLetterOrDigit = false
             };
 
             // Register two factor authentication providers. This application uses Phone and Emails as a step of receiving a code for verifying the user

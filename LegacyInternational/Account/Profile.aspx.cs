@@ -6,7 +6,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace LegacyInternational
+namespace LegacyInternational.Account
 {
     public partial class Profile : System.Web.UI.Page
     {
@@ -17,7 +17,7 @@ namespace LegacyInternational
             UsernameCell.Controls.Add(new LiteralControl(user.UserName));
             FNameCell.Controls.Add(new LiteralControl(jTBDBModel.users.Where(x => x.username == user.UserName).First().first_name));
             LNameCell.Controls.Add(new LiteralControl(jTBDBModel.users.Where(x => x.username == user.UserName).First().last_name));
-            CNumber.Controls.Add(new LiteralControl(jTBDBModel.users.Where(x => x.username == user.UserName).First().contact_num));
+            //CNumber.Controls.Add(new LiteralControl(jTBDBModel.users.Where(x => x.username == user.UserName).First().contact_num));
             DOBCell.Controls.Add(new LiteralControl(jTBDBModel.users.Where(x => x.username == user.UserName).First().dob));
 
             if (jTBDBModel.users.Where(x => x.username == user.UserName).First().ProfilePic.Max() != 0)

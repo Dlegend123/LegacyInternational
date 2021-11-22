@@ -153,6 +153,9 @@
   <ItemGroup>
     <Content Include="About.aspx" />
     <Content Include="Account\Forgot.aspx" />
+    <Content Include="Account\Images\HeadLogo.png" />
+    <Content Include="Account\Images\loginback.jpg" />
+    <Content Include="Account\Images\Logox.png" />
     <Content Include="Account\Lockout.aspx" />
     <Content Include="Account\Login.aspx" />
     <Content Include="Account\Manage.aspx" />
@@ -163,6 +166,7 @@
     <Content Include="Account\RegisterExternalLogin.aspx" />
     <Content Include="Account\ResetPassword.aspx" />
     <Content Include="Account\ResetPasswordConfirmation.aspx" />
+    <Content Include="Account\SetUpProfile.aspx" />
     <Content Include="Account\TwoFactorAuthenticationSignIn.aspx" />
     <Content Include="Account\VerifyPhoneNumber.aspx" />
     <Content Include="AirlineService.asmx" />
@@ -199,7 +203,7 @@
     <Content Include="Images\HeadLogo.png" />
     <Content Include="Images\loginback.jpg" />
     <Content Include="Images\Logox.png" />
-    <Content Include="Profile.aspx" />
+    <Content Include="Account\Profile.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -420,6 +424,13 @@
     <Compile Include="Account\ResetPasswordConfirmation.aspx.designer.cs">
       <DependentUpon>ResetPasswordConfirmation.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Account\SetUpProfile.aspx.cs">
+      <DependentUpon>SetUpProfile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\SetUpProfile.aspx.designer.cs">
+      <DependentUpon>SetUpProfile.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Account\TwoFactorAuthenticationSignIn.aspx.cs">
       <DependentUpon>TwoFactorAuthenticationSignIn.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -524,11 +535,11 @@
     <Compile Include="Models\location.cs" />
     <Compile Include="Models\portlist.cs" />
     <Compile Include="Models\user.cs" />
-    <Compile Include="Profile.aspx.cs">
+    <Compile Include="Account\Profile.aspx.cs">
       <DependentUpon>Profile.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Profile.aspx.designer.cs">
+    <Compile Include="Account\Profile.aspx.designer.cs">
       <DependentUpon>Profile.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

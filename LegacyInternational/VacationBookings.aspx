@@ -10,7 +10,7 @@
             </asp:TableCell>
         </asp:TableHeaderRow>
         <asp:TableRow>
-           <asp:TableCell>
+           <asp:TableCell ColumnSpan="2">
                <h5>
                    Departure Location
                </h5>
@@ -25,7 +25,7 @@
             </asp:TableCell>
         </asp:TableHeaderRow>
         <asp:TableRow>
-            <asp:TableCell>
+            <asp:TableCell ColumnSpan="2">
                 <h5>
                     Destination
                 </h5>
@@ -49,12 +49,15 @@
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>
-            <asp:TableCell runat="server">
-                <asp:TextBox runat="server" ID="NAdults" placeholder="Number Of Adults" TextMode="Number"></asp:TextBox>
+            <asp:TableCell runat="server" ColumnSpan="2">
+                <h5>
+                    Number of Adults
+                </h5>
+                <asp:TextBox runat="server" ID="NAdults" TextMode="Number" Text="0"></asp:TextBox>
             </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>
-           <asp:TableCell HorizontalAlign="Center">
+           <asp:TableCell HorizontalAlign="Center" ColumnSpan="2">
   
                <asp:Button CssClass="btn btn-outline-primary" runat="server" Text="Search" ID="SearchSubmit" OnClick="SearchSubmit_Click" />
 
@@ -94,7 +97,7 @@
             </asp:TableCell>
             
         </asp:TableRow>
-                    </asp:Table>
+        </asp:Table>
             
         <br />
         <br />

@@ -31,7 +31,7 @@ namespace LegacyInternational.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("name=Model11", throwIfV1Schema: false)
+            : base("name=JTBDBConnectionString", throwIfV1Schema: false)
         {
         }
 
