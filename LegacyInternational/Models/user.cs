@@ -1,4 +1,4 @@
-namespace LegacyInternational.Models
+namespace LegacyInternational
 {
     using System;
     using System.Collections.Generic;
@@ -13,6 +13,7 @@ namespace LegacyInternational.Models
         public user()
         {
             bookcruises = new HashSet<bookcruise>();
+            bookflights = new HashSet<bookflight>();
         }
 
         [Key]
@@ -43,5 +44,8 @@ namespace LegacyInternational.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<bookcruise> bookcruises { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<bookflight> bookflights { get; set; }
     }
 }

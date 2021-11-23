@@ -1,4 +1,4 @@
-namespace LegacyInternational.Models
+namespace LegacyInternational
 {
     using System;
     using System.Collections.Generic;
@@ -30,5 +30,9 @@ namespace LegacyInternational.Models
         public string seat_num { get; set; }
 
         public int? num_of_adults { get; set; }
+
+        public virtual flightlist flightlist { get; set; }
+
+        public virtual user user { get; set; }
     }
 }

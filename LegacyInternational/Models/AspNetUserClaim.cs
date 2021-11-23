@@ -1,4 +1,4 @@
-namespace LegacyInternational.Models
+namespace LegacyInternational
 {
     using System;
     using System.Collections.Generic;
