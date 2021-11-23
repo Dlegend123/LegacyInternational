@@ -31,11 +31,13 @@ namespace LegacyInternational
         public bool CreateBooking(int Flight_id, string Name, string DOB,int num)
         {
             JTBDBModel JTBDBModel = new JTBDBModel();
-            bookflight bookflight = new bookflight();
-            bookflight.username = Name;
-            bookflight.dob = DOB;
-            bookflight.flight_id = Flight_id;
-            bookflight.booking_id=JTBDBModel.bookflights.Count();
+            bookflight bookflight = new bookflight
+            {
+                username = Name,
+                dob = DOB,
+                flight_id = Flight_id,
+                booking_id = JTBDBModel.bookflights.Count()+1
+            };
             int sum = 0;
             bookflight.num_of_adults = num;
             JTBDBModel.bookflights.AsEnumerable().ToList().ForEach(x => sum += Int32.Parse(x.num_of_adults.ToString()));
