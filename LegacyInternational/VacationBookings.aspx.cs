@@ -52,7 +52,7 @@ namespace LegacyInternational
         {
             //Departure Flights
             DepartureFlights.Rows.Clear();
-            DataCollect(1).ForEach(p => QuickFunction(p,0, DepartureFlights));
+            DataCollect(1).ForEach(p => QuickFunction(p, 0, DepartureFlights));
             //Return Flights
             ReturnFlights.Rows.Clear();
             DataCollect(2).ForEach(p => QuickFunction(p, 1, ReturnFlights));
@@ -60,7 +60,7 @@ namespace LegacyInternational
             Cruises.Rows.Clear();
             DataCollect().ForEach(p => QuickFunction(p, 2, Cruises));
 
-            
+
             if (Cruises.Rows.Count == 0 || ReturnFlights.Rows.Count == 0 || DepartureFlights.Rows.Count == 0)
             {
                 if (Cruises.Rows.Count == 0)
@@ -70,7 +70,7 @@ namespace LegacyInternational
                     tableCell.Controls.Add(new LiteralControl("<br/>No Results Found<br/>"));
                     tableRow.Cells.Add(tableCell);
                     Cruises.Rows.Add(tableRow);
-                    
+
                 }
                 if (ReturnFlights.Rows.Count == 0)
                 {
@@ -109,9 +109,24 @@ namespace LegacyInternational
             else
                 portlists = JTBDBModel.portlists.Where(x => x.location.country == Country.Text && x.location.city == City.Text).ToList();
             int count = string.IsNullOrEmpty(NAdults.Text) ? 0 : Int32.Parse(NAdults.Text);
-            Cruises = JTBDBModel.cruiselists.Where(x => x.cruiserooms.Any(b => b.num_of_adults >= count) && portlists.Any(l => l.port_id == x.departure_port_id && x.start_datetime == SDate.Text && x.end_datetime == EDate.Text))
+            if (string.IsNullOrEmpty(SDate.Text) || string.IsNullOrEmpty(EDate.Text))
+            {
+                if (string.IsNullOrEmpty(SDate.Text) && string.IsNullOrEmpty(EDate.Text))
+                    Cruises = JTBDBModel.cruiselists.AsEnumerable().Where(x => x.cruiserooms.Any(b => b.num_of_adults >= count) && portlists.Any(l => l.port_id == x.departure_port_id))
                 .ToList();
-
+                else
+                {
+                    if (string.IsNullOrEmpty(SDate.Text))
+                        Cruises = JTBDBModel.cruiselists.AsEnumerable().Where(x => x.cruiserooms.Any(b => b.num_of_adults >= count) && portlists.Any(l => l.port_id == x.departure_port_id && x.end_datetime == EDate.Text))
+                    .ToList();
+                    else
+                        Cruises = JTBDBModel.cruiselists.AsEnumerable().Where(x => x.cruiserooms.Any(b => b.num_of_adults >= count) && portlists.Any(l => l.port_id == x.departure_port_id && x.start_datetime == SDate.Text))
+                    .ToList();
+                }
+            }
+            else
+                Cruises = JTBDBModel.cruiselists.AsEnumerable().Where(x => x.cruiserooms.Any(b => b.num_of_adults >= count) && portlists.Any(l => l.port_id == x.departure_port_id && x.start_datetime == SDate.Text && x.end_datetime == EDate.Text))
+                    .ToList();
             return Cruises;
         }
         List<flightlist> DataCollect(int y)
@@ -119,40 +134,101 @@ namespace LegacyInternational
             List<airportlist> Airports = new List<airportlist>();
             if (y == 1)
             {
-                if (string.IsNullOrEmpty(ACountry.Text) || string.IsNullOrEmpty(ACity.Text))
+                if (string.IsNullOrEmpty(ACountry.Text) || string.IsNullOrEmpty(ACity.Text) || string.IsNullOrEmpty(SDate.Text))
                 {
-                    if (string.IsNullOrEmpty(ACountry.Text) && string.IsNullOrEmpty(ACity.Text))
-                        Airports = JTBDBModel.airportlists.ToList();
+                    if (string.IsNullOrEmpty(ACountry.Text) && string.IsNullOrEmpty(ACity.Text) && string.IsNullOrEmpty(SDate.Text))
+                        return JTBDBModel.flightlists.AsEnumerable().ToList();
                     else
                     {
-                        if (string.IsNullOrEmpty(Country.Text))
-                            Airports = JTBDBModel.airportlists.Where(x => x.location.city == ACity.Text).ToList();
+                        if (string.IsNullOrEmpty(ACountry.Text) && string.IsNullOrEmpty(ACity.Text))
+                        {
+                            Airports = JTBDBModel.airportlists.ToList();
+                            return JTBDBModel.flightlists.AsEnumerable().Where(x => Airports.Any(l => l.airport_id == x.departure_airport_id && x.departure_datetime.Contains(SDate.Text))).ToList();
+                        }
                         else
-                            Airports = JTBDBModel.airportlists.Where(x => x.location.country == ACountry.Text).ToList();
+                        {
+                            if (string.IsNullOrEmpty(ACountry.Text) && string.IsNullOrEmpty(SDate.Text))
+                            {
+                                Airports = JTBDBModel.airportlists.Where(x => x.location.city == ACity.Text).ToList();
+                                return JTBDBModel.flightlists.AsEnumerable().Where(x => Airports.Any(l => l.airport_id == x.departure_airport_id)).ToList();
+                            }
+                            else
+                            {
+                                if (string.IsNullOrEmpty(ACity.Text) && string.IsNullOrEmpty(SDate.Text))
+                                {
+                                    Airports = JTBDBModel.airportlists.Where(x => x.location.country == ACountry.Text).ToList();
+                                    return JTBDBModel.flightlists.AsEnumerable().Where(x => Airports.Any(l => l.airport_id == x.departure_airport_id)).ToList();
+                                }
+                                else
+                                {
+                                    if (string.IsNullOrEmpty(ACountry.Text))
+                                        Airports = JTBDBModel.airportlists.Where(x => x.location.city == ACity.Text).ToList();
+                                    else
+                                    {
+                                        if (string.IsNullOrEmpty(ACity.Text))
+                                            Airports = JTBDBModel.airportlists.Where(x => x.location.country == ACountry.Text).ToList();
+                                    }
+                                    return JTBDBModel.flightlists.AsEnumerable().Where(x => Airports.Any(l => l.airport_id == x.departure_airport_id && x.departure_datetime.Contains(SDate.Text))).ToList();
+                                }
+                            }
+                        }
                     }
                 }
-                return JTBDBModel.flightlists.Where(x => Airports.Any(l => l.airport_id == x.departure_airport_id && x.departure_datetime == SDate.Text)).ToList();
+                return JTBDBModel.flightlists.AsEnumerable().Where(x => Airports.Any(l => l.airport_id == x.departure_airport_id && x.departure_datetime == SDate.Text)).ToList();
             }
             else
             {
-                if (string.IsNullOrEmpty(Country.Text) || string.IsNullOrEmpty(City.Text))
+                if (string.IsNullOrEmpty(Country.Text) || string.IsNullOrEmpty(City.Text) || string.IsNullOrEmpty(EDate.Text))
                 {
-                    if (string.IsNullOrEmpty(ACountry.Text) && string.IsNullOrEmpty(City.Text))
-                        Airports = JTBDBModel.airportlists.ToList();
+                    if (string.IsNullOrEmpty(Country.Text) && string.IsNullOrEmpty(City.Text) && string.IsNullOrEmpty(EDate.Text))
+                        return JTBDBModel.flightlists.AsEnumerable().ToList();
                     else
                     {
-                        if (string.IsNullOrEmpty(Country.Text))
-                            Airports = JTBDBModel.airportlists.Where(x => x.location.city == City.Text).ToList();
+                        if (string.IsNullOrEmpty(Country.Text) && string.IsNullOrEmpty(City.Text))
+                        {
+                            Airports = JTBDBModel.airportlists.ToList();
+                            return JTBDBModel.flightlists.AsEnumerable().Where(x => Airports.Any(l => l.airport_id == x.arrival_airport_id && x.arrival_datetime.Contains(EDate.Text))).ToList();
+                        }
                         else
-                            Airports = JTBDBModel.airportlists.Where(x => x.location.country == Country.Text).ToList();
+                        {
+                            if (string.IsNullOrEmpty(Country.Text) && string.IsNullOrEmpty(EDate.Text))
+                            {
+                                Airports = JTBDBModel.airportlists.Where(x => x.location.city == City.Text).ToList();
+                                return JTBDBModel.flightlists.AsEnumerable().Where(x => Airports.Any(l => l.airport_id == x.arrival_airport_id)).ToList();
+                            }
+                            else
+                            {
+                                if (string.IsNullOrEmpty(City.Text) && string.IsNullOrEmpty(EDate.Text))
+                                {
+                                    Airports = JTBDBModel.airportlists.Where(x => x.location.country == Country.Text).ToList();
+                                    return JTBDBModel.flightlists.AsEnumerable().Where(x => Airports.Any(l => l.airport_id == x.arrival_airport_id)).ToList();
+                                }
+                                else
+                                {
+                                    if (string.IsNullOrEmpty(Country.Text))
+                                        Airports = JTBDBModel.airportlists.Where(x => x.location.city == City.Text).ToList();
+                                    else
+                                    {
+                                        if (string.IsNullOrEmpty(City.Text))
+                                            Airports = JTBDBModel.airportlists.Where(x => x.location.country == Country.Text).ToList();
+                                    }
+                                    return JTBDBModel.flightlists.AsEnumerable().Where(x => Airports.Any(l => l.airport_id == x.arrival_airport_id && x.arrival_datetime.Contains(EDate.Text))).ToList();
+                                }
+                            }
+                        }
                     }
                 }
-                return JTBDBModel.flightlists.Where(x => Airports.Any(l => l.airport_id == x.arrival_airport_id && x.arrival_datetime == EDate.Text)).ToList();
+                return JTBDBModel.flightlists.AsEnumerable().Where(x => Airports.Any(l => l.airport_id == x.arrival_airport_id && x.arrival_datetime == SDate.Text)).ToList();
+
             }
         }
-        void QuickFunction(object x,int k,Table AddTo)
+        void QuickFunction(object x, int k, Table AddTo)
         {
-            Button button = new Button();
+            Button button = new Button
+            {
+                Text = "Select",
+                CssClass = "btn btn-outline-primary"
+            };
             TableRow tableRow = new TableRow
             {
                 HorizontalAlign = HorizontalAlign.Justify,
@@ -160,19 +236,21 @@ namespace LegacyInternational
                 BorderWidth = Unit.Pixel(3)
             };
 
-            if (k==0)//Departure Flight
+            if (k == 0)//Departure Flight
             {
                 flightlist p = x as flightlist;
                 TableCell tableCell = new TableCell();
-                tableCell.Controls.Add(new LiteralControl("<br /> Flight ID: " + p.flight_id + "<br />"));
+                tableCell.Controls.Add(new LiteralControl("Flight ID: " + p.flight_id));
                 TableCell tableCell1 = new TableCell();
-                tableCell1.Controls.Add(new LiteralControl("Departure Airport ID: " + p.departure_airport_id + "<br />"));
+                tableCell1.Controls.Add(new LiteralControl("Departure Airport ID: " + p.departure_airport_id));
                 TableCell tableCell2 = new TableCell();
-                tableCell2.Controls.Add(new LiteralControl("Departure Date/Time: " + p.departure_datetime + "<br />"));
+                tableCell2.Controls.Add(new LiteralControl("Departure Date/Time: " + p.departure_datetime));
                 TableCell tableCell3 = new TableCell();
-                tableCell3.Controls.Add(new LiteralControl("Airline ID: " + p.airlinelist.airline_id + "<br />"));
+                tableCell3.Controls.Add(new LiteralControl("Airline ID: " + p.airlinelist.airline_id));
                 TableCell tableCell4 = new TableCell();
-                tableCell4.Controls.Add(new LiteralControl("Airline: " + p.airlinelist.airline_name + "<br />"));
+                tableCell4.Controls.Add(new LiteralControl("Airline: " + p.airlinelist.airline_name));
+                TableCell tableCell6 = new TableCell();
+                tableCell6.Controls.Add(new LiteralControl("Price: $" + p.cost));
                 tableCell.VerticalAlign = tableCell2.VerticalAlign = tableCell1.VerticalAlign = tableCell3.VerticalAlign = tableCell4.VerticalAlign = VerticalAlign.Middle;
                 tableCell.HorizontalAlign = tableCell2.HorizontalAlign = tableCell1.HorizontalAlign = tableCell3.HorizontalAlign = tableCell4.HorizontalAlign = HorizontalAlign.Center;
                 tableCell.HorizontalAlign = HorizontalAlign.Center;
@@ -182,6 +260,7 @@ namespace LegacyInternational
                 tableRow.Cells.Add(tableCell2);
                 tableRow.Cells.Add(tableCell3);
                 tableRow.Cells.Add(tableCell4);
+                tableRow.Cells.Add(tableCell6);
                 button.Click += DFSelect_Click;
                 TableCell tableCell5 = new TableCell();
                 tableCell5.Controls.Add(button);
@@ -194,15 +273,17 @@ namespace LegacyInternational
                 {
                     flightlist p = x as flightlist;
                     TableCell tableCell = new TableCell();
-                    tableCell.Controls.Add(new LiteralControl("<br /> Flight ID: " + p.flight_id + "<br />"));
+                    tableCell.Controls.Add(new LiteralControl("Flight ID: " + p.flight_id));
                     TableCell tableCell1 = new TableCell();
-                    tableCell1.Controls.Add(new LiteralControl("Arrival Airport ID: " + p.arrival_airport_id + "<br />"));
+                    tableCell1.Controls.Add(new LiteralControl("Arrival Airport ID: " + p.arrival_airport_id));
                     TableCell tableCell2 = new TableCell();
-                    tableCell2.Controls.Add(new LiteralControl("Arrival Date/Time: " + p.arrival_datetime + "<br />"));
+                    tableCell2.Controls.Add(new LiteralControl("Arrival Date/Time: " + p.arrival_datetime));
                     TableCell tableCell3 = new TableCell();
-                    tableCell3.Controls.Add(new LiteralControl("Airline ID: " + p.airlinelist.airline_id + "<br />"));
+                    tableCell3.Controls.Add(new LiteralControl("Airline ID: " + p.airlinelist.airline_id));
                     TableCell tableCell4 = new TableCell();
-                    tableCell4.Controls.Add(new LiteralControl("Airline: " + p.airlinelist.airline_name + "<br />"));
+                    tableCell4.Controls.Add(new LiteralControl("Airline: " + p.airlinelist.airline_name));
+                    TableCell tableCell6 = new TableCell();
+                    tableCell6.Controls.Add(new LiteralControl("Price: $" + p.cost));
                     tableCell.VerticalAlign = tableCell2.VerticalAlign = tableCell1.VerticalAlign = tableCell3.VerticalAlign = tableCell4.VerticalAlign = VerticalAlign.Middle;
                     tableCell.HorizontalAlign = tableCell2.HorizontalAlign = tableCell1.HorizontalAlign = tableCell3.HorizontalAlign = tableCell4.HorizontalAlign = HorizontalAlign.Center;
                     tableCell.HorizontalAlign = HorizontalAlign.Center;
@@ -212,6 +293,7 @@ namespace LegacyInternational
                     tableRow.Cells.Add(tableCell2);
                     tableRow.Cells.Add(tableCell3);
                     tableRow.Cells.Add(tableCell4);
+                    tableRow.Cells.Add(tableCell6);
                     button.Click += DFSelect_Click;
                     TableCell tableCell5 = new TableCell();
                     tableCell5.Controls.Add(button);
@@ -222,13 +304,13 @@ namespace LegacyInternational
                 {//Cruises
                     cruiselist p = x as cruiselist;
                     TableCell tableCell = new TableCell();
-                    tableCell.Controls.Add(new LiteralControl("<br /> Cruise ID: " + p.cruise_id + "<br />"));
+                    tableCell.Controls.Add(new LiteralControl("Cruise ID: " + p.cruise_id));
                     TableCell tableCell1 = new TableCell();
-                    tableCell1.Controls.Add(new LiteralControl("Cruesline ID: " + p.cruiseline.cruiseline_id + "<br />"));
+                    tableCell1.Controls.Add(new LiteralControl("Cruesline ID: " + p.cruiseline.cruiseline_id));
                     TableCell tableCell2 = new TableCell();
-                    tableCell2.Controls.Add(new LiteralControl("Start Date/Time: " + p.start_datetime + "<br />"));
+                    tableCell2.Controls.Add(new LiteralControl("Start Date/Time: " + p.start_datetime));
                     TableCell tableCell3 = new TableCell();
-                    tableCell3.Controls.Add(new LiteralControl("End Date/Time: " + p.end_datetime + "<br />"));
+                    tableCell3.Controls.Add(new LiteralControl("End Date/Time: " + p.end_datetime));
                     Table table = new Table
                     {
                         CssClass = "table table-dark table-striped table-bordered"
@@ -236,7 +318,11 @@ namespace LegacyInternational
                     TableCell tableCell4 = new TableCell();
                     p.cruiserooms.ToList().ForEach(i =>
                     {
-                        Button button1 = new Button();
+                        Button button1 = new Button
+                        {
+                            Text = "Select",
+                            CssClass = "btn btn-outline-primary"
+                        };
                         button1.Click += CRSelect_Click;
                         TableRow tableRow1 = new TableRow();
                         TableCell tableCell6 = new TableCell();

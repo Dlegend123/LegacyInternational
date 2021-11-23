@@ -24,7 +24,7 @@ namespace LegacyInternational
             JTBDBModel JTBDBModel = new JTBDBModel();
             List<airportlist> Airports = JTBDBModel.airportlists.Where(x => x.location.city == City && x.location.country == Country).ToList();
 
-            return JTBDBModel.flightlists.Where(x => Airports.Any(l => l.airport_id == x.departure_airport_id && x.departure_datetime == Date)).ToList();
+            return JTBDBModel.flightlists.Where(x => Airports.Any(l => l.airport_id == x.departure_airport_id && x.departure_datetime.Contains( Date))).ToList();
             
         }
         [WebMethod]

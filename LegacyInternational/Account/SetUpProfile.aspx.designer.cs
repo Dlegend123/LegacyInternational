@@ -24,6 +24,15 @@ namespace LegacyInternational.Account
         protected global::System.Web.UI.WebControls.TextBox Username;
 
         /// <summary>
+        /// UsernameErr control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label UsernameErr;
+
+        /// <summary>
         /// FName control.
         /// </summary>
         /// <remarks>
@@ -31,6 +40,15 @@ namespace LegacyInternational.Account
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox FName;
+
+        /// <summary>
+        /// FNameErr control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label FNameErr;
 
         /// <summary>
         /// LName control.
@@ -42,6 +60,15 @@ namespace LegacyInternational.Account
         protected global::System.Web.UI.WebControls.TextBox LName;
 
         /// <summary>
+        /// LNameErr control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LNameErr;
+
+        /// <summary>
         /// DOB control.
         /// </summary>
         /// <remarks>
@@ -51,6 +78,15 @@ namespace LegacyInternational.Account
         protected global::System.Web.UI.WebControls.TextBox DOB;
 
         /// <summary>
+        /// DOBErr control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label DOBErr;
+
+        /// <summary>
         /// CNumber control.
         /// </summary>
         /// <remarks>
@@ -58,6 +94,15 @@ namespace LegacyInternational.Account
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox CNumber;
+
+        /// <summary>
+        /// CNumberErr control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label CNumberErr;
 
         /// <summary>
         /// Submit control.

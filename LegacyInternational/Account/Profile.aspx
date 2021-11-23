@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Profile.aspx.cs" Inherits="LegacyInternational.Account.Profile" EnableEventValidation="false" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <div>
+    <div style="width:fit-content;min-width:70vw">
         <br />
         <br />
     <asp:Table runat="server" CssClass = "table table-dark table-striped table-bordered container">

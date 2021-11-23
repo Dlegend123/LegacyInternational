@@ -18,17 +18,55 @@ namespace LegacyInternational.Account
         protected void Submit_Click(object sender, EventArgs e)
         {
             JTBDBModel jTBDBModel = new JTBDBModel();
-            user user = new user
+            if (string.IsNullOrEmpty(Username.Text) || string.IsNullOrEmpty(FName.Text) || string.IsNullOrEmpty(LName.Text) || string.IsNullOrEmpty(DOB.Text) || string.IsNullOrEmpty(CNumber.Text))
             {
-                username = Username.Text,
-                dob = DOB.Text,
-                last_name = LName.Text,
-                first_name = FName.Text,
-                contact_num = CNumber.Text,
-                email = (Session["user"] as ApplicationUser).Email
-            };
-            jTBDBModel.users.Add(user);
-            jTBDBModel.SaveChangesAsync();
+                if (string.IsNullOrEmpty(Username.Text))
+                {
+                    UsernameErr.Visible = true;
+                }
+                else
+                    UsernameErr.Visible = false;
+                if (string.IsNullOrEmpty(FName.Text))
+                {
+                    FNameErr.Visible = true;
+                }
+                else
+                    FNameErr.Visible = false;
+                if (string.IsNullOrEmpty(LName.Text))
+                {
+                    LNameErr.Visible = true;
+                }
+                else
+                    LNameErr.Visible = false;
+                if (string.IsNullOrEmpty(DOB.Text))
+                {
+                    DOBErr.Visible = true;
+                }
+                else
+                    DOBErr.Visible = false;
+                if (string.IsNullOrEmpty(CNumber.Text))
+                {
+                    CNumberErr.Visible = true;
+                }
+                else
+                    CNumberErr.Visible = false;
+            }
+            else
+            {
+                user user = new user
+                {
+                    username = Username.Text,
+                    dob = DOB.Text,
+                    last_name = LName.Text,
+                    first_name = FName.Text,
+                    contact_num = CNumber.Text,
+                    email = (Session["user"] as ApplicationUser).Email,
+                    password = (Session["user"] as ApplicationUser).PasswordHash,
+                };
+                jTBDBModel.users.Add(user);
+                jTBDBModel.SaveChangesAsync();
+                Response.Redirect("~/Default.aspx", false);
+            }
         }
     }
 }

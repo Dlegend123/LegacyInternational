@@ -7,11 +7,20 @@ using Microsoft.AspNet.Identity.Owin;
 using Owin;
 using LegacyInternational.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Configuration;
 
 namespace LegacyInternational.Account
 {
     public partial class Register : Page
     {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!Request.IsSecureConnection)
+            {
+                string url = ConfigurationManager.AppSettings["SecurePath"] + "Account/Register.aspx";
+                Response.Redirect(url);
+            }
+        }
         protected void CreateUser_Click(object sender, EventArgs e)
         {
             var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
@@ -33,7 +42,7 @@ namespace LegacyInternational.Account
                 string callbackUrl = IdentityHelper.GetUserConfirmationRedirectUrl(code, user.Id, Request);
                 //manager.SendEmail(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>.");
                 signInManager.SignIn(user, isPersistent: true, rememberBrowser: false);
-                IdentityHelper.RedirectToReturnUrl(Request.QueryString["~/Default.aspx"], Response);
+                IdentityHelper.RedirectToReturnUrl(Request.QueryString["~/Account/SetUpProfile.aspx"], Response);
             }
         }
     }
