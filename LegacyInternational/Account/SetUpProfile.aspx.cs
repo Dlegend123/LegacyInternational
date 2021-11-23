@@ -60,7 +60,7 @@ namespace LegacyInternational.Account
                     last_name = LName.Text,
                     first_name = FName.Text,
                     contact_num = CNumber.Text,
-                    email = (Session["user"] as ApplicationUser).Email,
+                    email = (Session["user"] as ApplicationUser).UserName,
                     password = (Session["user"] as ApplicationUser).PasswordHash,
                 };
                 jTBDBModel.users.Add(user);

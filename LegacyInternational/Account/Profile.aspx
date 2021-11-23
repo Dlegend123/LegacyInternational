@@ -1,18 +1,18 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Profile.aspx.cs" Inherits="LegacyInternational.Account.Profile" EnableEventValidation="false" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <div style="width:fit-content;min-width:70vw">
+    <div class="container" style="width:fit-content;min-width:70vw">
         <br />
         <br />
     <asp:Table runat="server" CssClass = "table table-dark table-striped table-bordered container">
         <asp:TableRow>
             <asp:TableCell>
-                <asp:Table runat="server">
+                <asp:Table runat="server" CssClass = "table table-dark table-striped table-bordered container">
                     <asp:TableRow>
-                        <asp:TableCell runat="server" ID="UsernameCell">
+                        <asp:TableCell runat="server" ID="UsernameCell" ColumnSpan="2">
                         </asp:TableCell>
                     </asp:TableRow>
                     <asp:TableRow>
-                        <asp:TableCell ID="ProfilePicCell" runat="server" HorizontalAlign="Center">
+                        <asp:TableCell ID="ProfilePicCell" runat="server" HorizontalAlign="Center" CssClass="w-25 h-25" ColumnSpan="2">
                         </asp:TableCell>
                     </asp:TableRow>
                     <asp:TableRow>
@@ -62,7 +62,8 @@
                     </asp:TableRow>
                     <asp:TableRow>
                         <asp:TableCell>
-                            <asp:Table runat="server" ID="CBookings" CssClass="table table-dark table-striped table-bordered" BorderStyle="Solid" ForeColor="WhiteSmoke"  BorderWidth="3px" >
+                            <h5>Current Bookings</h5>
+                            <asp:Table runat="server" ID="CBookings" CssClass="table table-dark table-striped table-bordered" BorderStyle="Solid" BorderWidth="3px" >
 
                 </asp:Table>
                 
@@ -70,6 +71,7 @@
                     </asp:TableRow>
                     <asp:TableRow>
                         <asp:TableCell>
+                            <h5>Previous Bookings</h5>
                             <asp:Table runat="server" ID="PBookings" CssClass="table table-dark table-striped table-bordered" BorderStyle="Solid" ForeColor="WhiteSmoke"  BorderWidth="3px" >
 
                 </asp:Table>

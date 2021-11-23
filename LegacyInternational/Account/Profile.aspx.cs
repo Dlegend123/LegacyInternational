@@ -33,8 +33,8 @@ namespace LegacyInternational.Account
                         CssClass = "img-fluid",
                         ImageUrl = "data:image/jpeg;base64," + Convert.ToBase64String(jTBDBModel.users.Where(x => x.email == user.Email).First().ProfilePic)
                     };
-                    image.Style.Add("max-height", "40vh");
-                    image.Style.Add("max-width", "40vw");
+                    image.Style.Add("max-height", "25vh");
+                    image.Style.Add("max-width", "25vw");
                     ProfilePicCell.Controls.Add(image);
                 }
                 else

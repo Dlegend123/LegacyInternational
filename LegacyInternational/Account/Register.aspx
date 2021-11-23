@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="Register" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Register.aspx.cs" Inherits="LegacyInternational.Account.Register" EnableEventValidation="false" %>
 
 <asp:Content runat="server" ID="BodyContent" ContentPlaceHolderID="MainContent">
-    <div class="container" style="width:fit-content">
+    <div class="container" style="width:fit-content;min-width:70vw">
         <br />
         <br />
     <asp:Table class="table table-dark table-bordered table-striped" runat="server">

@@ -19,7 +19,6 @@ namespace LegacyInternational.Account
             }
             RegisterHyperLink.NavigateUrl = "Register";
         }
-
         protected void LogIn(object sender, EventArgs e)
         {
             if (IsValid)
