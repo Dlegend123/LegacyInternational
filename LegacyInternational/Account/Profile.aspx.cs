@@ -32,7 +32,7 @@ namespace LegacyInternational.Account
                 Page.Master.FindControl("BookingsPage").Visible = false;
             }
             if (jTBDBModel.users.Where(x => x.email == user.UserName).Count() == 0)
-                Response.Redirect("SetUpProfile.aspx", false);
+                Response.Redirect("~/SetUpProfile.aspx", false);
             else
             {
                 UsernameCell.Controls.Add(new LiteralControl(user.UserName));
