@@ -33,7 +33,7 @@ namespace LegacyInternational
         {
             JTBDBModel JTBDBModel = new JTBDBModel();
             JTBDBModel.bookcruises.Add(bookcruise);
-            JTBDBModel.SaveChangesAsync().Wait();
+            JTBDBModel.SaveChanges();
 
         }
     }

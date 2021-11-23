@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Linq;
 
-namespace LegacyInternational.Models
+namespace LegacyInternational
 {
     public partial class JTBDBModel : DbContext
     {
@@ -64,6 +64,11 @@ namespace LegacyInternational.Models
                 .Property(e => e.cruise_length)
                 .IsFixedLength();
 
+            modelBuilder.Entity<flightlist>()
+                .HasMany(e => e.bookflights)
+                .WithRequired(e => e.flightlist)
+                .WillCascadeOnDelete(false);
+
             modelBuilder.Entity<location>()
                 .HasMany(e => e.airportlists)
                 .WithRequired(e => e.location)
@@ -77,6 +82,11 @@ namespace LegacyInternational.Models
             modelBuilder.Entity<user>()
                 .Property(e => e.contact_num)
                 .IsFixedLength();
+
+            modelBuilder.Entity<user>()
+                .HasMany(e => e.bookflights)
+                .WithRequired(e => e.user)
+                .WillCascadeOnDelete(false);
         }
     }
 }

@@ -42,14 +42,10 @@ namespace LegacyInternational
                 flight_id = Flight_id,
                 booking_id = JTBDBModel.bookflights.AsEnumerable().ToList().Count()+1
             };
-            SqlConnection conn = new SqlConnection
-            {
-                ConnectionString = ConfigurationManager.ConnectionStrings["JTBDBConnectionString"].ConnectionString
-            };
             bookflight.num_of_adults = num;
             bookflight.seat_num = JTBDBModel.bookflights.AsEnumerable().ToList().Last().seat_num+"6";
             JTBDBModel.bookflights.Add(bookflight);
-            JTBDBModel.SaveChangesAsync().Wait();
+            JTBDBModel.SaveChanges();
         }
     }
 }
