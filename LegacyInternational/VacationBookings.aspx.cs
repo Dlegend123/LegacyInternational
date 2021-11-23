@@ -232,7 +232,8 @@ namespace LegacyInternational
             Button button = new Button
             {
                 Text = "Select",
-                CssClass = "btn btn-outline-primary"
+                CssClass = "btn btn-outline-primary",
+                
             };
             TableRow tableRow = new TableRow
             {
@@ -266,7 +267,7 @@ namespace LegacyInternational
                 tableRow.Cells.Add(tableCell3);
                 tableRow.Cells.Add(tableCell4);
                 tableRow.Cells.Add(tableCell6);
-                button.Click += DFSelect_Click;
+                button.Click += new EventHandler( DFSelect_Click);
                 TableCell tableCell5 = new TableCell();
                 tableCell5.Controls.Add(button);
                 tableRow.Cells.Add(tableCell5);
@@ -299,7 +300,7 @@ namespace LegacyInternational
                     tableRow.Cells.Add(tableCell3);
                     tableRow.Cells.Add(tableCell4);
                     tableRow.Cells.Add(tableCell6);
-                    button.Click += DFSelect_Click;
+                    button.Click += new EventHandler( DFSelect_Click);
                     TableCell tableCell5 = new TableCell();
                     tableCell5.Controls.Add(button);
                     tableRow.Cells.Add(tableCell5);
@@ -328,7 +329,7 @@ namespace LegacyInternational
                             Text = "Select",
                             CssClass = "btn btn-outline-primary"
                         };
-                        button1.Click += CRSelect_Click;
+                        button1.Click += new EventHandler( CRSelect_Click);
                         TableRow tableRow1 = new TableRow();
                         TableCell tableCell6 = new TableCell();
                         tableCell6.Controls.Add(new LiteralControl("Room #: " + i.room_num + "<br />"));

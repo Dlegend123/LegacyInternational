@@ -45,7 +45,8 @@ namespace LegacyInternational
             bookflight.num_of_adults = num;
             bookflight.seat_num = JTBDBModel.bookflights.AsEnumerable().ToList().Last().seat_num+"6";
             JTBDBModel.bookflights.Add(bookflight);
-            JTBDBModel.Database.ExecuteSqlCommand("Insert into bookflight(booking_id,flight_id,username,email,dob,seat_num,num_of_adults) Values(" + bookflight.booking_id + "," + bookflight.flight_id + ",'" + bookflight.username + "','" + bookflight.email + "','" + bookflight.dob + "','" + bookflight.seat_num + "'," + bookflight.num_of_adults.ToString() + ");");
+            JTBDBModel.SaveChangesAsync().Wait();
+            //JTBDBModel.Database.ExecuteSqlCommand("Insert into bookflight(booking_id,flight_id,username,email,dob,seat_num,num_of_adults) Values(" + bookflight.booking_id + "," + bookflight.flight_id + ",'" + bookflight.username + "','" + bookflight.email + "','" + bookflight.dob + "','" + bookflight.seat_num + "'," + bookflight.num_of_adults.ToString() + ");");
         }
     }
 }

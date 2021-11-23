@@ -45,7 +45,8 @@ namespace LegacyInternational
                 .HasMany(e => e.AspNetUsers)
                 .WithMany(e => e.AspNetRoles)
                 .Map(m => m.ToTable("AspNetUserRoles").MapLeftKey("RoleId").MapRightKey("UserId"));
-
+            modelBuilder.Entity<bookflight>().Map(m => m.ToTable("bookflight"));
+            modelBuilder.Entity<bookcruise>().Map(m => m.ToTable("bookcruise"));
             modelBuilder.Entity<AspNetUser>()
                 .HasMany(e => e.AspNetUserClaims)
                 .WithRequired(e => e.AspNetUser)
