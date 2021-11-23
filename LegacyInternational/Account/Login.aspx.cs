@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Web;
 using System.Web.UI;
+using LegacyInternational.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Owin;
@@ -18,6 +19,15 @@ namespace LegacyInternational.Account
                 Response.Redirect(url);
             }
             RegisterHyperLink.NavigateUrl = "Register";
+            if (Session["user"] != null)
+            {
+                if ((Session["user"] as ApplicationUser).UserName == "Default")
+                    Page.Master.FindControl("BookingsPage").Visible = false;
+            }
+            else
+            {
+                Page.Master.FindControl("BookingsPage").Visible = false;
+            }
         }
         protected void LogIn(object sender, EventArgs e)
         {

@@ -71,10 +71,10 @@
                     </asp:TableRow>
                     <asp:TableRow>
                         <asp:TableCell>
-                            <h5>Previous Bookings</h5>
+                           <%--  <h5>Previous Bookings</h5>
                             <asp:Table runat="server" ID="PBookings" CssClass="table table-dark table-striped table-bordered" BorderStyle="Solid" ForeColor="WhiteSmoke"  BorderWidth="3px" >
 
-                </asp:Table>
+                </asp:Table> --%>
                 
                         </asp:TableCell>
                     </asp:TableRow>

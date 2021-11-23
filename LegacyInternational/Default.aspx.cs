@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LegacyInternational.Models;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -16,6 +17,15 @@ namespace LegacyInternational
             {
                 string url = ConfigurationManager.AppSettings["SecurePath"] + "Default.aspx";
                 Response.Redirect(url);
+            }
+            if (Session["user"] != null)
+            {
+                if ((Session["user"] as ApplicationUser).UserName == "Default")
+                    Page.Master.FindControl("BookingsPage").Visible = false;
+            }
+            else
+            {
+                Page.Master.FindControl("BookingsPage").Visible = false;
             }
         }
     }

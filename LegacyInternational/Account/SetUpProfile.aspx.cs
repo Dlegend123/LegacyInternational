@@ -18,6 +18,15 @@ namespace LegacyInternational.Account
                 string url = ConfigurationManager.AppSettings["SecurePath"] + "Account/SetUpProfile.aspx";
                 Response.Redirect(url);
             }
+            if (Session["user"] != null)
+            {
+                if((Session["user"] as ApplicationUser).UserName== "Default")
+                    Page.Master.FindControl("BookingsPage").Visible = false;
+            }
+            else
+            {
+                Page.Master.FindControl("BookingsPage").Visible = false;
+            }
         }
 
         protected void Submit_Click(object sender, EventArgs e)

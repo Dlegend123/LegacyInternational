@@ -29,7 +29,7 @@ namespace LegacyInternational
             AirlineService airlineService = new AirlineService();
             ApplicationUser user = Session["user"] as ApplicationUser;
             TableCell tableCell = tableRow.Cells[0];
-            var Result = airlineService.CreateBooking(Int32.Parse((tableCell.Controls[0] as LiteralControl).Text.Split(':')[1].Split('<')[0].Trim()), user.UserName, JTBDBModel.users.Where(x => x.username == user.UserName).First().dob);
+            var Result = airlineService.CreateBooking(Int32.Parse((tableCell.Controls[0] as LiteralControl).Text.Split(':')[1].Split('<')[0].Trim()), JTBDBModel.users.Where(x => x.email == user.UserName).First().username, JTBDBModel.users.Where(x => x.email == user.UserName).First().dob);
         }
 
         protected void CRSelect_Click(object sender, EventArgs e)
@@ -40,7 +40,7 @@ namespace LegacyInternational
             TableCell tableCell = button.Parent as TableCell;
             bookcruise bookcruise = new bookcruise
             {
-                username = user.UserName,
+                username = JTBDBModel.users.Where(x => x.email == user.UserName).First().username,
                 check_in_date = SDate.Text,
                 check_out_date = EDate.Text
             };

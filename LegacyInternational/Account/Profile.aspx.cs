@@ -22,15 +22,24 @@ namespace LegacyInternational.Account
                 string url = ConfigurationManager.AppSettings["SecurePath"] + "Account/Profile.aspx";
                 Response.Redirect(url);
             }
-            if (jTBDBModel.users.Where(x => x.email == user.Email).Count() == 0)
+            if (Session["user"] != null)
+            {
+                if ((Session["user"] as ApplicationUser).UserName == "Default")
+                    Page.Master.FindControl("BookingsPage").Visible = false;
+            }
+            else
+            {
+                Page.Master.FindControl("BookingsPage").Visible = false;
+            }
+            if (jTBDBModel.users.Where(x => x.email == user.UserName).Count() == 0)
                 Response.Redirect("SetUpProfile.aspx", false);
             else
             {
                 UsernameCell.Controls.Add(new LiteralControl(user.Email));
-                FNameCell.Controls.Add(new LiteralControl(jTBDBModel.users.Where(x => x.email == user.Email).First().first_name));
-                LNameCell.Controls.Add(new LiteralControl(jTBDBModel.users.Where(x => x.email == user.Email).First().last_name));
-                CNumber.Controls.Add(new LiteralControl(jTBDBModel.users.Where(x => x.email == user.Email).First().contact_num));
-                DOBCell.Controls.Add(new LiteralControl(jTBDBModel.users.Where(x => x.email == user.Email).First().dob));
+                FNameCell.Controls.Add(new LiteralControl(jTBDBModel.users.Where(x => x.email == user.UserName).First().first_name));
+                LNameCell.Controls.Add(new LiteralControl(jTBDBModel.users.Where(x => x.email == user.UserName).First().last_name));
+                CNumber.Controls.Add(new LiteralControl(jTBDBModel.users.Where(x => x.email == user.UserName).First().contact_num));
+                DOBCell.Controls.Add(new LiteralControl(jTBDBModel.users.Where(x => x.email == user.UserName).First().dob));
 
                 if (jTBDBModel.users.Where(x => x.email == user.Email).First().ProfilePic!=null)
                 {
@@ -47,10 +56,13 @@ namespace LegacyInternational.Account
                 {
                     ProfilePicCell.Controls.Add(new LiteralControl("<br /> No Image <br />"));
                 }
-                CruiseCollect().Where(x => DateTime.ParseExact(x.check_out_date, "MM/dd/yyyy", System.Globalization.CultureInfo.InvariantCulture) >= DateTime.ParseExact(DateTime.Now.ToString("MM/dd/yyyy"), "MM/dd/yyyy", System.Globalization.CultureInfo.InvariantCulture))
+                CruiseCollect()
+                    .ToList().ForEach(l => QuickFunction(l, 0, CBookings));
+                
+              /*  CruiseCollect().Where(x => DateTime.ParseExact(x.check_out_date, "MM/dd/yyyy", System.Globalization.CultureInfo.InvariantCulture) >= DateTime.ParseExact(DateTime.Now.ToString("MM/dd/yyyy"), "MM/dd/yyyy", System.Globalization.CultureInfo.InvariantCulture))
                     .ToList().ForEach(l=>QuickFunction(l,0,CBookings));
                 CruiseCollect().Where(x => DateTime.ParseExact(x.check_out_date, "MM/dd/yyyy", System.Globalization.CultureInfo.InvariantCulture) < DateTime.ParseExact(DateTime.Now.ToString("MM/dd/yyyy"), "MM/dd/yyyy", System.Globalization.CultureInfo.InvariantCulture))
-                    .ToList().ForEach(l => QuickFunction(l, 0, PBookings));
+                    .ToList().ForEach(l => QuickFunction(l, 0, PBookings));*/
             }
         }
         List<bookcruise> CruiseCollect()
