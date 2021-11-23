@@ -4,7 +4,7 @@
     <div class="container" style="width:fit-content">
         <br />
         <br />
-    <asp:Table class="table table-dark table-striped" runat="server">
+    <asp:Table class="table table-dark table-bordered table-striped" runat="server">
         <asp:TableRow>
             <asp:TableCell>
         <h4>Registration</h4>
