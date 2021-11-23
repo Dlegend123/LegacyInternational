@@ -44,7 +44,7 @@ namespace LegacyInternational.Account
                 {
                     case SignInStatus.Success:
                         {
-                            Session["User"] = manager.FindByName(Email.Text);
+                            Session["user"] = manager.FindByName(Email.Text);
                             IdentityHelper.RedirectToReturnUrl(Request.QueryString["~/Default.aspx"], Response);
                         }
                         break;

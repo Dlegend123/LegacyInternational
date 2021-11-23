@@ -27,7 +27,7 @@ namespace LegacyInternational
             Button button = sender as Button;
             TableRow tableRow = button.Parent.Parent as TableRow;
             AirlineService airlineService = new AirlineService();
-            ApplicationUser user = Session["User"] as ApplicationUser;
+            ApplicationUser user = Session["user"] as ApplicationUser;
             TableCell tableCell = tableRow.Cells[0];
             var Result = airlineService.CreateBooking(Int32.Parse((tableCell.Controls[0] as LiteralControl).Text.Split(':')[1].Split('<')[0].Trim()), user.UserName, JTBDBModel.users.Where(x => x.username == user.UserName).First().dob);
         }
@@ -36,7 +36,7 @@ namespace LegacyInternational
         {
             Button button = sender as Button;
             CruiseService cruiseService = new CruiseService();
-            ApplicationUser user = Session["User"] as ApplicationUser;
+            ApplicationUser user = Session["user"] as ApplicationUser;
             TableCell tableCell = button.Parent as TableCell;
             bookcruise bookcruise = new bookcruise
             {

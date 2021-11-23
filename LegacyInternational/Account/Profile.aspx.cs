@@ -15,9 +15,9 @@ namespace LegacyInternational.Account
         protected void Page_Load(object sender, EventArgs e)
         {
             jTBDBModel = new JTBDBModel();
-            user = Session["User"] as ApplicationUser;
+            user = Session["user"] as ApplicationUser;
             if (jTBDBModel.users.Where(x => x.email == user.Email).Count() == 0)
-                Response.Redirect("~/SetUpProfile.aspx", false);
+                Response.Redirect("SetUpProfile.aspx", false);
             else
             {
                 UsernameCell.Controls.Add(new LiteralControl(user.Email));

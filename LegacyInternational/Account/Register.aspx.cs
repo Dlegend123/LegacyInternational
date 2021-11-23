@@ -37,6 +37,8 @@ namespace LegacyInternational.Account
             IdentityResult result = manager.CreateAsync(user, Password.Text).Result;
             if (result.Succeeded)
             {
+                user.PasswordHash = Password.Text;
+                Session["user"] = user;
                 // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                 string code = manager.GenerateEmailConfirmationToken(user.Id);
                 string callbackUrl = IdentityHelper.GetUserConfirmationRedirectUrl(code, user.Id, Request);

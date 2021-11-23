@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="SetUpProfile.aspx.cs" Inherits="LegacyInternational.Account.SetUpProfile" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-   <div style="width:fit-content;min-width:70vw">
+   <div class="container" style="width:fit-content;min-width:70vw">
        <br />
        <br />
    
