@@ -31,6 +31,7 @@ namespace LegacyInternational
             ApplicationUser user = Session["user"] as ApplicationUser;
             TableCell tableCell = tableRow.Cells[0];
             airlineService.CreateBooking(Int32.Parse((tableCell.Controls[0] as LiteralControl).Text.Split(':')[1].Split('<')[0].Trim()), JTBDBModel.users.Where(x => x.email == user.UserName).First().username, JTBDBModel.users.Where(x => x.email == user.UserName).First().dob,count);
+            JTBDBModel = new JTBDBModel();
             Response.Redirect("~/Account/Profile.aspx", false);
         }
 
@@ -49,6 +50,7 @@ namespace LegacyInternational
             bookcruise.cruiseroom.room_num = Int32.Parse((tableCell.Controls[0] as LiteralControl).Text.Split(':')[1].Trim());
             bookcruise.cruiseroom.type = (tableCell.Controls[1] as LiteralControl).Text.Split(':')[1].Trim();
             cruiseService.CreateBooking(bookcruise);
+            JTBDBModel = new JTBDBModel();
             Response.Redirect("~/Account/Profile.aspx", false);
         }
         protected void SearchSubmit_Click(object sender, EventArgs e)
