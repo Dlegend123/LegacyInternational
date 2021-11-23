@@ -19,7 +19,6 @@ namespace LegacyInternational.Models
         [StringLength(50)]
         public string username { get; set; }
 
-        [Required]
         [StringLength(50)]
         public string address { get; set; }
 
@@ -31,9 +30,5 @@ namespace LegacyInternational.Models
         public string seat_num { get; set; }
 
         public int? num_of_adults { get; set; }
-
-        public virtual flightlist flightlist { get; set; }
-
-        public virtual user user { get; set; }
     }
 }

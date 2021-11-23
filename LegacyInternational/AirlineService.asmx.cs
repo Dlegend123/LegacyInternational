@@ -1,6 +1,8 @@
 ﻿using LegacyInternational.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -30,7 +32,7 @@ namespace LegacyInternational
             
         }
         [WebMethod]
-        public bookflight CreateBooking(int Flight_id, string Name, string DOB,int num)
+        public void CreateBooking(int Flight_id, string Name, string DOB,int num)
         {
             JTBDBModel JTBDBModel = new JTBDBModel();
             bookflight bookflight = new bookflight
@@ -40,10 +42,14 @@ namespace LegacyInternational
                 flight_id = Flight_id,
                 booking_id = JTBDBModel.bookflights.AsEnumerable().ToList().Count()+1
             };
+            SqlConnection conn = new SqlConnection
+            {
+                ConnectionString = ConfigurationManager.ConnectionStrings["JTBDBConnectionString"].ConnectionString
+            };
             bookflight.num_of_adults = num;
             bookflight.seat_num = JTBDBModel.bookflights.AsEnumerable().ToList().Last().seat_num+"6";
-
-            return bookflight;
+            JTBDBModel.bookflights.Add(bookflight);
+            JTBDBModel.SaveChangesAsync().Wait();
         }
     }
 }
