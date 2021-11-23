@@ -74,8 +74,7 @@ namespace LegacyInternational.Account
                     last_name = LName.Text,
                     first_name = FName.Text,
                     contact_num = CNumber.Text,
-                    email = (Session["user"] as ApplicationUser).UserName,
-                    password = (Session["user"] as ApplicationUser).PasswordHash,
+                    email = (Session["user"] as ApplicationUser).UserName,                
                 };
                 jTBDBModel.users.Add(user);
                 jTBDBModel.SaveChangesAsync();

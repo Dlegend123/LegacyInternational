@@ -1,4 +1,4 @@
-namespace LegacyInternational
+namespace LegacyInternational.Models
 {
     using System;
     using System.Collections.Generic;
@@ -13,7 +13,7 @@ namespace LegacyInternational
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int booking_id { get; set; }
 
-        public int? cruise_id { get; set; }
+        public int cruise_id { get; set; }
 
         [StringLength(50)]
         public string username { get; set; }
@@ -24,14 +24,8 @@ namespace LegacyInternational
         [StringLength(50)]
         public string check_out_date { get; set; }
 
-        public int? room_num { get; set; }
+        public int room_num { get; set; }
 
-        public int? num_of_adults { get; set; }
-
-        public virtual cruiselist cruiselist { get; set; }
-
-        public virtual cruiseroom cruiseroom { get; set; }
-
-        public virtual user user { get; set; }
+        public int num_of_adults { get; set; }
     }
 }

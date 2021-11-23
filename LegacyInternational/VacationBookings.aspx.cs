@@ -47,11 +47,10 @@ namespace LegacyInternational
             {
                 username = JTBDBModel.users.Where(x => x.email == user.UserName).First().username,
                 check_in_date = SDate.Text,
-                check_out_date = EDate.Text
+                check_out_date = EDate.Text,
+                cruise_id = Int32.Parse(button.ID.Split(':')[1].Trim())
             };
-            bookcruise.cruiseroom.room_num = Int32.Parse(button.ID.Split(':')[0].Trim());
-            bookcruise.cruiseroom.type = button.ID.Split(':')[1];
-            
+            bookcruise.room_num = Int32.Parse(button.ID.Split(':')[0].Trim());
             cruiseService.CreateBooking(bookcruise);
             JTBDBModel = new JTBDBModel();
         }
@@ -339,7 +338,7 @@ namespace LegacyInternational
                         TableCell tableCell6 = new TableCell();
                         tableCell6.Controls.Add(new LiteralControl("Room #: " + i.room_num + "<br />"));
                         tableCell6.Controls.Add(new LiteralControl("Room Type: " + i.type + "<br />"));
-                        button1.ID += ":"+i.type;
+                        button1.ID += ":"+ p.cruise_id;
                         tableCell6.Controls.Add(new LiteralControl("Number Of Adults: " + i.num_of_adults + "<br />"));
                         tableCell6.Controls.Add(button1);
                         tableRow1.Cells.Add(tableCell6);

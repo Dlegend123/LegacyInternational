@@ -42,16 +42,16 @@ namespace LegacyInternational
                 username = Name,
                 dob = DOB,
                 flight_id = Flight_id,
-                //booking_id = JTBDBModel.bookflights.AsEnumerable().ToList().Count()+1
+                num_of_adults=num ,
+                seat_num = JTBDBModel.bookflights.AsEnumerable().ToList().Last().seat_num + "6"
+            //booking_id = JTBDBModel.bookflights.AsEnumerable().ToList().Count()+1
             };
-            bookflight.num_of_adults = num;
-            bookflight.seat_num = JTBDBModel.bookflights.AsEnumerable().ToList().Last().seat_num+"6";
             //JTBDBModel.bookflights.Add(bookflight);
             //JTBDBModel.Entry(bookflight).State = EntityState.Added;
             using(var db = new JTBDBModel())
             {
-                db.Set<bookflight>().Add(bookflight);
-                db.SaveChanges();
+                db.bookflights.Add(bookflight);
+                db.SaveChangesAsync().Wait();
             }
             
             //JTBDBModel.Database.ExecuteSqlCommand("Insert into bookflight(booking_id,flight_id,username,email,dob,seat_num,num_of_adults) Values(" + bookflight.booking_id + "," + bookflight.flight_id + ",'" + bookflight.username + "','" + bookflight.email + "','" + bookflight.dob + "','" + bookflight.seat_num + "'," + bookflight.num_of_adults.ToString() + ");");

@@ -32,7 +32,7 @@ namespace LegacyInternational.Account
                 Page.Master.FindControl("BookingsPage").Visible = false;
             }
             if (jTBDBModel.users.Where(x => x.email == user.UserName).Count() == 0)
-                Response.Redirect("~/SetUpProfile.aspx", false);
+                Response.Redirect("SetUpProfile.aspx", false);
             else
             {
                 UsernameCell.Controls.Add(new LiteralControl(user.UserName));
@@ -175,9 +175,9 @@ namespace LegacyInternational.Account
                     TableCell tableCell3 = new TableCell();
                     tableCell3.Controls.Add(new LiteralControl("Check Out Date: " + p.check_out_date));
                     TableCell tableCell4 = new TableCell();
-                    tableCell4.Controls.Add(new LiteralControl("Room #: " + p.cruiseroom.room_num));
+                    tableCell4.Controls.Add(new LiteralControl("Room #: " + p.room_num));
                     TableCell tableCell5 = new TableCell();
-                    tableCell5.Controls.Add(new LiteralControl("Room Type: " + p.cruiseroom.type));
+                    tableCell5.Controls.Add(new LiteralControl("Room Type: " + jTBDBModel.cruiserooms.Where(b=>b.room_num==p.room_num).First().type));
 
                     tableCell.VerticalAlign = tableCell2.VerticalAlign = tableCell1.VerticalAlign = tableCell3.VerticalAlign = tableCell4.VerticalAlign = VerticalAlign.Middle;
                     tableCell.HorizontalAlign = tableCell2.HorizontalAlign = tableCell1.HorizontalAlign = tableCell3.HorizontalAlign = tableCell4.HorizontalAlign = HorizontalAlign.Center;

@@ -1,4 +1,4 @@
-namespace LegacyInternational
+namespace LegacyInternational.Models
 {
     using System;
     using System.Collections.Generic;
@@ -9,12 +9,6 @@ namespace LegacyInternational
     [Table("flightlist")]
     public partial class flightlist
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public flightlist()
-        {
-            bookflights = new HashSet<bookflight>();
-        }
-
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int flight_id { get; set; }
@@ -38,8 +32,5 @@ namespace LegacyInternational
         public string date_created { get; set; }
 
         public virtual airlinelist airlinelist { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<bookflight> bookflights { get; set; }
     }
 }
