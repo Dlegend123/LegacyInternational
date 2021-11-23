@@ -2,12 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data.Entity;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Services;
+using System.Data.Entity.Migrations;
 
 namespace LegacyInternational
 {
@@ -44,8 +46,14 @@ namespace LegacyInternational
             };
             bookflight.num_of_adults = num;
             bookflight.seat_num = JTBDBModel.bookflights.AsEnumerable().ToList().Last().seat_num+"6";
-            JTBDBModel.bookflights.Add(bookflight);
-            JTBDBModel.SaveChangesAsync().Wait();
+            //JTBDBModel.bookflights.Add(bookflight);
+            //JTBDBModel.Entry(bookflight).State = EntityState.Added;
+            using(var db = new JTBDBModel())
+            {
+                db.Set<bookflight>().AddOrUpdate(bookflight);
+                db.SaveChanges();
+            }
+            
             //JTBDBModel.Database.ExecuteSqlCommand("Insert into bookflight(booking_id,flight_id,username,email,dob,seat_num,num_of_adults) Values(" + bookflight.booking_id + "," + bookflight.flight_id + ",'" + bookflight.username + "','" + bookflight.email + "','" + bookflight.dob + "','" + bookflight.seat_num + "'," + bookflight.num_of_adults.ToString() + ");");
         }
     }

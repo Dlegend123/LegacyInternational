@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web;
 using System.Web.Services;
@@ -31,9 +33,11 @@ namespace LegacyInternational
         [WebMethod]
         public void CreateBooking(bookcruise bookcruise)
         {
-            JTBDBModel JTBDBModel = new JTBDBModel();
-            JTBDBModel.bookcruises.Add(bookcruise);
-            JTBDBModel.SaveChangesAsync().Wait();
+            using (var db = new JTBDBModel())
+            {
+                db.Set<bookcruise>().AddOrUpdate(bookcruise);
+                db.SaveChanges();
+            }
         }
     }
 }
