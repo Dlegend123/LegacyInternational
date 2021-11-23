@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Web;
 using System.Web.UI;
 using Microsoft.AspNet.Identity;
@@ -11,6 +12,11 @@ namespace LegacyInternational.Account
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!Request.IsSecureConnection)
+            {
+                string url = ConfigurationManager.AppSettings["SecurePath"] + "Account/Login.aspx";
+                Response.Redirect(url);
+            }
             RegisterHyperLink.NavigateUrl = "Register";
             // Enable this once you have account confirmation enabled for password reset functionality
             //ForgotPasswordHyperLink.NavigateUrl = "Forgot";
@@ -39,7 +45,7 @@ namespace LegacyInternational.Account
                     case SignInStatus.Success:
                         {
                             Session["User"] = manager.FindByName(Email.Text);
-                            IdentityHelper.RedirectToReturnUrl(Request.QueryString["ReturnUrl"], Response);
+                            IdentityHelper.RedirectToReturnUrl(Request.QueryString["~/Default.aspx"], Response);
                         }
                         break;
                     case SignInStatus.LockedOut:
