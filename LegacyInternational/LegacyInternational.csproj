@@ -420,6 +420,7 @@
     <Compile Include="Account\TwoFactorAuthenticationSignIn.aspx.designer.cs">
       <DependentUpon>TwoFactorAuthenticationSignIn.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Models\JTBDBModel.cs" />
     <Compile Include="Models\admin.cs" />
     <Compile Include="Models\airlinelist.cs" />
     <Compile Include="AirlineService.asmx.cs">
@@ -505,7 +506,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\JTBDBModel.cs" />
     <Compile Include="Models\location.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Account\Profile.aspx.cs">

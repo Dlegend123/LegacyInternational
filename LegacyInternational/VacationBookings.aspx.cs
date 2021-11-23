@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -14,8 +15,10 @@ namespace LegacyInternational
     {
         JTBDBModel JTBDBModel;
         int count;
+
         protected void Page_Load(object sender, EventArgs e)
         {
+
             if (!Request.IsSecureConnection)
             {
                 string url = ConfigurationManager.AppSettings["SecurePath"] + "VacationBookings.aspx";
@@ -23,18 +26,18 @@ namespace LegacyInternational
             }
             JTBDBModel = new JTBDBModel();
         }
-        protected void DFSelect_Click(object sender, EventArgs e)
+        protected void DFSelect_Click(object sender, EventArgs e)//Event hander for buttons assigned to flight
         {
             Button button = sender as Button;
             TableRow tableRow = button.Parent.Parent as TableRow;
             AirlineService airlineService = new AirlineService();
             ApplicationUser user = Session["user"] as ApplicationUser;
             TableCell tableCell = tableRow.Cells[0];
-            airlineService.CreateBooking(Int32.Parse((tableCell.Controls[0] as LiteralControl).Text.Split(':')[1].Split('<')[0].Trim()), JTBDBModel.users.Where(x => x.email == user.UserName).First().username, JTBDBModel.users.Where(x => x.email == user.UserName).First().dob,count);
+            airlineService.CreateBooking(Int32.Parse(button.ID), JTBDBModel.users.Where(x => x.email == user.UserName).First().username, JTBDBModel.users.Where(x => x.email == user.UserName).First().dob,count);
             JTBDBModel = new JTBDBModel();
         }
 
-        protected void CRSelect_Click(object sender, EventArgs e)
+        protected void CRSelect_Click(object sender, EventArgs e)//event handler for buttons assigned to cruises
         {
             Button button = sender as Button;
             CruiseService cruiseService = new CruiseService();
@@ -46,8 +49,9 @@ namespace LegacyInternational
                 check_in_date = SDate.Text,
                 check_out_date = EDate.Text
             };
-            bookcruise.cruiseroom.room_num = Int32.Parse((tableCell.Controls[0] as LiteralControl).Text.Split(':')[1].Trim());
-            bookcruise.cruiseroom.type = (tableCell.Controls[1] as LiteralControl).Text.Split(':')[1].Trim();
+            bookcruise.cruiseroom.room_num = Int32.Parse(button.ID.Split(':')[0].Trim());
+            bookcruise.cruiseroom.type = button.ID.Split(':')[1];
+            
             cruiseService.CreateBooking(bookcruise);
             JTBDBModel = new JTBDBModel();
         }
@@ -245,6 +249,7 @@ namespace LegacyInternational
                 flightlist p = x as flightlist;
                 TableCell tableCell = new TableCell();
                 tableCell.Controls.Add(new LiteralControl("Flight ID: " + p.flight_id));
+                button.ID = p.flight_id.ToString();
                 TableCell tableCell1 = new TableCell();
                 tableCell1.Controls.Add(new LiteralControl("Departure Airport ID: " + p.departure_airport_id));
                 TableCell tableCell2 = new TableCell();
@@ -278,6 +283,7 @@ namespace LegacyInternational
                     flightlist p = x as flightlist;
                     TableCell tableCell = new TableCell();
                     tableCell.Controls.Add(new LiteralControl("Flight ID: " + p.flight_id));
+                    button.ID = p.flight_id.ToString();
                     TableCell tableCell1 = new TableCell();
                     tableCell1.Controls.Add(new LiteralControl("Arrival Airport ID: " + p.arrival_airport_id));
                     TableCell tableCell2 = new TableCell();
@@ -328,10 +334,12 @@ namespace LegacyInternational
                             CssClass = "btn btn-outline-primary"
                         };
                         button1.Click += new EventHandler( CRSelect_Click);
+                        button1.ID = i.room_num.ToString();
                         TableRow tableRow1 = new TableRow();
                         TableCell tableCell6 = new TableCell();
                         tableCell6.Controls.Add(new LiteralControl("Room #: " + i.room_num + "<br />"));
                         tableCell6.Controls.Add(new LiteralControl("Room Type: " + i.type + "<br />"));
+                        button1.ID += ":"+i.type;
                         tableCell6.Controls.Add(new LiteralControl("Number Of Adults: " + i.num_of_adults + "<br />"));
                         tableCell6.Controls.Add(button1);
                         tableRow1.Cells.Add(tableCell6);
