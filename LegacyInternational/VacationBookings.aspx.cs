@@ -30,7 +30,16 @@ namespace LegacyInternational
             AirlineService airlineService = new AirlineService();
             ApplicationUser user = Session["user"] as ApplicationUser;
             TableCell tableCell = tableRow.Cells[0];
-            var Result = airlineService.CreateBooking(Int32.Parse((tableCell.Controls[0] as LiteralControl).Text.Split(':')[1].Split('<')[0].Trim()), JTBDBModel.users.Where(x => x.email == user.UserName).First().username, JTBDBModel.users.Where(x => x.email == user.UserName).First().dob,count);
+            var bookflight=airlineService.CreateBooking(Int32.Parse((tableCell.Controls[0] as LiteralControl).Text.Split(':')[1].Split('<')[0].Trim()), JTBDBModel.users.Where(x => x.email == user.UserName).First().username, JTBDBModel.users.Where(x => x.email == user.UserName).First().dob,count);
+            SqlConnection conn = new SqlConnection
+            {
+                ConnectionString = ConfigurationManager.ConnectionStrings["JTBDBConnectionString"].ConnectionString
+            };
+            SqlCommand sqlCommand = new SqlCommand("Insert into bookflight(booking_id,flight_id,username,email,dob,seat_num,num_of_adults) Values(" + bookflight.booking_id + "," + bookflight.flight_id + ",'" + bookflight.username + "','" + bookflight.email + "','" + bookflight.dob + "','" + bookflight.seat_num + "'," + bookflight.num_of_adults + ")", conn);
+            conn.Open();
+            sqlCommand.ExecuteNonQuery();
+            conn.Close();
+            Response.Redirect("~/Account/Profile.aspx", false);
         }
 
         protected void CRSelect_Click(object sender, EventArgs e)
@@ -47,7 +56,10 @@ namespace LegacyInternational
             };
             bookcruise.cruiseroom.room_num = Int32.Parse((tableCell.Controls[0] as LiteralControl).Text.Split(':')[1].Trim());
             bookcruise.cruiseroom.type = (tableCell.Controls[1] as LiteralControl).Text.Split(':')[1].Trim();
-            cruiseService.CreateBooking(bookcruise);
+            //JTBDBModel= cruiseService.CreateBooking(bookcruise);
+            JTBDBModel.bookcruises.Add(bookcruise);
+            JTBDBModel.SaveChangesAsync().Wait();
+            Response.Redirect("~/Account/Profile.aspx", false);
         }
         protected void SearchSubmit_Click(object sender, EventArgs e)
         {

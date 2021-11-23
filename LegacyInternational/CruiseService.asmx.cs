@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Services;
 using LegacyInternational.Models;
@@ -29,12 +30,11 @@ namespace LegacyInternational
             return RoomTypes;
         }
         [WebMethod]
-        public bool CreateBooking(bookcruise bookcruise)
+        public JTBDBModel CreateBooking(bookcruise bookcruise)
         {
             JTBDBModel JTBDBModel = new JTBDBModel();
             JTBDBModel.bookcruises.Add(bookcruise);
-            JTBDBModel.SaveChangesAsync();
-            return true;
+            return JTBDBModel;
         }
     }
 }
