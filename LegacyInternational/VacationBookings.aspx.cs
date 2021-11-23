@@ -13,6 +13,7 @@ namespace LegacyInternational
     public partial class VacationBookings : System.Web.UI.Page
     {
         JTBDBModel JTBDBModel;
+        int count;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Request.IsSecureConnection)
@@ -29,7 +30,7 @@ namespace LegacyInternational
             AirlineService airlineService = new AirlineService();
             ApplicationUser user = Session["user"] as ApplicationUser;
             TableCell tableCell = tableRow.Cells[0];
-            var Result = airlineService.CreateBooking(Int32.Parse((tableCell.Controls[0] as LiteralControl).Text.Split(':')[1].Split('<')[0].Trim()), JTBDBModel.users.Where(x => x.email == user.UserName).First().username, JTBDBModel.users.Where(x => x.email == user.UserName).First().dob);
+            var Result = airlineService.CreateBooking(Int32.Parse((tableCell.Controls[0] as LiteralControl).Text.Split(':')[1].Split('<')[0].Trim()), JTBDBModel.users.Where(x => x.email == user.UserName).First().username, JTBDBModel.users.Where(x => x.email == user.UserName).First().dob,count);
         }
 
         protected void CRSelect_Click(object sender, EventArgs e)
@@ -108,7 +109,7 @@ namespace LegacyInternational
             }
             else
                 portlists = JTBDBModel.portlists.Where(x => x.location.country == Country.Text && x.location.city == City.Text).ToList();
-            int count = string.IsNullOrEmpty(NAdults.Text) ? 0 : Int32.Parse(NAdults.Text);
+            count = string.IsNullOrEmpty(NAdults.Text) ? 0 : Int32.Parse(NAdults.Text);
             if (string.IsNullOrEmpty(SDate.Text) || string.IsNullOrEmpty(EDate.Text))
             {
                 if (string.IsNullOrEmpty(SDate.Text) && string.IsNullOrEmpty(EDate.Text))

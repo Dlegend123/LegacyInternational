@@ -28,13 +28,18 @@ namespace LegacyInternational
             
         }
         [WebMethod]
-        public bool CreateBooking(int Flight_id, string Name, string DOB)
+        public bool CreateBooking(int Flight_id, string Name, string DOB,int num)
         {
             JTBDBModel JTBDBModel = new JTBDBModel();
             bookflight bookflight = new bookflight();
             bookflight.username = Name;
             bookflight.dob = DOB;
             bookflight.flight_id = Flight_id;
+            bookflight.booking_id=JTBDBModel.bookflights.Count();
+            int sum = 0;
+            bookflight.num_of_adults = num;
+            JTBDBModel.bookflights.AsEnumerable().ToList().ForEach(x => sum += Int32.Parse(x.num_of_adults.ToString()));
+            bookflight.seat_num = sum.ToString();
             JTBDBModel.bookflights.Add(bookflight);
             JTBDBModel.SaveChangesAsync();
             return true;
