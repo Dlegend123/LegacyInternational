@@ -41,7 +41,7 @@
                     <asp:TableRow>
             <asp:TableCell>
                             <div class="checkbox">
-                                <asp:CheckBox runat="server" ID="RememberMe" />
+                                <asp:CheckBox runat="server" ID="RememberMe" />&nbsp;
                                 <asp:Label runat="server" AssociatedControlID="RememberMe">Remember me?</asp:Label>
                             </div>
                         </asp:TableCell>
@@ -61,11 +61,6 @@
                     <asp:HyperLink runat="server" ID="ForgotPasswordHyperLink" ViewStateMode="Disabled">Forgot your password?</asp:HyperLink>
                     --%>
                 </p>
-            </asp:TableCell>
-         </asp:TableRow>
-        <asp:TableRow>
-            <asp:TableCell>
-                <uc:OpenAuthProviders runat="server" ID="OpenAuthLogin" />
             </asp:TableCell>
          </asp:TableRow>
             </asp:Table>
