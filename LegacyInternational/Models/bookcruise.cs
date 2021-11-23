@@ -26,5 +26,7 @@ namespace LegacyInternational.Models
         public int room_num { get; set; }
 
         public int num_of_adults { get; set; }
+
+        public virtual cruiseroom cruiseroom { get; set; }
     }
 }

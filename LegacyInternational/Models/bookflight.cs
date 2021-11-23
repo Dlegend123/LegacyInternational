@@ -12,6 +12,7 @@ namespace LegacyInternational.Models
         [Key]
         public int booking_id { get; set; }
 
+        [Required]
         public int flight_id { get; set; }
 
         [Required]

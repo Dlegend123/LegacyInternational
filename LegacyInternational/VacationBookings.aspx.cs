@@ -49,7 +49,7 @@ namespace LegacyInternational
                 check_in_date = SDate.Text,
                 check_out_date = EDate.Text,
                 cruise_id = Int32.Parse(button.ID.Split(':')[1].Trim()),
-                booking_id = JTBDBModel.bookcruises.Count()+1
+                booking_id = JTBDBModel.bookcruises.AsEnumerable().Count() + 1
             };
             bookcruise.room_num = Int32.Parse(button.ID.Split(':')[0].Trim());
             cruiseService.CreateBooking(bookcruise);

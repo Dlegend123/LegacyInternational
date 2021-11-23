@@ -13,7 +13,6 @@ namespace LegacyInternational.Models
         }
 
         public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
-        public virtual DbSet<admin> admins { get; set; }
         public virtual DbSet<airlinelist> airlinelists { get; set; }
         public virtual DbSet<airportlist> airportlists { get; set; }
         public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
@@ -32,10 +31,6 @@ namespace LegacyInternational.Models
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<admin>()
-                .Property(e => e.username)
-                .IsFixedLength();
-
             modelBuilder.Entity<airlinelist>()
                 .HasMany(e => e.flightlists)
                 .WithRequired(e => e.airlinelist)
