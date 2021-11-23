@@ -35,18 +35,18 @@ namespace LegacyInternational.Account
                 Response.Redirect("SetUpProfile.aspx", false);
             else
             {
-                UsernameCell.Controls.Add(new LiteralControl(user.Email));
+                UsernameCell.Controls.Add(new LiteralControl(user.UserName));
                 FNameCell.Controls.Add(new LiteralControl(jTBDBModel.users.Where(x => x.email == user.UserName).First().first_name));
                 LNameCell.Controls.Add(new LiteralControl(jTBDBModel.users.Where(x => x.email == user.UserName).First().last_name));
                 CNumber.Controls.Add(new LiteralControl(jTBDBModel.users.Where(x => x.email == user.UserName).First().contact_num));
                 DOBCell.Controls.Add(new LiteralControl(jTBDBModel.users.Where(x => x.email == user.UserName).First().dob));
-
+                EmailCell.Controls.Add(new LiteralControl(jTBDBModel.users.Where(x => x.email == user.UserName).First().email));
                 if (jTBDBModel.users.Where(x => x.email == user.UserName).First().ProfilePic!=null)
                 {
                     Image image = new Image
                     {
                         CssClass = "img-fluid",
-                        ImageUrl = "data:image/jpeg;base64," + Convert.ToBase64String(jTBDBModel.users.Where(x => x.email == user.Email).First().ProfilePic)
+                        ImageUrl = "data:image/jpeg;base64," + Convert.ToBase64String(jTBDBModel.users.Where(x => x.email == user.UserName).First().ProfilePic)
                     };
                     image.Style.Add("max-height", "25vh");
                     image.Style.Add("max-width", "25vw");
@@ -67,12 +67,12 @@ namespace LegacyInternational.Account
         }
         List<bookcruise> CruiseCollect()
         {
-            var result = jTBDBModel.bookcruises.AsEnumerable().Where(x => x.username == jTBDBModel.users.AsEnumerable().Where(l => l.email == user.Email).First().username).ToList();
+            var result = jTBDBModel.bookcruises.AsEnumerable().Where(x => x.username == jTBDBModel.users.AsEnumerable().Where(l => l.email == user.UserName).First().username).ToList();
             return result;
         }
         List<bookflight> FlightCollect()
         {
-            var result = jTBDBModel.bookflights.AsEnumerable().Where(x => x.username == jTBDBModel.users.AsEnumerable().Where(l => l.email == user.Email).First().username).ToList();
+            var result = jTBDBModel.bookflights.AsEnumerable().Where(x => x.username == jTBDBModel.users.AsEnumerable().Where(l => l.email == user.UserName).First().username).ToList();
             return result;
         }
         void QuickFunction(object x, int k, Table AddTo)
