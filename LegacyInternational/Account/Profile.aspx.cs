@@ -26,7 +26,7 @@ namespace LegacyInternational.Account
                 CNumber.Controls.Add(new LiteralControl(jTBDBModel.users.Where(x => x.email == user.Email).First().contact_num));
                 DOBCell.Controls.Add(new LiteralControl(jTBDBModel.users.Where(x => x.email == user.Email).First().dob));
 
-                if (jTBDBModel.users.Where(x => x.email == user.Email).First().ProfilePic==null)
+                if (jTBDBModel.users.Where(x => x.email == user.Email).First().ProfilePic!=null)
                 {
                     Image image = new Image
                     {
