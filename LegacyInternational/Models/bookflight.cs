@@ -10,7 +10,6 @@ namespace LegacyInternational.Models
     public partial class bookflight
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int booking_id { get; set; }
 
         public int flight_id { get; set; }
