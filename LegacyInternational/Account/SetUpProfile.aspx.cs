@@ -1,6 +1,7 @@
 ﻿using LegacyInternational.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -12,7 +13,11 @@ namespace LegacyInternational.Account
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            if (!Request.IsSecureConnection)
+            {
+                string url = ConfigurationManager.AppSettings["SecurePath"] + "Account/SetUpProfile.aspx";
+                Response.Redirect(url);
+            }
         }
 
         protected void Submit_Click(object sender, EventArgs e)

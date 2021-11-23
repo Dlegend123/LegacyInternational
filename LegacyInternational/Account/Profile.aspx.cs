@@ -1,6 +1,7 @@
 ﻿using LegacyInternational.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -16,6 +17,11 @@ namespace LegacyInternational.Account
         {
             jTBDBModel = new JTBDBModel();
             user = Session["user"] as ApplicationUser;
+            if (!Request.IsSecureConnection)
+            {
+                string url = ConfigurationManager.AppSettings["SecurePath"] + "Account/Profile.aspx";
+                Response.Redirect(url);
+            }
             if (jTBDBModel.users.Where(x => x.email == user.Email).Count() == 0)
                 Response.Redirect("SetUpProfile.aspx", false);
             else
