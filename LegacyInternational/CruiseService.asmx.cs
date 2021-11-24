@@ -41,7 +41,7 @@ namespace LegacyInternational
             {
                 JTBDBModel.bookcruises.Add(bookcruise);
                 
-                Console.WriteLine(JTBDBModel.SaveChanges());
+                JTBDBModel.SaveChanges();
             }
             /* using (SqlConnection conn = new SqlConnection
              {

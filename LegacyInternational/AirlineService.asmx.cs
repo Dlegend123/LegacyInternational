@@ -26,7 +26,7 @@ namespace LegacyInternational
     {
 
         [WebMethod]
-        public List<flightlist> Flights(string Country, string City, string Date)
+        public List<flightlist> Flights(string Country, string City, string Date)//Returns flights that match the criteria
         {
             JTBDBModel JTBDBModel = new JTBDBModel();
             List<airportlist> Airports = JTBDBModel.airportlists.Where(x => x.location.city == City && x.location.country == Country).ToList();
@@ -35,7 +35,7 @@ namespace LegacyInternational
             
         }
         [WebMethod]
-        public void CreateBooking(int Flight_id, string Name, string DOB, int num)
+        public void CreateBooking(int Flight_id, string Name, string DOB, int num)//Creates a flight booking
         {
             JTBDBModel JTBDBModel = new JTBDBModel();
             bookflight bookflight = new bookflight
@@ -44,11 +44,11 @@ namespace LegacyInternational
                 dob = DOB,
                 flight_id = Flight_id,
                 num_of_adults = num,
-                seat_num = JTBDBModel.bookflights.AsEnumerable().ToList().Last().seat_num + "6",
+                seat_num = JTBDBModel.bookflights.AsEnumerable().Count().ToString() + "0",
                 booking_id = JTBDBModel.bookflights.AsEnumerable().Count() + 1
             };
             
-            JTBDBModel.bookflights.Add(bookflight);
+            JTBDBModel.bookflights.Add(bookflight);//adds flight booking to database
             JTBDBModel.SaveChanges();
             /*using (SqlConnection conn = new SqlConnection
             {

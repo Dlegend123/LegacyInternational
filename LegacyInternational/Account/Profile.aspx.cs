@@ -58,17 +58,19 @@ namespace LegacyInternational.Account
                 }
                 //Display user's booking details
                 CruiseCollect().ForEach(l => QuickFunction(l, 1, CBookings));
-                FlightCollect().ForEach(l => QuickFunction(l, 0, CBookings));
+                FlightCollect().ForEach(l => QuickFunction(l, 0, PBookings));
             }
         }
         List<bookcruise> CruiseCollect()//Get all cruise bookings for the user
         {
-            var result = jTBDBModel.bookcruises.AsEnumerable().Where(x => x.username == jTBDBModel.users.AsEnumerable().Where(l => l.email == user.UserName).First().username).ToList();
+            //var result = jTBDBModel.bookcruises.AsEnumerable().Where(x => x.username == jTBDBModel.users.AsEnumerable().Where(l => l.email == user.UserName).First().username).ToList();
+            var result = jTBDBModel.bookcruises.AsEnumerable().ToList();
             return result;
         }
         List<bookflight> FlightCollect()//Get all flight bookings for the user 
         {
-            var result = jTBDBModel.bookflights.AsEnumerable().Where(x => x.username == jTBDBModel.users.AsEnumerable().Where(l => l.email == user.UserName).First().username).ToList();
+            var result = jTBDBModel.bookflights.AsEnumerable().ToList();
+            //var result = jTBDBModel.bookflights.AsEnumerable().Where(x => x.username == jTBDBModel.users.AsEnumerable().Where(l => l.email == user.UserName).First().username).ToList();
             return result;
         }
         void QuickFunction(object x, int k, Table AddTo)
@@ -77,25 +79,25 @@ namespace LegacyInternational.Account
             {
                 TableRow tableRow = new TableRow
                 {
-                    HorizontalAlign = HorizontalAlign.Justify,
+                    HorizontalAlign = HorizontalAlign.Left,
                     BorderStyle = BorderStyle.Solid,
                     BorderWidth = Unit.Pixel(3)
                 };
                 TableRow tableRow1 = new TableRow
                 {
-                    HorizontalAlign = HorizontalAlign.Justify,
+                    HorizontalAlign = HorizontalAlign.Left,
                     BorderStyle = BorderStyle.Solid,
                     BorderWidth = Unit.Pixel(3)
                 };
                 TableRow tableRow2 = new TableRow
                 {
-                    HorizontalAlign = HorizontalAlign.Justify,
+                    HorizontalAlign = HorizontalAlign.Left,
                     BorderStyle = BorderStyle.Solid,
                     BorderWidth = Unit.Pixel(3)
                 };
                 TableRow tableRow3 = new TableRow
                 {
-                    HorizontalAlign = HorizontalAlign.Justify,
+                    HorizontalAlign = HorizontalAlign.Left,
                     BorderStyle = BorderStyle.Solid,
                     BorderWidth = Unit.Pixel(3)
                 };
@@ -127,37 +129,37 @@ namespace LegacyInternational.Account
                 {
                     TableRow tableRow = new TableRow
                     {
-                        HorizontalAlign = HorizontalAlign.Justify,
+                        HorizontalAlign = HorizontalAlign.Left,
                         BorderStyle = BorderStyle.Solid,
                         BorderWidth = Unit.Pixel(3)
                     };
                     TableRow tableRow1 = new TableRow
                     {
-                        HorizontalAlign = HorizontalAlign.Justify,
+                        HorizontalAlign = HorizontalAlign.Left,
                         BorderStyle = BorderStyle.Solid,
                         BorderWidth = Unit.Pixel(3)
                     };
                     TableRow tableRow2 = new TableRow
                     {
-                        HorizontalAlign = HorizontalAlign.Justify,
+                        HorizontalAlign = HorizontalAlign.Left,
                         BorderStyle = BorderStyle.Solid,
                         BorderWidth = Unit.Pixel(3)
                     };
                     TableRow tableRow3 = new TableRow
                     {
-                        HorizontalAlign = HorizontalAlign.Justify,
+                        HorizontalAlign = HorizontalAlign.Left,
                         BorderStyle = BorderStyle.Solid,
                         BorderWidth = Unit.Pixel(3)
                     };
                     TableRow tableRow4 = new TableRow
                     {
-                        HorizontalAlign = HorizontalAlign.Justify,
+                        HorizontalAlign = HorizontalAlign.Left,
                         BorderStyle = BorderStyle.Solid,
                         BorderWidth = Unit.Pixel(3)
                     };
                     TableRow tableRow5 = new TableRow
                     {
-                        HorizontalAlign = HorizontalAlign.Justify,
+                        HorizontalAlign = HorizontalAlign.Left,
                         BorderStyle = BorderStyle.Solid,
                         BorderWidth = Unit.Pixel(3)
                     };

@@ -28,6 +28,10 @@ namespace LegacyInternational.Models
 
         public int? num_of_adults { get; set; }
 
+        public virtual cruiselist cruiselist { get; set; }
+
         public virtual cruiseroom cruiseroom { get; set; }
+
+        public virtual user user { get; set; }
     }
 }

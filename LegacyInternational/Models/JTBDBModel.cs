@@ -13,6 +13,7 @@ namespace LegacyInternational.Models
         }
 
         public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
+        public virtual DbSet<admin> admins { get; set; }
         public virtual DbSet<airlinelist> airlinelists { get; set; }
         public virtual DbSet<airportlist> airportlists { get; set; }
         public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
@@ -31,6 +32,10 @@ namespace LegacyInternational.Models
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<admin>()
+                .Property(e => e.username)
+                .IsFixedLength();
+
             modelBuilder.Entity<airlinelist>()
                 .HasMany(e => e.flightlists)
                 .WithRequired(e => e.airlinelist)
@@ -59,6 +64,11 @@ namespace LegacyInternational.Models
                 .Property(e => e.cruise_length)
                 .IsFixedLength();
 
+            modelBuilder.Entity<flightlist>()
+                .HasMany(e => e.bookflights)
+                .WithRequired(e => e.flightlist)
+                .WillCascadeOnDelete(false);
+
             modelBuilder.Entity<location>()
                 .HasMany(e => e.airportlists)
                 .WithRequired(e => e.location)
@@ -72,6 +82,11 @@ namespace LegacyInternational.Models
             modelBuilder.Entity<user>()
                 .Property(e => e.contact_num)
                 .IsFixedLength();
+
+            modelBuilder.Entity<user>()
+                .HasMany(e => e.bookflights)
+                .WithRequired(e => e.user)
+                .WillCascadeOnDelete(false);
         }
     }
 }

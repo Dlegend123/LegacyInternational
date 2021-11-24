@@ -9,6 +9,13 @@ namespace LegacyInternational.Models
     [Table("user")]
     public partial class user
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public user()
+        {
+            bookcruises = new HashSet<bookcruise>();
+            bookflights = new HashSet<bookflight>();
+        }
+
         [Key]
         [StringLength(50)]
         public string username { get; set; }
@@ -31,5 +38,11 @@ namespace LegacyInternational.Models
         public string email { get; set; }
 
         public byte[] ProfilePic { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<bookcruise> bookcruises { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<bookflight> bookflights { get; set; }
     }
 }

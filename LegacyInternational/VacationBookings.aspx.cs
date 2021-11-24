@@ -18,13 +18,14 @@ namespace LegacyInternational
         ApplicationUser user;
         protected void Page_Load(object sender, EventArgs e)
         {
-            user = Session["user"] as ApplicationUser; ;
-            if (!Request.IsSecureConnection)
+            user = Session["user"] as ApplicationUser;
+            if (!Request.IsSecureConnection)//Forces securelink if the link isn't currently secure
             {
                 string url = ConfigurationManager.AppSettings["SecurePath"] + "VacationBookings.aspx";
                 Response.Redirect(url);
             }
             JTBDBModel = new JTBDBModel();
+            count = 0;
         }
         protected void DFSelect_Click(object sender, EventArgs e)//Event handler for buttons assigned to flight
         {
@@ -44,8 +45,8 @@ namespace LegacyInternational
             bookcruise bookcruise = new bookcruise
             {
                 username = JTBDBModel.users.Where(x => x.email == user.UserName).First().username,
-                check_in_date = SDate.Text,
-                check_out_date = EDate.Text,
+                check_in_date = string.IsNullOrEmpty(SDate.Text)?" ": SDate.Text,
+                check_out_date = string.IsNullOrEmpty(EDate.Text) ? " " : EDate.Text,
                 cruise_id = Int32.Parse(button.ID.Split(':')[1].Trim()),
                 booking_id = JTBDBModel.bookcruises.AsEnumerable().Count() + 1
             };

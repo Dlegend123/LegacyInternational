@@ -30,5 +30,9 @@ namespace LegacyInternational.Models
 
         [StringLength(50)]
         public string date { get; set; }
+
+        public virtual flightlist flightlist { get; set; }
+
+        public virtual user user { get; set; }
     }
 }

@@ -12,6 +12,7 @@ namespace LegacyInternational.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public cruiselist()
         {
+            bookcruises = new HashSet<bookcruise>();
             cruiserooms = new HashSet<cruiseroom>();
         }
 
@@ -32,6 +33,9 @@ namespace LegacyInternational.Models
 
         [StringLength(10)]
         public string cruise_length { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<bookcruise> bookcruises { get; set; }
 
         public virtual cruiseline cruiseline { get; set; }
 
