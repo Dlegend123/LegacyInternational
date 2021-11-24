@@ -6,7 +6,9 @@
     <asp:Table runat="server" CssClass = "table table-dark table-striped table-bordered container">
         <asp:TableHeaderRow>
             <asp:TableCell ColumnSpan="2">
-                
+                <asp:Label ID="ErrorMess" ForeColor="Red" runat="server" Visible="false">
+                    The date should be in the format 'mm/dd/yyyy'.
+                </asp:Label>
             </asp:TableCell>
         </asp:TableHeaderRow>
         <asp:TableRow>

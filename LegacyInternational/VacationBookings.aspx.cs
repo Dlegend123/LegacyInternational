@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -34,7 +35,7 @@ namespace LegacyInternational
             TableRow tableRow = button.Parent.Parent as TableRow;
             AirlineService airlineService = new AirlineService();
             TableCell tableCell = tableRow.Cells[0];
-            airlineService.CreateBooking(Int32.Parse(button.ID), JTBDBModel.users.Where(x => x.email == user.UserName).First().username, JTBDBModel.users.Where(x => x.email == user.UserName).First().dob,count);
+            airlineService.CreateBooking(Int32.Parse(button.ID), JTBDBModel.users.Where(x => x.email == user.UserName).First().username, JTBDBModel.users.Where(x => x.email == user.UserName).First().dob, count);
             JTBDBModel = new JTBDBModel();
         }
 
@@ -43,11 +44,11 @@ namespace LegacyInternational
             Button button = sender as Button;
             CruiseService cruiseService = new CruiseService();
             TableCell tableCell = button.Parent as TableCell;
-            var Cruise= CruiseList.Where(x => x.cruiserooms.Any(v => v.room_num == Int32.Parse(button.ID.Split(':')[0])) && x.cruise_id== Int32.Parse(button.ID.Split(':')[1])).First();
+            var Cruise = CruiseList.Where(x => x.cruiserooms.Any(v => v.room_num == Int32.Parse(button.ID.Split(':')[0])) && x.cruise_id == Int32.Parse(button.ID.Split(':')[1])).First();
             bookcruise bookcruise = new bookcruise
             {
                 username = JTBDBModel.users.Where(x => x.email == user.UserName).First().username,
-                check_in_date = string.IsNullOrEmpty(SDate.Text)?Cruise.start_datetime: SDate.Text,
+                check_in_date = string.IsNullOrEmpty(SDate.Text) ? Cruise.start_datetime : SDate.Text,
                 check_out_date = string.IsNullOrEmpty(EDate.Text) ? Cruise.end_datetime : EDate.Text,
                 cruise_id = Int32.Parse(button.ID.Split(':')[1]),
                 booking_id = JTBDBModel.bookcruises.AsEnumerable().Count() + 1,
@@ -56,45 +57,64 @@ namespace LegacyInternational
             cruiseService.CreateBooking(bookcruise);
             JTBDBModel = new JTBDBModel();
         }
+        bool ValidDate(string Date)
+        {
+            DateTime scheduleDate;
+            bool validDate = DateTime.TryParseExact(
+                Date,
+                "MM/dd/yyyy",
+                DateTimeFormatInfo.InvariantInfo,
+                DateTimeStyles.None,
+                out scheduleDate);
+            return validDate;
+        }
         protected void SearchSubmit_Click(object sender, EventArgs e)//Search based on user input
         {
-            //Departure Flights
-            DepartureFlights.Rows.Clear();
-            DataCollect(1).ForEach(p => QuickFunction(p, 0, DepartureFlights));
-            //Return Flights
-            ReturnFlights.Rows.Clear();
-            DataCollect(2).ForEach(p => QuickFunction(p, 1, ReturnFlights));
-            //Cruises and Room types
-            Cruises.Rows.Clear();
-            DataCollect().ForEach(p => QuickFunction(p, 2, Cruises));
-
-
-            if (Cruises.Rows.Count == 0 || ReturnFlights.Rows.Count == 0 || DepartureFlights.Rows.Count == 0)
+            if ((!string.IsNullOrEmpty(SDate.Text) || !string.IsNullOrEmpty(EDate.Text)) && (!ValidDate(SDate.Text) && !ValidDate(EDate.Text)))
             {
-                if (Cruises.Rows.Count == 0)
-                {
-                    TableCell tableCell = new TableCell();
-                    TableRow tableRow = new TableRow();
-                    tableCell.Controls.Add(new LiteralControl("<br/>No Results Found<br/>"));
-                    tableRow.Cells.Add(tableCell);
-                    Cruises.Rows.Add(tableRow);
+                ErrorMess.Visible = true;
+            }
+            else
+            {
+                ErrorMess.Visible = false;
+                //Departure Flights
+                DepartureFlights.Rows.Clear();
+                DataCollect(1).ForEach(p => QuickFunction(p, 0, DepartureFlights));
+                //Return Flights
+                ReturnFlights.Rows.Clear();
+                DataCollect(2).ForEach(p => QuickFunction(p, 1, ReturnFlights));
+                //Cruises and Room types
+                Cruises.Rows.Clear();
+                DataCollect().ForEach(p => QuickFunction(p, 2, Cruises));
 
-                }
-                if (ReturnFlights.Rows.Count == 0)
+
+                if (Cruises.Rows.Count == 0 || ReturnFlights.Rows.Count == 0 || DepartureFlights.Rows.Count == 0)
                 {
-                    TableCell tableCell = new TableCell();
-                    TableRow tableRow = new TableRow();
-                    tableCell.Controls.Add(new LiteralControl("<br /> No Results Found <br />"));
-                    tableRow.Cells.Add(tableCell);
-                    ReturnFlights.Rows.Add(tableRow);
-                }
-                if (DepartureFlights.Rows.Count == 0)
-                {
-                    TableCell tableCell = new TableCell();
-                    TableRow tableRow = new TableRow();
-                    tableCell.Controls.Add(new LiteralControl("<br /> No Results Found <br />"));
-                    tableRow.Cells.Add(tableCell);
-                    DepartureFlights.Rows.Add(tableRow);
+                    if (Cruises.Rows.Count == 0)
+                    {
+                        TableCell tableCell = new TableCell();
+                        TableRow tableRow = new TableRow();
+                        tableCell.Controls.Add(new LiteralControl("<br/>No Results Found<br/>"));
+                        tableRow.Cells.Add(tableCell);
+                        Cruises.Rows.Add(tableRow);
+
+                    }
+                    if (ReturnFlights.Rows.Count == 0)
+                    {
+                        TableCell tableCell = new TableCell();
+                        TableRow tableRow = new TableRow();
+                        tableCell.Controls.Add(new LiteralControl("<br /> No Results Found <br />"));
+                        tableRow.Cells.Add(tableCell);
+                        ReturnFlights.Rows.Add(tableRow);
+                    }
+                    if (DepartureFlights.Rows.Count == 0)
+                    {
+                        TableCell tableCell = new TableCell();
+                        TableRow tableRow = new TableRow();
+                        tableCell.Controls.Add(new LiteralControl("<br /> No Results Found <br />"));
+                        tableRow.Cells.Add(tableCell);
+                        DepartureFlights.Rows.Add(tableRow);
+                    }
                 }
             }
         }
@@ -124,7 +144,7 @@ namespace LegacyInternational
                 else
                 {
                     if (string.IsNullOrEmpty(SDate.Text))
-                        CruiseList = JTBDBModel.cruiselists.AsEnumerable().Where(x => x.cruiserooms.Any(b => b.num_of_adults >= count) && portlists.Any(l => l.port_id == x.departure_port_id && DateTime.ParseExact( x.end_datetime, "d", System.Globalization.CultureInfo.InvariantCulture)>= DateTime.ParseExact(EDate.Text, "d", System.Globalization.CultureInfo.InvariantCulture)))
+                        CruiseList = JTBDBModel.cruiselists.AsEnumerable().Where(x => x.cruiserooms.Any(b => b.num_of_adults >= count) && portlists.Any(l => l.port_id == x.departure_port_id && DateTime.ParseExact(x.end_datetime, "d", System.Globalization.CultureInfo.InvariantCulture) >= DateTime.ParseExact(EDate.Text, "d", System.Globalization.CultureInfo.InvariantCulture)))
                     .ToList();
                     else
                         CruiseList = JTBDBModel.cruiselists.AsEnumerable().Where(x => x.cruiserooms.Any(b => b.num_of_adults >= count) && portlists.Any(l => l.port_id == x.departure_port_id && DateTime.ParseExact(x.start_datetime, "d", System.Globalization.CultureInfo.InvariantCulture) >= DateTime.ParseExact(SDate.Text, "d", System.Globalization.CultureInfo.InvariantCulture)))
@@ -235,7 +255,7 @@ namespace LegacyInternational
             {
                 Text = "Select",
                 CssClass = "btn btn-outline-primary",
-                
+
             };
             TableRow tableRow = new TableRow
             {
@@ -270,7 +290,7 @@ namespace LegacyInternational
                 tableRow.Cells.Add(tableCell3);
                 tableRow.Cells.Add(tableCell4);
                 tableRow.Cells.Add(tableCell6);
-                button.Click += new EventHandler( DFSelect_Click);
+                button.Click += new EventHandler(DFSelect_Click);
                 TableCell tableCell5 = new TableCell();
                 tableCell5.Controls.Add(button);
                 tableRow.Cells.Add(tableCell5);
@@ -304,7 +324,7 @@ namespace LegacyInternational
                     tableRow.Cells.Add(tableCell3);
                     tableRow.Cells.Add(tableCell4);
                     tableRow.Cells.Add(tableCell6);
-                    button.Click += new EventHandler( DFSelect_Click);
+                    button.Click += new EventHandler(DFSelect_Click);
                     TableCell tableCell5 = new TableCell();
                     tableCell5.Controls.Add(button);
                     tableRow.Cells.Add(tableCell5);
@@ -333,13 +353,13 @@ namespace LegacyInternational
                             Text = "Select",
                             CssClass = "btn btn-outline-primary"
                         };
-                        button1.Click += new EventHandler( CRSelect_Click);
+                        button1.Click += new EventHandler(CRSelect_Click);
                         button1.ID = i.room_num.ToString();
                         TableRow tableRow1 = new TableRow();
                         TableCell tableCell6 = new TableCell();
                         tableCell6.Controls.Add(new LiteralControl("Room #: " + i.room_num + "<br />"));
                         tableCell6.Controls.Add(new LiteralControl("Room Type: " + i.type + "<br />"));
-                        button1.ID += ":"+ p.cruise_id.ToString();
+                        button1.ID += ":" + p.cruise_id.ToString();
                         tableCell6.Controls.Add(new LiteralControl("Number Of Adults: " + i.num_of_adults + "<br />"));
                         tableCell6.Controls.Add(button1);
                         tableRow1.Cells.Add(tableCell6);
