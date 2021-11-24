@@ -15,7 +15,7 @@ namespace LegacyInternational.Account
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!Request.IsSecureConnection)
+            if (!Request.IsSecureConnection)//Forces securelink if the link isn't currently secure
             {
                 string url = ConfigurationManager.AppSettings["SecurePath"] + "Account/Register.aspx";
                 Response.Redirect(url);

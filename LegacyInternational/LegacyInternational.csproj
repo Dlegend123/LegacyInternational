@@ -351,10 +351,8 @@
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
     <Content Include="Site.Master" />
     <Content Include="VacationBookings.aspx" />
-    <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
-    <Content Include="Site.Mobile.Master" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Account\Forgot.aspx.cs">
@@ -516,38 +514,14 @@
     <Compile Include="Models\location.cs" />
     <Compile Include="Models\portlist.cs" />
     <Compile Include="Models\user.cs" />
+    <Compile Include="MyWebFormsFriendlyUrlResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Scripts\admin.cs" />
-    <Compile Include="Scripts\airlinelist.cs" />
-    <Compile Include="Scripts\airportlist.cs" />
-    <Compile Include="Scripts\AspNetRole.cs" />
-    <Compile Include="Scripts\AspNetUser.cs" />
-    <Compile Include="Scripts\AspNetUserClaim.cs" />
-    <Compile Include="Scripts\AspNetUserLogin.cs" />
-    <Compile Include="Scripts\bookcruise.cs" />
-    <Compile Include="Scripts\bookflight.cs" />
-    <Compile Include="Scripts\cruiseline.cs" />
-    <Compile Include="Scripts\cruiselist.cs" />
-    <Compile Include="Scripts\cruiseroom.cs" />
-    <Compile Include="Scripts\C__MigrationHistory.cs" />
-    <Compile Include="Scripts\flightlist.cs" />
-    <Compile Include="Scripts\JTBDBModel.cs" />
-    <Compile Include="Scripts\location.cs" />
-    <Compile Include="Scripts\portlist.cs" />
-    <Compile Include="Scripts\user.cs" />
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Site.Master.designer.cs">
       <DependentUpon>Site.Master</DependentUpon>
-    </Compile>
-    <Compile Include="Site.Mobile.Master.cs">
-      <DependentUpon>Site.Mobile.Master</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Site.Mobile.Master.designer.cs">
-      <DependentUpon>Site.Mobile.Master</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="VacationBookings.aspx.cs">
@@ -556,13 +530,6 @@
     </Compile>
     <Compile Include="VacationBookings.aspx.designer.cs">
       <DependentUpon>VacationBookings.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ViewSwitcher.ascx.cs">
-      <DependentUpon>ViewSwitcher.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ViewSwitcher.ascx.designer.cs">
-      <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

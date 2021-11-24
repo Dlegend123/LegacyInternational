@@ -26,7 +26,7 @@ namespace LegacyInternational
             }
             JTBDBModel = new JTBDBModel();
         }
-        protected void DFSelect_Click(object sender, EventArgs e)//Event hander for buttons assigned to flight
+        protected void DFSelect_Click(object sender, EventArgs e)//Event handler for buttons assigned to flight
         {
             Button button = sender as Button;
             TableRow tableRow = button.Parent.Parent as TableRow;

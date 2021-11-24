@@ -35,12 +35,13 @@ namespace LegacyInternational
             return RoomTypes;
         }
         [WebMethod]
-        public void CreateBooking(bookcruise bookcruise)
+        public void CreateBooking(bookcruise bookcruise)//Adds a cruise booking to the database
         {
             using (var JTBDBModel = new JTBDBModel())
             {
                 JTBDBModel.bookcruises.Add(bookcruise);
-                JTBDBModel.SaveChanges();
+                
+                Console.WriteLine(JTBDBModel.SaveChanges());
             }
             /* using (SqlConnection conn = new SqlConnection
              {

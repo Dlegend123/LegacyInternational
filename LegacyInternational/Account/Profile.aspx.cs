@@ -17,12 +17,12 @@ namespace LegacyInternational.Account
         {
             jTBDBModel = new JTBDBModel();
             user = Session["user"] as ApplicationUser;
-            if (!Request.IsSecureConnection)
+            if (!Request.IsSecureConnection)//Forces securelink if the link isn't currently secure 
             {
                 string url = ConfigurationManager.AppSettings["SecurePath"] + "Account/Profile.aspx";
                 Response.Redirect(url);
             }
-            if (Session["user"] != null)
+            if (Session["user"] != null)//Prevent guests from seeing the VacationBookings page 
             {
                 if ((Session["user"] as ApplicationUser).UserName == "Default")
                     Page.Master.FindControl("BookingsPage").Visible = false;
@@ -31,10 +31,10 @@ namespace LegacyInternational.Account
             {
                 Page.Master.FindControl("BookingsPage").Visible = false;
             }
-            if (jTBDBModel.users.Where(x => x.email == user.UserName).Count() == 0)
+            if (jTBDBModel.users.Where(x => x.email == user.UserName).Count() == 0)//Allow users to finish setting up their profile
                 Response.Redirect("SetUpProfile.aspx", false);
             else
-            {
+            {// Display all user's info
                 UsernameCell.Controls.Add(new LiteralControl(user.UserName));
                 FNameCell.Controls.Add(new LiteralControl(jTBDBModel.users.Where(x => x.email == user.UserName).First().first_name));
                 LNameCell.Controls.Add(new LiteralControl(jTBDBModel.users.Where(x => x.email == user.UserName).First().last_name));
@@ -56,20 +56,17 @@ namespace LegacyInternational.Account
                 {
                     ProfilePicCell.Controls.Add(new LiteralControl("<br /> No Image <br />"));
                 }
+                //Display user's booking details
                 CruiseCollect().ForEach(l => QuickFunction(l, 1, CBookings));
                 FlightCollect().ForEach(l => QuickFunction(l, 0, CBookings));
-              /*  CruiseCollect().Where(x => DateTime.ParseExact(x.check_out_date, "MM/dd/yyyy", System.Globalization.CultureInfo.InvariantCulture) >= DateTime.ParseExact(DateTime.Now.ToString("MM/dd/yyyy"), "MM/dd/yyyy", System.Globalization.CultureInfo.InvariantCulture))
-                    .ToList().ForEach(l=>QuickFunction(l,0,CBookings));
-                CruiseCollect().Where(x => DateTime.ParseExact(x.check_out_date, "MM/dd/yyyy", System.Globalization.CultureInfo.InvariantCulture) < DateTime.ParseExact(DateTime.Now.ToString("MM/dd/yyyy"), "MM/dd/yyyy", System.Globalization.CultureInfo.InvariantCulture))
-                    .ToList().ForEach(l => QuickFunction(l, 0, PBookings));*/
             }
         }
-        List<bookcruise> CruiseCollect()
+        List<bookcruise> CruiseCollect()//Get all cruise bookings for the user
         {
             var result = jTBDBModel.bookcruises.AsEnumerable().Where(x => x.username == jTBDBModel.users.AsEnumerable().Where(l => l.email == user.UserName).First().username).ToList();
             return result;
         }
-        List<bookflight> FlightCollect()
+        List<bookflight> FlightCollect()//Get all flight bookings for the user 
         {
             var result = jTBDBModel.bookflights.AsEnumerable().Where(x => x.username == jTBDBModel.users.AsEnumerable().Where(l => l.email == user.UserName).First().username).ToList();
             return result;
@@ -177,7 +174,6 @@ namespace LegacyInternational.Account
                     tableCell4.Controls.Add(new LiteralControl("Room #: " + p.room_num));
                     TableCell tableCell5 = new TableCell();
                     tableCell5.Controls.Add(new LiteralControl("Room Type: " + jTBDBModel.cruiserooms.Where(b=>b.room_num==p.room_num).First().type));
-
                     tableCell.VerticalAlign = tableCell2.VerticalAlign = tableCell1.VerticalAlign = tableCell3.VerticalAlign = tableCell4.VerticalAlign = VerticalAlign.Middle;
                     tableCell.HorizontalAlign = tableCell2.HorizontalAlign = tableCell1.HorizontalAlign = tableCell3.HorizontalAlign = tableCell4.HorizontalAlign = HorizontalAlign.Center;
                     tableCell.HorizontalAlign = HorizontalAlign.Center;
@@ -198,7 +194,7 @@ namespace LegacyInternational.Account
             }
         }
 
-        protected void ABooking_Click(object sender, EventArgs e)
+        protected void ABooking_Click(object sender, EventArgs e)//Redirects to the VacationBookings page
         {
             Response.Redirect("~/VacationBookings.aspx", false);
         }
