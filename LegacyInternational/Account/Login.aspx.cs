@@ -19,7 +19,7 @@ namespace LegacyInternational.Account
                 Response.Redirect(url);
             }
             RegisterHyperLink.NavigateUrl = "Register";
-            if (Session["user"] != null)
+            if (Session["user"] != null)//Prevents guests from seeing the VacationBookings page 
             {
                 if ((Session["user"] as ApplicationUser).UserName == "Default")
                     Page.Master.FindControl("BookingsPage").Visible = false;
@@ -45,8 +45,8 @@ namespace LegacyInternational.Account
                 {
                     case SignInStatus.Success:
                         {
-                            Session["user"] = manager.FindByName(Email.Text);
-                            IdentityHelper.RedirectToReturnUrl(Request.QueryString["~/Default.aspx"], Response);
+                            Session["user"] = manager.FindByName(Email.Text);//Assigns the current user's info to a session
+                            IdentityHelper.RedirectToReturnUrl(Request.QueryString["~/Default.aspx"], Response);//Redirect to Homepage
                         }
                         break;
                     case SignInStatus.LockedOut:

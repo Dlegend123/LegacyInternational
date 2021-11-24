@@ -5,6 +5,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Owin;
 using LegacyInternational.Models;
+using System.Configuration;
 
 namespace LegacyInternational.Account
 {
@@ -12,6 +13,20 @@ namespace LegacyInternational.Account
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!Request.IsSecureConnection)//Forces securelink if the link isn't currently secure 
+            {
+                string url = ConfigurationManager.AppSettings["SecurePath"] + "Account/Forgot.aspx";
+                Response.Redirect(url);
+            }
+            if (Session["user"] != null)//Prevents guests from seeing the VacationBookings page 
+            {
+                if ((Session["user"] as ApplicationUser).UserName == "Default")
+                    Page.Master.FindControl("BookingsPage").Visible = false;
+            }
+            else
+            {
+                Page.Master.FindControl("BookingsPage").Visible = false;
+            }
         }
 
         protected void Forgot(object sender, EventArgs e)

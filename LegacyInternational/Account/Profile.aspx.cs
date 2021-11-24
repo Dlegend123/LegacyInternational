@@ -22,7 +22,7 @@ namespace LegacyInternational.Account
                 string url = ConfigurationManager.AppSettings["SecurePath"] + "Account/Profile.aspx";
                 Response.Redirect(url);
             }
-            if (Session["user"] != null)//Prevent guests from seeing the VacationBookings page 
+            if (Session["user"] != null)//Prevents guests from seeing the VacationBookings page 
             {
                 if ((Session["user"] as ApplicationUser).UserName == "Default")
                     Page.Master.FindControl("BookingsPage").Visible = false;

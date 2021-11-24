@@ -57,7 +57,7 @@ namespace LegacyInternational
             cruiseService.CreateBooking(bookcruise);
             JTBDBModel = new JTBDBModel();
         }
-        bool ValidDate(string Date)
+        bool ValidDate(string Date)//Validates the date
         {
             DateTime scheduleDate;
             bool validDate = DateTime.TryParseExact(
@@ -118,7 +118,7 @@ namespace LegacyInternational
                 }
             }
         }
-        List<cruiselist> DataCollect()
+        List<cruiselist> DataCollect()//Retrieves cruises from database
         {
             List<portlist> portlists = new List<portlist>();
             if (string.IsNullOrEmpty(Country.Text) || string.IsNullOrEmpty(City.Text))
@@ -156,7 +156,7 @@ namespace LegacyInternational
                     .ToList();
             return CruiseList;
         }
-        List<flightlist> DataCollect(int y)
+        List<flightlist> DataCollect(int y)//Retrieve flights from database
         {
             List<airportlist> Airports = new List<airportlist>();
             if (y == 1)
@@ -249,7 +249,7 @@ namespace LegacyInternational
 
             }
         }
-        void QuickFunction(object x, int k, Table AddTo)
+        void QuickFunction(object x, int k, Table AddTo)//Adds cruise info and flight info to tables
         {
             Button button = new Button
             {
