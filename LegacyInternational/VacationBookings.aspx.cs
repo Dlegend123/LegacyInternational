@@ -15,10 +15,10 @@ namespace LegacyInternational
     {
         JTBDBModel JTBDBModel;
         int count;
-
+        ApplicationUser user;
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            user = Session["user"] as ApplicationUser; ;
             if (!Request.IsSecureConnection)
             {
                 string url = ConfigurationManager.AppSettings["SecurePath"] + "VacationBookings.aspx";
@@ -31,7 +31,6 @@ namespace LegacyInternational
             Button button = sender as Button;
             TableRow tableRow = button.Parent.Parent as TableRow;
             AirlineService airlineService = new AirlineService();
-            ApplicationUser user = Session["user"] as ApplicationUser;
             TableCell tableCell = tableRow.Cells[0];
             airlineService.CreateBooking(Int32.Parse(button.ID), JTBDBModel.users.Where(x => x.email == user.UserName).First().username, JTBDBModel.users.Where(x => x.email == user.UserName).First().dob,count);
             JTBDBModel = new JTBDBModel();
@@ -41,7 +40,6 @@ namespace LegacyInternational
         {
             Button button = sender as Button;
             CruiseService cruiseService = new CruiseService();
-            ApplicationUser user = Session["user"] as ApplicationUser;
             TableCell tableCell = button.Parent as TableCell;
             bookcruise bookcruise = new bookcruise
             {

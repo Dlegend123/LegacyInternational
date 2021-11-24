@@ -77,7 +77,7 @@ namespace LegacyInternational.Account
                     email = (Session["user"] as ApplicationUser).UserName,                
                 };
                 jTBDBModel.users.Add(user);
-                jTBDBModel.SaveChangesAsync();
+                jTBDBModel.SaveChanges();
                 Response.Redirect("~/Default.aspx", false);
             }
         }

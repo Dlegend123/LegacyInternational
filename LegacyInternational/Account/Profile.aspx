@@ -62,7 +62,7 @@
                     </asp:TableRow>
                     <asp:TableRow>
                         <asp:TableCell>
-                            <h5>Current Bookings</h5>
+                            <h5>Bookings</h5>
                             <asp:Table runat="server" ID="CBookings" CssClass="table table-dark table-striped table-bordered" BorderStyle="Solid" BorderWidth="3px" >
 
                 </asp:Table>

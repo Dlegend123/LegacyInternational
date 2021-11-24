@@ -47,25 +47,28 @@ namespace LegacyInternational
                 seat_num = JTBDBModel.bookflights.AsEnumerable().ToList().Last().seat_num + "6",
                 booking_id = JTBDBModel.bookflights.AsEnumerable().Count() + 1
             };
-            SqlConnection conn = new SqlConnection
+            
+            JTBDBModel.bookflights.Add(bookflight);
+            JTBDBModel.SaveChanges();
+            /*using (SqlConnection conn = new SqlConnection
             {
-                ConnectionString = ConfigurationManager.ConnectionStrings["LIConnectionString"].ConnectionString
-            };
-            conn.Open();
-            using (var sqlCommand = new SqlCommand("INSERT INTO bookflight(booking_id,flight_id,username,email,dob,seat_num,num_of_adults) Values(@booking_id,@flight_id,@username,@email,@dob,@seat_num,@num_of_adults)", conn))
+                ConnectionString = ConfigurationManager.ConnectionStrings["JTBDBConnectionString"].ConnectionString
+            })
             {
-                sqlCommand.Parameters.Add("@booking_id", SqlDbType.Int).Value = bookflight.booking_id;
-                sqlCommand.Parameters.Add("@flight_id", SqlDbType.Int).Value = bookflight.flight_id;
-                sqlCommand.Parameters.Add("@username", SqlDbType.NVarChar).Value = Name;
-                sqlCommand.Parameters.Add("@email", SqlDbType.NVarChar).Value = bookflight.email;
-                sqlCommand.Parameters.Add("@dob", SqlDbType.NVarChar).Value = DOB;
-                sqlCommand.Parameters.Add("@seat_num", SqlDbType.NVarChar).Value = bookflight.seat_num;
-                sqlCommand.Parameters.Add("@num_of_adults", SqlDbType.Int).Value = bookflight.num_of_adults;
-                conn.Open();
-                sqlCommand.ExecuteNonQueryAsync().Wait();
-            }
-            //JTBDBModel.Entry(bookflight).State = EntityState.Added;
-            //JTBDBModel.SaveChanges();
+                using (var sqlCommand = new SqlCommand("INSERT INTO bookflight(booking_id,flight_id,username,email,dob,seat_num,num_of_adults) Values(@booking_id,@flight_id,@username,@email,@dob,@seat_num,@num_of_adults)", conn))
+                {
+                    sqlCommand.Parameters.Add("@booking_id", SqlDbType.Int).Value = bookflight.booking_id;
+                    sqlCommand.Parameters.Add("@flight_id", SqlDbType.Int).Value = bookflight.flight_id;
+                    sqlCommand.Parameters.Add("@username", SqlDbType.NVarChar).Value = Name;
+                    sqlCommand.Parameters.Add("@email", SqlDbType.NVarChar).Value = bookflight.email;
+                    sqlCommand.Parameters.Add("@dob", SqlDbType.NVarChar).Value = DOB;
+                    sqlCommand.Parameters.Add("@seat_num", SqlDbType.NVarChar).Value = bookflight.seat_num;
+                    sqlCommand.Parameters.Add("@num_of_adults", SqlDbType.Int).Value = bookflight.num_of_adults;
+                    conn.Open();
+                    sqlCommand.ExecuteNonQueryAsync().Wait();
+                }
+            }*/
+
             //JTBDBModel.Database.ExecuteSqlCommand("Insert into bookflight(booking_id,flight_id,username,email,dob,seat_num,num_of_adults) Values(" + bookflight.booking_id + "," + bookflight.flight_id + ",'" + bookflight.username + "','" + bookflight.email + "','" + bookflight.dob + "','" + bookflight.seat_num + "'," + bookflight.num_of_adults.ToString() + ");");
         }
     }

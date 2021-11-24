@@ -10,9 +10,10 @@ namespace LegacyInternational.Models
     public partial class bookcruise
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int booking_id { get; set; }
 
-        public int cruise_id { get; set; }
+        public int? cruise_id { get; set; }
 
         [StringLength(50)]
         public string username { get; set; }
@@ -23,9 +24,9 @@ namespace LegacyInternational.Models
         [StringLength(50)]
         public string check_out_date { get; set; }
 
-        public int room_num { get; set; }
+        public int? room_num { get; set; }
 
-        public int num_of_adults { get; set; }
+        public int? num_of_adults { get; set; }
 
         public virtual cruiseroom cruiseroom { get; set; }
     }

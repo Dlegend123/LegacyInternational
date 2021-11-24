@@ -56,9 +56,8 @@ namespace LegacyInternational.Account
                 {
                     ProfilePicCell.Controls.Add(new LiteralControl("<br /> No Image <br />"));
                 }
-                CruiseCollect()
-                    .ToList().ForEach(l => QuickFunction(l, 0, CBookings));
-                
+                CruiseCollect().ForEach(l => QuickFunction(l, 1, CBookings));
+                FlightCollect().ForEach(l => QuickFunction(l, 0, CBookings));
               /*  CruiseCollect().Where(x => DateTime.ParseExact(x.check_out_date, "MM/dd/yyyy", System.Globalization.CultureInfo.InvariantCulture) >= DateTime.ParseExact(DateTime.Now.ToString("MM/dd/yyyy"), "MM/dd/yyyy", System.Globalization.CultureInfo.InvariantCulture))
                     .ToList().ForEach(l=>QuickFunction(l,0,CBookings));
                 CruiseCollect().Where(x => DateTime.ParseExact(x.check_out_date, "MM/dd/yyyy", System.Globalization.CultureInfo.InvariantCulture) < DateTime.ParseExact(DateTime.Now.ToString("MM/dd/yyyy"), "MM/dd/yyyy", System.Globalization.CultureInfo.InvariantCulture))
