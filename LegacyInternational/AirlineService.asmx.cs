@@ -38,13 +38,17 @@ namespace LegacyInternational
         public void CreateBooking(int Flight_id, string Name, string DOB, int num)//Creates a flight booking
         {
             JTBDBModel JTBDBModel = new JTBDBModel();
+            Random rnd = new Random();
+            int ascii_index = rnd.Next(65, 91); //ASCII character codes 65-90
+            char myRandomUpperCase = Convert.ToChar(ascii_index); //produces any char A-Z
+
             bookflight bookflight = new bookflight
             {
                 username = Name,
                 dob = DOB,
                 flight_id = Flight_id,
                 num_of_adults = num,
-                seat_num = JTBDBModel.bookflights.AsEnumerable().Count().ToString() + "0",
+                seat_num = JTBDBModel.bookflights.AsEnumerable().Count().ToString() + myRandomUpperCase.ToString(),
                 booking_id = JTBDBModel.bookflights.AsEnumerable().Count() + 1
             };
             

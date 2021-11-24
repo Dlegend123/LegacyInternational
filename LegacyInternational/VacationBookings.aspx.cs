@@ -16,6 +16,7 @@ namespace LegacyInternational
         JTBDBModel JTBDBModel;
         int count;
         ApplicationUser user;
+        List<cruiselist> CruiseList;
         protected void Page_Load(object sender, EventArgs e)
         {
             user = Session["user"] as ApplicationUser;
@@ -42,19 +43,20 @@ namespace LegacyInternational
             Button button = sender as Button;
             CruiseService cruiseService = new CruiseService();
             TableCell tableCell = button.Parent as TableCell;
+            var Cruise= CruiseList.Where(x => x.cruiserooms.Any(v => v.room_num == Int32.Parse(button.ID.Split(':')[0])) && x.cruise_id== Int32.Parse(button.ID.Split(':')[1])).First();
             bookcruise bookcruise = new bookcruise
             {
                 username = JTBDBModel.users.Where(x => x.email == user.UserName).First().username,
-                check_in_date = string.IsNullOrEmpty(SDate.Text)?" ": SDate.Text,
-                check_out_date = string.IsNullOrEmpty(EDate.Text) ? " " : EDate.Text,
-                cruise_id = Int32.Parse(button.ID.Split(':')[1].Trim()),
+                check_in_date = string.IsNullOrEmpty(SDate.Text)?Cruise.start_datetime: SDate.Text,
+                check_out_date = string.IsNullOrEmpty(EDate.Text) ? Cruise.end_datetime : EDate.Text,
+                cruise_id = Int32.Parse(button.ID.Split(':')[1]),
                 booking_id = JTBDBModel.bookcruises.AsEnumerable().Count() + 1,
                 room_num = Int32.Parse(button.ID.Split(':')[0]),
             };
             cruiseService.CreateBooking(bookcruise);
             JTBDBModel = new JTBDBModel();
         }
-        protected void SearchSubmit_Click(object sender, EventArgs e)
+        protected void SearchSubmit_Click(object sender, EventArgs e)//Search based on user input
         {
             //Departure Flights
             DepartureFlights.Rows.Clear();
@@ -98,7 +100,6 @@ namespace LegacyInternational
         }
         List<cruiselist> DataCollect()
         {
-            List<cruiselist> Cruises;
             List<portlist> portlists = new List<portlist>();
             if (string.IsNullOrEmpty(Country.Text) || string.IsNullOrEmpty(City.Text))
             {
@@ -118,22 +119,22 @@ namespace LegacyInternational
             if (string.IsNullOrEmpty(SDate.Text) || string.IsNullOrEmpty(EDate.Text))
             {
                 if (string.IsNullOrEmpty(SDate.Text) && string.IsNullOrEmpty(EDate.Text))
-                    Cruises = JTBDBModel.cruiselists.AsEnumerable().Where(x => x.cruiserooms.Any(b => b.num_of_adults >= count) && portlists.Any(l => l.port_id == x.departure_port_id))
+                    CruiseList = JTBDBModel.cruiselists.AsEnumerable().Where(x => x.cruiserooms.Any(b => b.num_of_adults >= count) && portlists.Any(l => l.port_id == x.departure_port_id))
                 .ToList();
                 else
                 {
                     if (string.IsNullOrEmpty(SDate.Text))
-                        Cruises = JTBDBModel.cruiselists.AsEnumerable().Where(x => x.cruiserooms.Any(b => b.num_of_adults >= count) && portlists.Any(l => l.port_id == x.departure_port_id && DateTime.ParseExact( x.end_datetime, "d", System.Globalization.CultureInfo.InvariantCulture)>= DateTime.ParseExact(EDate.Text, "d", System.Globalization.CultureInfo.InvariantCulture)))
+                        CruiseList = JTBDBModel.cruiselists.AsEnumerable().Where(x => x.cruiserooms.Any(b => b.num_of_adults >= count) && portlists.Any(l => l.port_id == x.departure_port_id && DateTime.ParseExact( x.end_datetime, "d", System.Globalization.CultureInfo.InvariantCulture)>= DateTime.ParseExact(EDate.Text, "d", System.Globalization.CultureInfo.InvariantCulture)))
                     .ToList();
                     else
-                        Cruises = JTBDBModel.cruiselists.AsEnumerable().Where(x => x.cruiserooms.Any(b => b.num_of_adults >= count) && portlists.Any(l => l.port_id == x.departure_port_id && DateTime.ParseExact(x.start_datetime, "d", System.Globalization.CultureInfo.InvariantCulture) >= DateTime.ParseExact(SDate.Text, "d", System.Globalization.CultureInfo.InvariantCulture)))
+                        CruiseList = JTBDBModel.cruiselists.AsEnumerable().Where(x => x.cruiserooms.Any(b => b.num_of_adults >= count) && portlists.Any(l => l.port_id == x.departure_port_id && DateTime.ParseExact(x.start_datetime, "d", System.Globalization.CultureInfo.InvariantCulture) >= DateTime.ParseExact(SDate.Text, "d", System.Globalization.CultureInfo.InvariantCulture)))
                     .ToList();
                 }
             }
             else
-                Cruises = JTBDBModel.cruiselists.AsEnumerable().Where(x => x.cruiserooms.Any(b => b.num_of_adults >= count) && portlists.Any(l => l.port_id == x.departure_port_id && DateTime.ParseExact(x.start_datetime, "d", System.Globalization.CultureInfo.InvariantCulture) >= DateTime.ParseExact(SDate.Text, "d", System.Globalization.CultureInfo.InvariantCulture) && DateTime.ParseExact(x.end_datetime, "d", System.Globalization.CultureInfo.InvariantCulture) >= DateTime.ParseExact(EDate.Text, "d", System.Globalization.CultureInfo.InvariantCulture)))
+                CruiseList = JTBDBModel.cruiselists.AsEnumerable().Where(x => x.cruiserooms.Any(b => b.num_of_adults >= count) && portlists.Any(l => l.port_id == x.departure_port_id && DateTime.ParseExact(x.start_datetime, "d", System.Globalization.CultureInfo.InvariantCulture) >= DateTime.ParseExact(SDate.Text, "d", System.Globalization.CultureInfo.InvariantCulture) && DateTime.ParseExact(x.end_datetime, "d", System.Globalization.CultureInfo.InvariantCulture) >= DateTime.ParseExact(EDate.Text, "d", System.Globalization.CultureInfo.InvariantCulture)))
                     .ToList();
-            return Cruises;
+            return CruiseList;
         }
         List<flightlist> DataCollect(int y)
         {
@@ -338,7 +339,7 @@ namespace LegacyInternational
                         TableCell tableCell6 = new TableCell();
                         tableCell6.Controls.Add(new LiteralControl("Room #: " + i.room_num + "<br />"));
                         tableCell6.Controls.Add(new LiteralControl("Room Type: " + i.type + "<br />"));
-                        button1.ID += ":"+ p.cruise_id;
+                        button1.ID += ":"+ p.cruise_id.ToString();
                         tableCell6.Controls.Add(new LiteralControl("Number Of Adults: " + i.num_of_adults + "<br />"));
                         tableCell6.Controls.Add(button1);
                         tableRow1.Cells.Add(tableCell6);
