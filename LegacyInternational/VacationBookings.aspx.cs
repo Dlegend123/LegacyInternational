@@ -247,7 +247,6 @@ namespace LegacyInternational
                     }
                 }
                 return JTBDBModel.flightlists.AsEnumerable().Where(x => Airports.Any(l => l.airport_id == x.arrival_airport_id && DateTime.ParseExact(x.arrival_datetime, "d", System.Globalization.CultureInfo.InvariantCulture) >= DateTime.ParseExact(EDate.Text, "d", System.Globalization.CultureInfo.InvariantCulture))).ToList();
-
             }
         }
         void QuickFunction(object x, int k, Table AddTo)//Adds cruise info and flight info to tables
@@ -256,7 +255,7 @@ namespace LegacyInternational
             {
                 Text = "Select",
                 CssClass = "btn btn-outline-primary",
-                Visible = true,
+                CausesValidation = false
             };
             TableRow tableRow = new TableRow
             {
@@ -354,6 +353,7 @@ namespace LegacyInternational
                             Text = "Select",
                             CssClass = "btn btn-outline-primary",
                             Visible = true,
+                            CausesValidation=false
                         };
                         button1.Click += new EventHandler(CRSelect_Click);
                         button1.ID = i.room_num.ToString();
