@@ -45,15 +45,13 @@ namespace LegacyInternational
             CruiseService cruiseService = new CruiseService();
             TableCell tableCell = button.Parent as TableCell;
             var Cruise = CruiseList.Where(x => x.cruiserooms.Any(v => v.room_num == Int32.Parse(button.ID.Split(':')[0])) && x.cruise_id == Int32.Parse(button.ID.Split(':')[1])).First();
-            bookcruise bookcruise = new bookcruise
-            {
-                username = JTBDBModel.users.Where(x => x.email == user.UserName).First().username,
-                check_in_date = string.IsNullOrEmpty(SDate.Text) ? Cruise.start_datetime : SDate.Text,
-                check_out_date = string.IsNullOrEmpty(EDate.Text) ? Cruise.end_datetime : EDate.Text,
-                cruise_id = Int32.Parse(button.ID.Split(':')[1]),
-                booking_id = JTBDBModel.bookcruises.AsEnumerable().Count() + 1,
-                room_num = Int32.Parse(button.ID.Split(':')[0]),
-            };
+            var bookcruise = JTBDBModel.bookcruises.Create<bookcruise>();
+            bookcruise.username = JTBDBModel.users.Where(x => x.email == user.UserName).First().username;
+            bookcruise.check_in_date = string.IsNullOrEmpty(SDate.Text) ? Cruise.start_datetime : SDate.Text;
+            bookcruise.check_out_date = string.IsNullOrEmpty(EDate.Text) ? Cruise.end_datetime : EDate.Text;
+            bookcruise.cruise_id = Int32.Parse(button.ID.Split(':')[1]);
+            bookcruise.booking_id = JTBDBModel.bookcruises.AsEnumerable().Count() + 1;
+            bookcruise.room_num = Int32.Parse(button.ID.Split(':')[0]);
             cruiseService.CreateBooking(bookcruise);
             JTBDBModel = new JTBDBModel();
         }

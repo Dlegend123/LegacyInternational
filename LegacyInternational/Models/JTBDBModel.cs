@@ -10,6 +10,7 @@ namespace LegacyInternational.Models
         public JTBDBModel()
             : base("name=JTBDBConnectionString")
         {
+            this.Configuration.ProxyCreationEnabled = true;
         }
 
         public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
