@@ -31,22 +31,22 @@ namespace LegacyInternational.Account
             {
                 Page.Master.FindControl("BookingsPage").Visible = false;
             }
-            if (jTBDBModel.users.Where(x => x.email == user.UserName).Count() == 0)//Allow users to finish setting up their profile
+            if (jTBDBModel.users.AsEnumerable().Where(x => x.email == user.UserName).Count() == 0)//Allow users to finish setting up their profile
                 Response.Redirect("SetUpProfile.aspx", false);
             else
             {// Display all user's info
                 UsernameCell.Controls.Add(new LiteralControl(user.UserName));
-                FNameCell.Controls.Add(new LiteralControl(jTBDBModel.users.Where(x => x.email == user.UserName).First().first_name));
-                LNameCell.Controls.Add(new LiteralControl(jTBDBModel.users.Where(x => x.email == user.UserName).First().last_name));
-                CNumber.Controls.Add(new LiteralControl(jTBDBModel.users.Where(x => x.email == user.UserName).First().contact_num));
-                DOBCell.Controls.Add(new LiteralControl(jTBDBModel.users.Where(x => x.email == user.UserName).First().dob));
-                EmailCell.Controls.Add(new LiteralControl(jTBDBModel.users.Where(x => x.email == user.UserName).First().email));
-                if (jTBDBModel.users.Where(x => x.email == user.UserName).First().ProfilePic!=null)
+                FNameCell.Controls.Add(new LiteralControl(jTBDBModel.users.AsEnumerable().Where(x => x.email == user.UserName).First().first_name));
+                LNameCell.Controls.Add(new LiteralControl(jTBDBModel.users.AsEnumerable().Where(x => x.email == user.UserName).First().last_name));
+                CNumber.Controls.Add(new LiteralControl(jTBDBModel.users.AsEnumerable().Where(x => x.email == user.UserName).First().contact_num));
+                DOBCell.Controls.Add(new LiteralControl(jTBDBModel.users.AsEnumerable().Where(x => x.email == user.UserName).First().dob));
+                EmailCell.Controls.Add(new LiteralControl(jTBDBModel.users.AsEnumerable().Where(x => x.email == user.UserName).First().email));
+                if (jTBDBModel.users.AsEnumerable().Where(x => x.email == user.UserName).First().ProfilePic!=null)
                 {
                     Image image = new Image
                     {
                         CssClass = "img-fluid",
-                        ImageUrl = "data:image/jpeg;base64," + Convert.ToBase64String(jTBDBModel.users.Where(x => x.email == user.UserName).First().ProfilePic)
+                        ImageUrl = "data:image/jpeg;base64," + Convert.ToBase64String(jTBDBModel.users.AsEnumerable().Where(x => x.email == user.UserName).First().ProfilePic)
                     };
                     image.Style.Add("max-height", "25vh");
                     image.Style.Add("max-width", "25vw");
@@ -63,14 +63,14 @@ namespace LegacyInternational.Account
         }
         List<bookcruise> CruiseCollect()//Get all cruise bookings for the user
         {
-            var result = jTBDBModel.users.Where(k => k.email == user.UserName).First().bookcruises.AsEnumerable().ToList();
-            //var result = jTBDBModel.bookcruises.AsEnumerable().ToList();
+            //var result = jTBDBModel.users.AsEnumerable().Where(k => k.email == user.UserName).First().bookcruises.AsEnumerable().ToList();
+            var result = jTBDBModel.bookcruises.AsEnumerable().ToList();
             return result;
         }
         List<bookflight> FlightCollect()//Get all flight bookings for the user 
         {
-            //var result = jTBDBModel.bookflights.AsEnumerable().ToList();
-            var result = jTBDBModel.users.Where(k=>k.email==user.UserName).First().bookflights.AsEnumerable().ToList();
+            var result = jTBDBModel.bookflights.AsEnumerable().ToList();
+            //var result = jTBDBModel.users.AsEnumerable().Where(k=>k.email==user.UserName).First().bookflights.AsEnumerable().ToList();
             return result;
         }
         void QuickFunction(object x, int k, Table AddTo)

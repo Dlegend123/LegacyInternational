@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Services;
 using System.Data.Entity.Migrations;
+using System.Web.Script.Serialization;
 using System.Data;
 
 namespace LegacyInternational
@@ -21,7 +22,7 @@ namespace LegacyInternational
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [System.ComponentModel.ToolboxItem(false)]
     // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
-    // [System.Web.Script.Services.ScriptService]
+     [System.Web.Script.Services.ScriptService]
     public class AirlineService : System.Web.Services.WebService
     {
 
@@ -29,39 +30,30 @@ namespace LegacyInternational
         public List<flightlist> Flights(string Country, string City, string Date)//Returns flights that match the criteria
         {
             JTBDBModel JTBDBModel = new JTBDBModel();
-            List<airportlist> Airports = JTBDBModel.airportlists.Where(x => x.location.city == City && x.location.country == Country).ToList();
+            List<airportlist> Airports = JTBDBModel.airportlists.AsEnumerable().Where(x => x.location.city == City && x.location.country == Country).ToList();
 
             return JTBDBModel.flightlists.Where(x => Airports.Any(l => l.airport_id == x.departure_airport_id && x.departure_datetime.Contains( Date))).ToList();
             
         }
         [WebMethod]
-        public void CreateBooking(int Flight_id, string Name, string DOB, int num)//Creates a flight booking
+        public int CreateBooking(int Flight_id, string Name, string DOB, int num)//Creates a flight booking
         {
             Random rnd = new Random();
             int ascii_index = rnd.Next(65, 91); //ASCII character codes 65-90
             char myRandomUpperCase = Convert.ToChar(ascii_index); //produces any char A-Z
             JTBDBModel JTBDBModel = new JTBDBModel();
-            var bookflight = JTBDBModel.bookflights.Create<bookflight>();
-            bookflight.booking_id = JTBDBModel.bookflights.AsEnumerable().Count() + 1;
-            bookflight.flight_id = Flight_id;
-            bookflight.num_of_adults = num;
-            bookflight.username = Name;
-            bookflight.dob = DOB;
-            bookflight.seat_num = JTBDBModel.bookflights.AsEnumerable().Count().ToString() + myRandomUpperCase.ToString();
-
-            /*;
-            
-            JTBDBModel = new JTBDBModel();
+            var bookflight = new bookflight()
+            {
+                booking_id = JTBDBModel.bookflights.AsEnumerable().Count() + 1,
+                flight_id = Flight_id,
+                num_of_adults = num,
+                username = Name,
+                dob = DOB,
+                seat_num = JTBDBModel.bookflights.AsEnumerable().Count().ToString() + myRandomUpperCase.ToString()
+            };
             JTBDBModel.bookflights.Add(bookflight);
-            var flightlist = JTBDBModel.flightlists.Where(x => x.flight_id == Flight_id).First();
-            flightlist.bookflights.Add(bookflight);
-            JTBDBModel.flightlists.AddOrUpdate(x => x.flight_id == Flight_id, flightlist);
-            
-            var user = JTBDBModel.users.Where(x => x.email == (Session["user"] as ApplicationUser).UserName).First();
-            user.bookflights.Add(bookflight);
-            JTBDBModel.users.AddOrUpdate(x=>x.email == (Session["user"] as ApplicationUser).UserName, user);//adds flight booking to database
-            JTBDBModel.SaveChanges();
-            */
+              return JTBDBModel.SaveChanges();
+            /*
             using (SqlConnection conn = new SqlConnection
             {
                 ConnectionString = ConfigurationManager.ConnectionStrings["JTBDBConnectionString"].ConnectionString
@@ -80,7 +72,7 @@ namespace LegacyInternational
                     sqlCommand.ExecuteNonQuery();
                 }
             }
-
+            */
             //JTBDBModel.Database.ExecuteSqlCommand("Insert into bookflight(booking_id,flight_id,username,email,dob,seat_num,num_of_adults) Values(" + bookflight.booking_id + "," + bookflight.flight_id + ",'" + bookflight.username + "','" + bookflight.email + "','" + bookflight.dob + "','" + bookflight.seat_num + "'," + bookflight.num_of_adults.ToString() + ");");
         }
     }

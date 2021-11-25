@@ -9,7 +9,6 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-
 namespace LegacyInternational
 {
     public partial class VacationBookings : System.Web.UI.Page
@@ -18,14 +17,17 @@ namespace LegacyInternational
         int count;
         ApplicationUser user;
         List<cruiselist> CruiseList;
+
         protected void Page_Load(object sender, EventArgs e)
         {
+
             user = Session["user"] as ApplicationUser;
             if (!Request.IsSecureConnection)//Forces securelink if the link isn't currently secure
             {
                 string url = ConfigurationManager.AppSettings["SecurePath"] + "VacationBookings.aspx";
                 Response.Redirect(url);
             }
+            
             JTBDBModel = new JTBDBModel();
             count = 0;
         }
@@ -36,6 +38,7 @@ namespace LegacyInternational
             AirlineService airlineService = new AirlineService();
             TableCell tableCell = tableRow.Cells[0];
             airlineService.CreateBooking(Int32.Parse(button.ID), JTBDBModel.users.Where(x => x.email == user.UserName).First().username, JTBDBModel.users.Where(x => x.email == user.UserName).First().dob, count);
+            Response.Redirect("~/Default.aspx", false);
             JTBDBModel = new JTBDBModel();
         }
 
@@ -45,14 +48,17 @@ namespace LegacyInternational
             CruiseService cruiseService = new CruiseService();
             TableCell tableCell = button.Parent as TableCell;
             var Cruise = CruiseList.Where(x => x.cruiserooms.Any(v => v.room_num == Int32.Parse(button.ID.Split(':')[0])) && x.cruise_id == Int32.Parse(button.ID.Split(':')[1])).First();
-            var bookcruise = JTBDBModel.bookcruises.Create<bookcruise>();
-            bookcruise.username = JTBDBModel.users.Where(x => x.email == user.UserName).First().username;
-            bookcruise.check_in_date = string.IsNullOrEmpty(SDate.Text) ? Cruise.start_datetime : SDate.Text;
-            bookcruise.check_out_date = string.IsNullOrEmpty(EDate.Text) ? Cruise.end_datetime : EDate.Text;
-            bookcruise.cruise_id = Int32.Parse(button.ID.Split(':')[1]);
-            bookcruise.booking_id = JTBDBModel.bookcruises.AsEnumerable().Count() + 1;
-            bookcruise.room_num = Int32.Parse(button.ID.Split(':')[0]);
+            bookcruise bookcruise = new bookcruise
+            {
+                username = JTBDBModel.users.Where(x => x.email == user.UserName).First().username,
+                check_in_date = string.IsNullOrEmpty(SDate.Text) ? Cruise.start_datetime : SDate.Text,
+                check_out_date = string.IsNullOrEmpty(EDate.Text) ? Cruise.end_datetime : EDate.Text,
+                cruise_id = Int32.Parse(button.ID.Split(':')[1]),
+                booking_id = JTBDBModel.bookcruises.AsEnumerable().Count() + 1,
+                room_num = Int32.Parse(button.ID.Split(':')[0])
+            };
             cruiseService.CreateBooking(bookcruise);
+            Response.Redirect("~/Default.aspx", false);
             JTBDBModel = new JTBDBModel();
         }
         bool ValidDate(string Date)//Validates the date
@@ -253,7 +259,7 @@ namespace LegacyInternational
             {
                 Text = "Select",
                 CssClass = "btn btn-outline-primary",
-
+                Visible = true,
             };
             TableRow tableRow = new TableRow
             {
@@ -349,7 +355,8 @@ namespace LegacyInternational
                         Button button1 = new Button
                         {
                             Text = "Select",
-                            CssClass = "btn btn-outline-primary"
+                            CssClass = "btn btn-outline-primary",
+                            Visible = true,
                         };
                         button1.Click += new EventHandler(CRSelect_Click);
                         button1.ID = i.room_num.ToString();

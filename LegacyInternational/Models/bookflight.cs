@@ -10,6 +10,7 @@ namespace LegacyInternational.Models
     public partial class bookflight
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int booking_id { get; set; }
 
         public int flight_id { get; set; }
@@ -17,6 +18,10 @@ namespace LegacyInternational.Models
         [Required]
         [StringLength(50)]
         public string username { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        public string address { get; set; }
 
         public string email { get; set; }
 
@@ -26,9 +31,6 @@ namespace LegacyInternational.Models
         public string seat_num { get; set; }
 
         public int? num_of_adults { get; set; }
-
-        [StringLength(50)]
-        public string date { get; set; }
 
         public virtual flightlist flightlist { get; set; }
 

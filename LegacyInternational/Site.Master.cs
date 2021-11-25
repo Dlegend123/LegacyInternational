@@ -58,7 +58,7 @@ namespace LegacyInternational
             }
             else
             {
-                // Validate the Anti-XSRF token
+                // Validate the Anti-XSRF tokenSystem.InvalidOperationException: 'Validation of Anti-XSRF token failed.'
                 if ((string)ViewState[AntiXsrfTokenKey] != _antiXsrfTokenValue
                     || (string)ViewState[AntiXsrfUserNameKey] != (Context.User.Identity.Name ?? String.Empty))
                 {

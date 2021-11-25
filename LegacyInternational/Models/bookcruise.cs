@@ -10,6 +10,7 @@ namespace LegacyInternational.Models
     public partial class bookcruise
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int booking_id { get; set; }
 
         public int? cruise_id { get; set; }

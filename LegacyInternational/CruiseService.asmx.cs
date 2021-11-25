@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.Script.Serialization;
 using System.Web.Services;
 using LegacyInternational.Models;
 
@@ -20,7 +21,7 @@ namespace LegacyInternational
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [System.ComponentModel.ToolboxItem(false)]
     // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
-    // [System.Web.Script.Services.ScriptService]
+     [System.Web.Script.Services.ScriptService]
     public class CruiseService : System.Web.Services.WebService
     {
 
@@ -35,21 +36,13 @@ namespace LegacyInternational
             return RoomTypes;
         }
         [WebMethod]
-        public void CreateBooking(bookcruise bookcruise)//Adds a cruise booking to the database
+        public int CreateBooking(bookcruise bookcruise)//Adds a cruise booking to the database
         {
-            /*using (var JTBDBModel = new JTBDBModel())
-            { 
-                JTBDBModel.bookcruises.AddOrUpdate(bookcruise);
-                JTBDBModel.cruiserooms.Where(x => x.cruise_id == bookcruise.cruise_id && x.room_num == bookcruise.room_num).First().bookcruises.Add(bookcruise);
-                JTBDBModel.cruiserooms.AddOrUpdate(x => x.cruise_id == bookcruise.cruise_id && x.room_num == bookcruise.room_num);
-                JTBDBModel.cruiselists.Where(x => x.cruise_id == bookcruise.cruise_id).First().bookcruises.Add(bookcruise);
-                JTBDBModel.cruiselists.AddOrUpdate(x => x.cruise_id == bookcruise.cruise_id);
-                JTBDBModel.users.Where(x => x.email == (Session["user"] as ApplicationUser).UserName).First().bookcruises.Add(bookcruise);
-                JTBDBModel.users.AddOrUpdate(x => x.email == (Session["user"] as ApplicationUser).UserName);
-                
-                JTBDBModel.SaveChanges();
-            }*/
-            using (SqlConnection conn = new SqlConnection
+            JTBDBModel JTBDBModel = new JTBDBModel();
+            JTBDBModel.bookcruises.Add(bookcruise);
+            return JTBDBModel.SaveChanges();
+
+           /* using (SqlConnection conn = new SqlConnection
             {
                 ConnectionString = ConfigurationManager.ConnectionStrings["JTBDBConnectionString"].ConnectionString
             })
@@ -66,7 +59,7 @@ namespace LegacyInternational
                     sqlCommand.Parameters.Add("@num_of_adults", SqlDbType.Int).Value = bookcruise.num_of_adults;
                     sqlCommand.ExecuteNonQuery();
                 }
-            }
+            }*/
         }
     }
 }
