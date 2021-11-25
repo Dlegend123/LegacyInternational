@@ -18,13 +18,13 @@ namespace LegacyInternational
     /// Summary description for CruiseService
     /// </summary>
     [WebService(Namespace = "http://tempuri.org/")]
-    [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
+    [WebServiceBinding(ConformsTo = WsiProfiles.None)]
     [System.ComponentModel.ToolboxItem(false)]
     // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
      [System.Web.Script.Services.ScriptService]
     public class CruiseService : System.Web.Services.WebService
     {
-
+        /*
         [WebMethod]
         public List<string> RoomTypes(string CheckIn, string CheckOut)
         {
@@ -34,11 +34,20 @@ namespace LegacyInternational
                 .ToList().ForEach(l=>l.cruiserooms.ToList().ForEach(j=>RoomTypes.Add(j.type)));
             
             return RoomTypes;
-        }
+        }*/
         [WebMethod]
-        public int CreateBooking(bookcruise bookcruise)//Adds a cruise booking to the database
+        public int CreateBooking(string username,string check_in_date, string check_out_date, int cruise_id, int booking_id, int room_num)//Adds a cruise booking to the database
         {
             JTBDBModel JTBDBModel = new JTBDBModel();
+            bookcruise bookcruise = new bookcruise
+            {
+                username = username,
+                check_in_date = check_in_date,
+                check_out_date = check_out_date,
+                cruise_id = cruise_id,
+                booking_id = booking_id,
+                room_num = room_num
+            };
             JTBDBModel.bookcruises.Add(bookcruise);
             return JTBDBModel.SaveChanges();
 

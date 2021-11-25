@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="LegacyInternational.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="LegacyInternational_AirlineServiceRef_AirlineService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://localhost:44350/AirlineService.asmx</Value>
+    </Setting>
+    <Setting Name="LegacyInternational_CruiseServiceRef_CruiseService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://localhost:44350/CruiseService.asmx</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

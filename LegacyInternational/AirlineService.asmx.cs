@@ -19,22 +19,22 @@ namespace LegacyInternational
     /// Summary description for AirlineService
     /// </summary>
     [WebService(Namespace = "http://tempuri.org/")]
-    [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
+    [WebServiceBinding(ConformsTo = WsiProfiles.None)]
     [System.ComponentModel.ToolboxItem(false)]
     // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
      [System.Web.Script.Services.ScriptService]
     public class AirlineService : System.Web.Services.WebService
     {
-
+        /*
         [WebMethod]
         public List<flightlist> Flights(string Country, string City, string Date)//Returns flights that match the criteria
         {
             JTBDBModel JTBDBModel = new JTBDBModel();
             List<airportlist> Airports = JTBDBModel.airportlists.AsEnumerable().Where(x => x.location.city == City && x.location.country == Country).ToList();
 
-            return JTBDBModel.flightlists.Where(x => Airports.Any(l => l.airport_id == x.departure_airport_id && x.departure_datetime.Contains( Date))).ToList();
+            return JTBDBModel.flightlists.AsEnumerable().Where(x => Airports.Any(l => l.airport_id == x.departure_airport_id && x.departure_datetime.Contains( Date))).ToList();
             
-        }
+        }*/
         [WebMethod]
         public int CreateBooking(int Flight_id, string Name, string DOB, int num)//Creates a flight booking
         {
