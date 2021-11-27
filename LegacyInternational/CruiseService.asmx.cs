@@ -36,7 +36,7 @@ namespace LegacyInternational
             return RoomTypes;
         }*/
         [WebMethod]
-        public int CreateBooking(string username,string check_in_date, string check_out_date, int cruise_id, int booking_id, int room_num)//Adds a cruise booking to the database
+        public void CreateBooking(string username,string check_in_date, string check_out_date, int cruise_id, int booking_id, int room_num)//Adds a cruise booking to the database
         {
             JTBDBModel JTBDBModel = new JTBDBModel();
             bookcruise bookcruise = new bookcruise
@@ -49,7 +49,7 @@ namespace LegacyInternational
                 room_num = room_num
             };
             JTBDBModel.bookcruises.Add(bookcruise);
-            return JTBDBModel.SaveChanges();
+           JTBDBModel.SaveChangesAsync().Wait();
 
            /* using (SqlConnection conn = new SqlConnection
             {

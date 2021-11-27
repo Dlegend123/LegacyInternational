@@ -18,6 +18,10 @@ namespace LegacyInternational
                 string url = ConfigurationManager.AppSettings["SecurePath"] + "Default.aspx";
                 Response.Redirect(url);
             }
+            if (Session["DF"] != null)
+            {
+                Response.Redirect("~/VacationBookings.aspx",true);
+            }
             if (Session["user"] != null)//Prevents guests from seeing the VacationBookings page 
             {
                 if ((Session["user"] as ApplicationUser).UserName == "Default")

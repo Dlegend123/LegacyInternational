@@ -28,9 +28,6 @@ namespace LegacyInternational.Models
         [StringLength(50)]
         public string dob { get; set; }
 
-        [StringLength(50)]
-        public string address { get; set; }
-
         [StringLength(10)]
         public string contact_num { get; set; }
 

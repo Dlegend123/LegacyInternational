@@ -11,88 +11,61 @@ namespace LegacyInternational
 {
 
 
-    public partial class VacationBookings
+    public partial class SearchResults
     {
 
         /// <summary>
-        /// ErrorMess control.
+        /// tempDF control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ErrorMess;
+        protected global::System.Web.UI.WebControls.Button tempDF;
 
         /// <summary>
-        /// ACity control.
+        /// DepartureFlights control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ACity;
+        protected global::System.Web.UI.WebControls.Table DepartureFlights;
 
         /// <summary>
-        /// ACountry control.
+        /// tempRF control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ACountry;
+        protected global::System.Web.UI.WebControls.Button tempRF;
 
         /// <summary>
-        /// City control.
+        /// ReturnFlights control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox City;
+        protected global::System.Web.UI.WebControls.Table ReturnFlights;
 
         /// <summary>
-        /// Country control.
+        /// tempCR control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Country;
+        protected global::System.Web.UI.WebControls.Button tempCR;
 
         /// <summary>
-        /// SDate control.
+        /// Cruises control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox SDate;
-
-        /// <summary>
-        /// EDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox EDate;
-
-        /// <summary>
-        /// NAdults control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox NAdults;
-
-        /// <summary>
-        /// SearchSubmit control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button SearchSubmit;
+        protected global::System.Web.UI.WebControls.Table Cruises;
     }
 }

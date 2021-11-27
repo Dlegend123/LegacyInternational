@@ -19,10 +19,6 @@ namespace LegacyInternational.Models
         [StringLength(50)]
         public string username { get; set; }
 
-        [Required]
-        [StringLength(50)]
-        public string address { get; set; }
-
         public string email { get; set; }
 
         public string dob { get; set; }

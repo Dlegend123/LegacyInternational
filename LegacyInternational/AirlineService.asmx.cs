@@ -36,7 +36,7 @@ namespace LegacyInternational
             
         }*/
         [WebMethod]
-        public int CreateBooking(int Flight_id, string Name, string DOB, int num)//Creates a flight booking
+        public void CreateBooking(int Flight_id, string Name, string DOB, int num)//Creates a flight booking
         {
             Random rnd = new Random();
             int ascii_index = rnd.Next(65, 91); //ASCII character codes 65-90
@@ -52,7 +52,7 @@ namespace LegacyInternational
                 seat_num = JTBDBModel.bookflights.AsEnumerable().Count().ToString() + myRandomUpperCase.ToString()
             };
             JTBDBModel.bookflights.Add(bookflight);
-              return JTBDBModel.SaveChanges();
+            JTBDBModel.SaveChangesAsync().Wait();
             /*
             using (SqlConnection conn = new SqlConnection
             {
