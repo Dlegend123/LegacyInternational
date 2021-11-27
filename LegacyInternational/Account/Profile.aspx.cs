@@ -150,10 +150,6 @@ namespace LegacyInternational.Account
                 {
                     HorizontalAlign = HorizontalAlign.Left
                 };
-                tableCell.VerticalAlign = tableCell1.VerticalAlign = tableCell3.VerticalAlign = tableCell4.VerticalAlign = VerticalAlign.Middle;
-                tableCell.HorizontalAlign = tableCell1.HorizontalAlign = tableCell3.HorizontalAlign = tableCell4.HorizontalAlign = HorizontalAlign.Center;
-                tableCell.HorizontalAlign = HorizontalAlign.Center;
-                tableRow.Visible = true;
                 tableRow.Cells.Add(tableCell);
                 AddTo.Rows.Add(tableRow);
                 tableRow1.Cells.Add(tableCell1);
@@ -223,10 +219,6 @@ namespace LegacyInternational.Account
                         HorizontalAlign = HorizontalAlign.Left
                     };
                     tableCell5.Controls.Add(new LiteralControl("Room Type: " + jTBDBModel.cruiserooms.Where(b=>b.room_num==p.room_num).First().type));
-                    tableCell.VerticalAlign = tableCell2.VerticalAlign = tableCell1.VerticalAlign = tableCell3.VerticalAlign = tableCell4.VerticalAlign = VerticalAlign.Middle;
-                    tableCell.HorizontalAlign = tableCell2.HorizontalAlign = tableCell1.HorizontalAlign = tableCell3.HorizontalAlign = tableCell4.HorizontalAlign = HorizontalAlign.Center;
-                    tableCell.HorizontalAlign = HorizontalAlign.Center;
-                    tableRow.Visible = true;
                     tableRow.Cells.Add(tableCell);
                     AddTo.Rows.Add(tableRow);
                     tableRow1.Cells.Add(tableCell1);
