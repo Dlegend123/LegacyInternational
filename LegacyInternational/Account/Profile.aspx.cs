@@ -13,9 +13,42 @@ namespace LegacyInternational.Account
     {
         JTBDBModel jTBDBModel;
         ApplicationUser user;
-        protected void Page_Load(object sender, EventArgs e)
+        protected void Page_PreInit(object sender, EventArgs e)
+        {
+            if (Request.QueryString["id"] != null)
+            {
+                user = Session["user"] as ApplicationUser;
+                if (Request.QueryString["id"].Split(':').Count() == 3)
+                    CRSelect_Click(sender, e);
+                else
+                {
+                    if (Request.QueryString["id"].Split(':').Count() == 2)
+                        DFSelect_Click(sender, e);
+                }
+            }
+        }
+        protected void DFSelect_Click(object sender, EventArgs e)//Event handler for buttons assigned to flight
         {
             jTBDBModel = new JTBDBModel();
+            AirlineServiceRef.AirlineService airlineService = new AirlineServiceRef.AirlineService();
+            airlineService.CreateBooking(Int32.Parse(Request.QueryString["id"].Split(':')[0]), jTBDBModel.users.Where(x => x.email == user.UserName).First().username, jTBDBModel.users.Where(x => x.email == user.UserName).First().dob, Int32.Parse(Request.QueryString["count"]));
+        }
+
+        protected void CRSelect_Click(object sender, EventArgs e)//event handler for buttons assigned to cruises
+        {
+            CruiseService cruiseService = new CruiseService();
+            jTBDBModel = new JTBDBModel();
+            var Cruise = jTBDBModel.cruiselists.AsEnumerable().Where(x => x.cruiserooms.Any(v => v.room_num == Int32.Parse(Request.QueryString["id"].Split(':')[1])) && x.cruise_id == Int32.Parse(Request.QueryString["cruise_id"])).First();
+            CruiseServiceRef.CruiseService cruiseService1 = new CruiseServiceRef.CruiseService();
+            cruiseService1.CreateBooking(jTBDBModel.users.Where(x => x.email == user.UserName).First().username,
+                string.IsNullOrEmpty(Request.QueryString["SDate"]) ? Cruise.start_datetime : Request.QueryString["SDate"],
+                string.IsNullOrEmpty(Request.QueryString["EDate"]) ? Cruise.end_datetime : Request.QueryString["EDate"],
+                Int32.Parse(Request.QueryString["id"].Split(':')[2]),
+                jTBDBModel.bookcruises.AsEnumerable().Count() + 1,
+                Int32.Parse(Request.QueryString["id"].Split(':')[1]));
+        }
+        protected void Page_Load(object sender, EventArgs e)
+        {
             user = Session["user"] as ApplicationUser;
             if (!Request.IsSecureConnection)//Forces securelink if the link isn't currently secure 
             {
@@ -31,6 +64,7 @@ namespace LegacyInternational.Account
             {
                 Page.Master.FindControl("BookingsPage").Visible = false;
             }
+            jTBDBModel = new JTBDBModel();
             if (jTBDBModel.users.AsEnumerable().Where(x => x.email == user.UserName).Count() == 0)//Allow users to finish setting up their profile
                 Response.Redirect("SetUpProfile.aspx", false);
             else
@@ -79,37 +113,43 @@ namespace LegacyInternational.Account
             {
                 TableRow tableRow = new TableRow
                 {
-                    HorizontalAlign = HorizontalAlign.Left,
                     BorderStyle = BorderStyle.Solid,
                     BorderWidth = Unit.Pixel(3)
                 };
                 TableRow tableRow1 = new TableRow
                 {
-                    HorizontalAlign = HorizontalAlign.Left,
                     BorderStyle = BorderStyle.Solid,
                     BorderWidth = Unit.Pixel(3)
                 };
                 TableRow tableRow2 = new TableRow
                 {
-                    HorizontalAlign = HorizontalAlign.Left,
                     BorderStyle = BorderStyle.Solid,
                     BorderWidth = Unit.Pixel(3)
                 };
                 TableRow tableRow3 = new TableRow
                 {
-                    HorizontalAlign = HorizontalAlign.Left,
                     BorderStyle = BorderStyle.Solid,
                     BorderWidth = Unit.Pixel(3)
                 };
 
                 bookflight p = x as bookflight;
-                TableCell tableCell = new TableCell();
+                TableCell tableCell = new TableCell
+                {
+                    HorizontalAlign = HorizontalAlign.Left
+                };
                 tableCell.Controls.Add(new LiteralControl("Flight ID: " + p.flight_id));
-                TableCell tableCell1 = new TableCell();
+                TableCell tableCell1 = new TableCell
+                {
+                    HorizontalAlign = HorizontalAlign.Left
+                };
                 tableCell1.Controls.Add(new LiteralControl("Booking ID: " + p.booking_id));
-                TableCell tableCell3 = new TableCell();
+                TableCell tableCell3 = new TableCell{ HorizontalAlign = HorizontalAlign.Left };
                 tableCell3.Controls.Add(new LiteralControl("Number of Adults: " + p.num_of_adults));
-                TableCell tableCell4 = new TableCell();
+                tableCell3.HorizontalAlign = HorizontalAlign.Left;
+                TableCell tableCell4 = new TableCell
+                {
+                    HorizontalAlign = HorizontalAlign.Left
+                };
                 tableCell.VerticalAlign = tableCell1.VerticalAlign = tableCell3.VerticalAlign = tableCell4.VerticalAlign = VerticalAlign.Middle;
                 tableCell.HorizontalAlign = tableCell1.HorizontalAlign = tableCell3.HorizontalAlign = tableCell4.HorizontalAlign = HorizontalAlign.Center;
                 tableCell.HorizontalAlign = HorizontalAlign.Center;
@@ -129,52 +169,59 @@ namespace LegacyInternational.Account
                 {
                     TableRow tableRow = new TableRow
                     {
-                        HorizontalAlign = HorizontalAlign.Left,
                         BorderStyle = BorderStyle.Solid,
                         BorderWidth = Unit.Pixel(3)
                     };
                     TableRow tableRow1 = new TableRow
                     {
-                        HorizontalAlign = HorizontalAlign.Left,
                         BorderStyle = BorderStyle.Solid,
                         BorderWidth = Unit.Pixel(3)
                     };
                     TableRow tableRow2 = new TableRow
                     {
-                        HorizontalAlign = HorizontalAlign.Left,
                         BorderStyle = BorderStyle.Solid,
                         BorderWidth = Unit.Pixel(3)
                     };
                     TableRow tableRow3 = new TableRow
                     {
-                        HorizontalAlign = HorizontalAlign.Left,
                         BorderStyle = BorderStyle.Solid,
                         BorderWidth = Unit.Pixel(3)
                     };
                     TableRow tableRow4 = new TableRow
                     {
-                        HorizontalAlign = HorizontalAlign.Left,
                         BorderStyle = BorderStyle.Solid,
                         BorderWidth = Unit.Pixel(3)
                     };
                     TableRow tableRow5 = new TableRow
                     {
-                        HorizontalAlign = HorizontalAlign.Left,
                         BorderStyle = BorderStyle.Solid,
                         BorderWidth = Unit.Pixel(3)
                     };
                     bookcruise p = x as bookcruise;
-                    TableCell tableCell = new TableCell();
+                    TableCell tableCell = new TableCell{ HorizontalAlign = HorizontalAlign.Left };
                     tableCell.Controls.Add(new LiteralControl("Cruise ID: " + p.cruise_id));
-                    TableCell tableCell1 = new TableCell();
+                    TableCell tableCell1 = new TableCell
+                    {
+                        HorizontalAlign = HorizontalAlign.Left
+                    };
                     tableCell1.Controls.Add(new LiteralControl("Booking ID: " + p.booking_id));
-                    TableCell tableCell2 = new TableCell();
+                    TableCell tableCell2 = new TableCell
+                    {
+                        HorizontalAlign = HorizontalAlign.Left
+                    };
                     tableCell2.Controls.Add(new LiteralControl("Check In Date: " + p.check_in_date));
-                    TableCell tableCell3 = new TableCell();
+                    TableCell tableCell3 = new TableCell
+                    {
+                        HorizontalAlign = HorizontalAlign.Left
+                    };
                     tableCell3.Controls.Add(new LiteralControl("Check Out Date: " + p.check_out_date));
-                    TableCell tableCell4 = new TableCell();
+                    TableCell tableCell4 = new TableCell{ HorizontalAlign = HorizontalAlign.Left };
                     tableCell4.Controls.Add(new LiteralControl("Room #: " + p.room_num));
-                    TableCell tableCell5 = new TableCell();
+                    tableCell4.HorizontalAlign = HorizontalAlign.Left;
+                    TableCell tableCell5 = new TableCell
+                    {
+                        HorizontalAlign = HorizontalAlign.Left
+                    };
                     tableCell5.Controls.Add(new LiteralControl("Room Type: " + jTBDBModel.cruiserooms.Where(b=>b.room_num==p.room_num).First().type));
                     tableCell.VerticalAlign = tableCell2.VerticalAlign = tableCell1.VerticalAlign = tableCell3.VerticalAlign = tableCell4.VerticalAlign = VerticalAlign.Middle;
                     tableCell.HorizontalAlign = tableCell2.HorizontalAlign = tableCell1.HorizontalAlign = tableCell3.HorizontalAlign = tableCell4.HorizontalAlign = HorizontalAlign.Center;

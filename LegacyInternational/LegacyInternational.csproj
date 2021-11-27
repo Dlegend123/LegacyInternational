@@ -354,7 +354,6 @@
     <Content Include="Scripts\WebForms\WebForms.js" />
     <Content Include="Scripts\WebForms\WebParts.js" />
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
-    <Content Include="SearchResults.aspx" />
     <Content Include="Site.Master" />
     <Content Include="VacationBookings.aspx" />
     <None Include="Web References\AirlineServiceRef\AirlineService.disco" />
@@ -536,13 +535,6 @@
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
-    <Compile Include="SearchResults.aspx.cs">
-      <DependentUpon>SearchResults.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="SearchResults.aspx.designer.cs">
-      <DependentUpon>SearchResults.aspx</DependentUpon>
     </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
