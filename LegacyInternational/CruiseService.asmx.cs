@@ -21,20 +21,41 @@ namespace LegacyInternational
     [WebServiceBinding(ConformsTo = WsiProfiles.None)]
     [System.ComponentModel.ToolboxItem(false)]
     // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
-     [System.Web.Script.Services.ScriptService]
+    [System.Web.Script.Services.ScriptService]
     public class CruiseService : System.Web.Services.WebService
     {
-        /*
+
         [WebMethod]
         public List<string> RoomTypes(string CheckIn, string CheckOut)
         {
             JTBDBModel JTBDBModel = new JTBDBModel();
-            List<string> RoomTypes= new List<string>();
-            JTBDBModel.cruiselists.Where(x => x.start_datetime == CheckIn && x.end_datetime == CheckOut)
-                .ToList().ForEach(l=>l.cruiserooms.ToList().ForEach(j=>RoomTypes.Add(j.type)));
-            
+            List<string> RoomTypes = new List<string>();
+            if (String.IsNullOrEmpty(CheckIn) || String.IsNullOrEmpty(CheckOut))
+            {
+                if (String.IsNullOrEmpty(CheckIn) && String.IsNullOrEmpty(CheckOut))
+                {
+                    JTBDBModel.cruiselists.AsEnumerable().ToList().ForEach(l => l.cruiserooms.ToList().ForEach(j => RoomTypes.Add(j.type)));
+                }
+                else
+                {
+                    if (String.IsNullOrEmpty(CheckIn))
+                    {
+                        JTBDBModel.cruiselists.AsEnumerable().Where(x => DateTime.ParseExact(x.start_datetime, "d", System.Globalization.CultureInfo.InvariantCulture) >= DateTime.ParseExact(CheckIn, "d", System.Globalization.CultureInfo.InvariantCulture))
+                .ToList().ForEach(l => l.cruiserooms.ToList().ForEach(j => RoomTypes.Add(j.type)));
+                    }
+                    else
+                    {
+                        JTBDBModel.cruiselists.AsEnumerable().Where(x => DateTime.ParseExact(x.end_datetime, "d", System.Globalization.CultureInfo.InvariantCulture) >= DateTime.ParseExact(CheckOut, "d", System.Globalization.CultureInfo.InvariantCulture))
+                .ToList().ForEach(l => l.cruiserooms.ToList().ForEach(j => RoomTypes.Add(j.type)));
+                    }
+                }
+            }
+            else
+                JTBDBModel.cruiselists.AsEnumerable().Where(x => x.start_datetime == CheckIn && x.end_datetime == CheckOut)
+                    .ToList().ForEach(l => l.cruiserooms.ToList().ForEach(j => RoomTypes.Add(j.type)));
+
             return RoomTypes;
-        }*/
+        }
         [WebMethod]
         public void CreateBooking(string username,string check_in_date, string check_out_date, int cruise_id, int booking_id, int room_num)//Adds a cruise booking to the database
         {

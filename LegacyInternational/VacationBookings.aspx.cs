@@ -17,7 +17,7 @@ namespace LegacyInternational
     {
         JTBDBModel JTBDBModel;
         int count;
-
+        CruiseServiceRef.CruiseService cruiseService1;
         List<cruiselist> CruiseList;
         int Increment;
         protected void Page_Load(object sender, EventArgs e)
@@ -28,6 +28,10 @@ namespace LegacyInternational
                 Response.Redirect(url);
             }
             Increment = 0;
+            CruiseServiceRef.CruiseService cruiseService1 = new CruiseServiceRef.CruiseService();
+            cruiseService1.RoomTypes(SDate.Text, EDate.Text).ToList().ForEach(x => DropDownItems(x));
+            if(RoomTypes.Items.Count>0)
+                RoomTypes.Items[0].Selected = true;
             if (Session["DF"] != null)
             {
                 (Session["DF"] as List<flightlist>).ForEach(p => QuickFunction(p, 0, DepartureFlights));
@@ -65,7 +69,10 @@ namespace LegacyInternational
             JTBDBModel = new JTBDBModel();
             count = 0;
         }
-        
+        public void DropDownItems(string rType)
+        {
+            RoomTypes.Items.Add(new ListItem(rType));
+        }
         bool ValidDate(string Date)//Validates the date
         {
             bool validDate = DateTime.TryParseExact(
@@ -290,7 +297,7 @@ namespace LegacyInternational
                         ID = p.flight_id.ToString() + ":" + (Increment++).ToString(),
                         CausesValidation = false,
                         UseSubmitBehavior = false,
-                        PostBackUrl = "~/Account/Profile.aspx?id=" + (Increment - 1).ToString() + ":" + p.flight_id.ToString()+"&count="+count.ToString()
+                        PostBackUrl = "~/Account/Profile.aspx?id=" + (Increment - 1).ToString() + ":" + p.flight_id.ToString() + "&count=" + count.ToString()
                     };
 
                     TableCell tableCell = new TableCell();
@@ -355,7 +362,7 @@ namespace LegacyInternational
                         tableCell6.Controls.Add(new LiteralControl("Room #: " + i.room_num + "<br />"));
                         tableCell6.Controls.Add(new LiteralControl("Room Type: " + i.type + "<br />"));
                         button1.ID += ":" + p.cruise_id.ToString();
-                        button1.PostBackUrl += ":" + p.cruise_id.ToString()+"&SDate="+SDate.Text+"&EDate="+EDate.Text+"&cruise_id="+ p.cruise_id.ToString();
+                        button1.PostBackUrl += ":" + p.cruise_id.ToString() + "&SDate=" + SDate.Text + "&EDate=" + EDate.Text + "&cruise_id=" + p.cruise_id.ToString();
                         tableCell6.Controls.Add(new LiteralControl("Number Of Adults: " + i.num_of_adults + "<br />"));
                         tableCell6.Controls.Add(button1);
 
@@ -376,6 +383,75 @@ namespace LegacyInternational
                     AddTo.Rows.Add(tableRow);
                 }
             }
+        }
+        void AddCruiseByType(object x)//Adds cruise info and flight info to tables
+        {
+
+            TableRow tableRow = new TableRow
+            {
+                HorizontalAlign = HorizontalAlign.Justify,
+                BorderStyle = BorderStyle.Solid,
+                BorderWidth = Unit.Pixel(3)
+            };
+
+            cruiselist p = x as cruiselist;
+            TableCell tableCell = new TableCell();
+            tableCell.Controls.Add(new LiteralControl("Cruise ID: " + p.cruise_id));
+            TableCell tableCell1 = new TableCell();
+            tableCell1.Controls.Add(new LiteralControl("Cruesline ID: " + p.cruiseline.cruiseline_id));
+            TableCell tableCell2 = new TableCell();
+            tableCell2.Controls.Add(new LiteralControl("Start Date/Time: " + p.start_datetime));
+            TableCell tableCell3 = new TableCell();
+            tableCell3.Controls.Add(new LiteralControl("End Date/Time: " + p.end_datetime));
+            Table table = new Table
+            {
+                CssClass = "table table-dark table-striped table-bordered"
+            };
+            TableCell tableCell4 = new TableCell();
+            p.cruiserooms.ToList().ForEach(i =>
+            {
+                if (i.type == RoomTypes.SelectedItem.Text)
+                {
+                    Button button1 = new Button()
+                    {
+                        CssClass = "btn btn-outline-primary",
+                        Text = "Select",
+                        ID = (Increment++).ToString() + ":" + i.room_num.ToString(),
+                        CausesValidation = false,
+                        UseSubmitBehavior = false,
+                        PostBackUrl = "~/Account/Profile.aspx?id=" + (Increment - 1).ToString() + ":" + i.room_num.ToString()
+                    };
+
+                    TableRow tableRow1 = new TableRow();
+                    TableCell tableCell6 = new TableCell();
+                    tableCell6.Controls.Add(new LiteralControl("Room #: " + i.room_num + "<br />"));
+                    tableCell6.Controls.Add(new LiteralControl("Room Type: " + i.type + "<br />"));
+                    button1.ID += ":" + p.cruise_id.ToString();
+                    button1.PostBackUrl += ":" + p.cruise_id.ToString() + "&SDate=" + SDate.Text + "&EDate=" + EDate.Text + "&cruise_id=" + p.cruise_id.ToString();
+                    tableCell6.Controls.Add(new LiteralControl("Number Of Adults: " + i.num_of_adults + "<br />"));
+                    tableCell6.Controls.Add(button1);
+
+
+                    tableRow1.Cells.Add(tableCell6);
+                    table.Rows.Add(tableRow1);
+                }
+            });
+            tableCell4.Controls.Add(table);
+            tableCell.VerticalAlign = tableCell2.VerticalAlign = tableCell1.VerticalAlign = tableCell3.VerticalAlign = tableCell4.VerticalAlign = VerticalAlign.Middle;
+            tableCell.HorizontalAlign = tableCell2.HorizontalAlign = tableCell1.HorizontalAlign = tableCell3.HorizontalAlign = tableCell4.HorizontalAlign = HorizontalAlign.Center;
+            tableCell.HorizontalAlign = HorizontalAlign.Center;
+            tableRow.Visible = true;
+            tableRow.Cells.Add(tableCell);
+            tableRow.Cells.Add(tableCell1);
+            tableRow.Cells.Add(tableCell2);
+            tableRow.Cells.Add(tableCell3);
+            tableRow.Cells.Add(tableCell4);
+            Cruises.Rows.Add(tableRow);
+        }
+        protected void RoomTypes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Cruises.Rows.Clear();
+            (Session["CR"] as List<cruiselist>).ForEach(p => AddCruiseByType(p)); ;
         }
     }
 }

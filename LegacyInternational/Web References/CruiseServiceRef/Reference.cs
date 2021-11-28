@@ -29,6 +29,8 @@ namespace LegacyInternational.CruiseServiceRef {
     [System.Web.Services.WebServiceBindingAttribute(Name="CruiseServiceSoap", Namespace="http://tempuri.org/")]
     public partial class CruiseService : System.Web.Services.Protocols.SoapHttpClientProtocol {
         
+        private System.Threading.SendOrPostCallback RoomTypesOperationCompleted;
+        
         private System.Threading.SendOrPostCallback CreateBookingOperationCompleted;
         
         private bool useDefaultCredentialsSetExplicitly;
@@ -70,19 +72,52 @@ namespace LegacyInternational.CruiseServiceRef {
         }
         
         /// <remarks/>
+        public event RoomTypesCompletedEventHandler RoomTypesCompleted;
+        
+        /// <remarks/>
         public event CreateBookingCompletedEventHandler CreateBookingCompleted;
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/RoomTypes", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public string[] RoomTypes(string CheckIn, string CheckOut) {
+            object[] results = this.Invoke("RoomTypes", new object[] {
+                        CheckIn,
+                        CheckOut});
+            return ((string[])(results[0]));
+        }
+        
+        /// <remarks/>
+        public void RoomTypesAsync(string CheckIn, string CheckOut) {
+            this.RoomTypesAsync(CheckIn, CheckOut, null);
+        }
+        
+        /// <remarks/>
+        public void RoomTypesAsync(string CheckIn, string CheckOut, object userState) {
+            if ((this.RoomTypesOperationCompleted == null)) {
+                this.RoomTypesOperationCompleted = new System.Threading.SendOrPostCallback(this.OnRoomTypesOperationCompleted);
+            }
+            this.InvokeAsync("RoomTypes", new object[] {
+                        CheckIn,
+                        CheckOut}, this.RoomTypesOperationCompleted, userState);
+        }
+        
+        private void OnRoomTypesOperationCompleted(object arg) {
+            if ((this.RoomTypesCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.RoomTypesCompleted(this, new RoomTypesCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/CreateBooking", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public int CreateBooking(string username, string check_in_date, string check_out_date, int cruise_id, int booking_id, int room_num) {
-            object[] results = this.Invoke("CreateBooking", new object[] {
+        public void CreateBooking(string username, string check_in_date, string check_out_date, int cruise_id, int booking_id, int room_num) {
+            this.Invoke("CreateBooking", new object[] {
                         username,
                         check_in_date,
                         check_out_date,
                         cruise_id,
                         booking_id,
                         room_num});
-            return ((int)(results[0]));
         }
         
         /// <remarks/>
@@ -107,7 +142,7 @@ namespace LegacyInternational.CruiseServiceRef {
         private void OnCreateBookingOperationCompleted(object arg) {
             if ((this.CreateBookingCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.CreateBookingCompleted(this, new CreateBookingCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+                this.CreateBookingCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -132,29 +167,33 @@ namespace LegacyInternational.CruiseServiceRef {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
-    public delegate void CreateBookingCompletedEventHandler(object sender, CreateBookingCompletedEventArgs e);
+    public delegate void RoomTypesCompletedEventHandler(object sender, RoomTypesCompletedEventArgs e);
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class CreateBookingCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+    public partial class RoomTypesCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
         
-        internal CreateBookingCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+        internal RoomTypesCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }
         
         /// <remarks/>
-        public int Result {
+        public string[] Result {
             get {
                 this.RaiseExceptionIfNecessary();
-                return ((int)(this.results[0]));
+                return ((string[])(this.results[0]));
             }
         }
     }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.8.4084.0")]
+    public delegate void CreateBookingCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
 }
 
 #pragma warning restore 1591

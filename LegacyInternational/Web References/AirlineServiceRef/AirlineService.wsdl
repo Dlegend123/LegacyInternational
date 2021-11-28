@@ -13,11 +13,7 @@
         </s:complexType>
       </s:element>
       <s:element name="CreateBookingResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="CreateBookingResult" type="s:int" />
-          </s:sequence>
-        </s:complexType>
+        <s:complexType />
       </s:element>
     </s:schema>
   </wsdl:types>

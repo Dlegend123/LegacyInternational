@@ -97,14 +97,14 @@ namespace LegacyInternational.Account
         }
         List<bookcruise> CruiseCollect()//Get all cruise bookings for the user
         {
-            //var result = jTBDBModel.users.AsEnumerable().Where(k => k.email == user.UserName).First().bookcruises.AsEnumerable().ToList();
-            var result = jTBDBModel.bookcruises.AsEnumerable().ToList();
+            var result = jTBDBModel.users.AsEnumerable().Where(k => k.email == user.UserName).First().bookcruises.AsEnumerable().ToList();
+            //var result = jTBDBModel.bookcruises.AsEnumerable().ToList();
             return result;
         }
         List<bookflight> FlightCollect()//Get all flight bookings for the user 
         {
-            var result = jTBDBModel.bookflights.AsEnumerable().ToList();
-            //var result = jTBDBModel.users.AsEnumerable().Where(k=>k.email==user.UserName).First().bookflights.AsEnumerable().ToList();
+            //var result = jTBDBModel.bookflights.AsEnumerable().ToList();
+            var result = jTBDBModel.users.AsEnumerable().Where(k=>k.email==user.UserName).First().bookflights.AsEnumerable().ToList();
             return result;
         }
         void QuickFunction(object x, int k, Table AddTo)

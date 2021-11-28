@@ -70,7 +70,6 @@
                 <asp:Table runat="server" CssClass="table table-dark table-striped table-bordered" BorderStyle="Solid" BorderWidth="3px">
                     <asp:TableRow>
                         <asp:TableCell>
-                            <h5 style="text-align:left">Departure Flights</h5>
                         <asp:Table runat="server" ID="DepartureFlights" CssClass="table table-dark table-striped table-bordered" BorderStyle="Solid" ForeColor="WhiteSmoke"  BorderWidth="3px" >
 
                         </asp:Table>
@@ -87,10 +86,22 @@
                         </asp:TableRow>
                     </asp:Table>
                 <asp:Table runat="server" CssClass="table table-dark table-striped table-bordered" BorderStyle="Solid" BorderWidth="3px">
+                    <asp:TableRow HorizontalAlign="Center">
+                        <asp:TableHeaderCell HorizontalAlign="Left">
+                            <h5 style="text-align:left">Cruises and Rooms</h5>
+                        </asp:TableHeaderCell>
+                        <asp:TableHeaderCell HorizontalAlign="Right">
+                            <asp:Label runat="server" Font-Bold="true" Font-Size="Medium">Room Types:&nbsp;</asp:Label>
+                            
+                            <asp:DropDownList ID="RoomTypes" runat="server" CssClass="btn btn-outline-primary dropdown-toggle" AutoPostBack="true" OnSelectedIndexChanged="RoomTypes_SelectedIndexChanged">
+
+                            </asp:DropDownList>
+                        </asp:TableHeaderCell>
+                    </asp:TableRow>
                     <asp:TableRow>
                         <asp:TableCell>
-                            <h5 style="text-align:left">Cruises and Rooms</h5>
-<asp:Table runat="server" ID="Cruises" CssClass="table table-dark table-striped table-bordered" BorderStyle="Solid" ForeColor="WhiteSmoke"  BorderWidth="3px" >
+                            
+                            <asp:Table runat="server" ID="Cruises" CssClass="table table-dark table-striped table-bordered" BorderStyle="Solid" ForeColor="WhiteSmoke"  BorderWidth="3px" >
 
                             </asp:Table>
                          </asp:TableCell>

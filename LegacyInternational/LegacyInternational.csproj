@@ -580,15 +580,15 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <None Include="Web References\AirlineServiceRef\AirlineService.wsdl" />
-    <Content Include="Web References\AirlineServiceRef\Reference.map">
+    <None Include="Web References\AirlineServiceRef\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
-    </Content>
+    </None>
     <None Include="Web References\CruiseServiceRef\CruiseService.wsdl" />
-    <Content Include="Web References\CruiseServiceRef\Reference.map">
+    <None Include="Web References\CruiseServiceRef\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
-    </Content>
+    </None>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
