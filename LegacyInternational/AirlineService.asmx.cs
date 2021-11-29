@@ -35,13 +35,13 @@ namespace LegacyInternational
             return JTBDBModel.flightlists.AsEnumerable().Where(x => Airports.Any(l => l.airport_id == x.departure_airport_id && x.departure_datetime.Contains( Date))).ToList();
         }*/
         [WebMethod]
-        public void CreateBooking(int Flight_id, string Name, string DOB, int num)//Creates a flight booking
+        public void CreateBooking(int Flight_id, string Name, string DOB, int num)//Adds a new flight booking to the database
         {
-            Random rnd = new Random();
+            Random rnd = new Random();//Initializes a new Instance of the Random Class
             int ascii_index = rnd.Next(65, 91); //ASCII character codes 65-90
             char myRandomUpperCase = Convert.ToChar(ascii_index); //produces any char A-Z
-            JTBDBModel JTBDBModel = new JTBDBModel();
-            var bookflight = new bookflight()
+            JTBDBModel JTBDBModel = new JTBDBModel();// Creates and initializes a new instance of the JTBDBModel class
+            var bookflight = new bookflight()// Creates new flight booking 
             {
                 booking_id = JTBDBModel.bookflights.AsEnumerable().Count() + 1,
                 flight_id = Flight_id,
@@ -50,29 +50,8 @@ namespace LegacyInternational
                 dob = DOB,
                 seat_num = JTBDBModel.bookflights.AsEnumerable().Count().ToString() + myRandomUpperCase.ToString()
             };
-            JTBDBModel.bookflights.Add(bookflight);
-            JTBDBModel.SaveChangesAsync().Wait();
-            /*
-            using (SqlConnection conn = new SqlConnection
-            {
-                ConnectionString = ConfigurationManager.ConnectionStrings["JTBDBConnectionString"].ConnectionString
-            })
-            {
-                using (var sqlCommand = new SqlCommand("INSERT INTO bookflight([booking_id],[flight_id],[username],[email],[dob],[seat_num],[num_of_adults]) Values(@booking_id,@flight_id,@u_name,@e_mail,@dob,@seat_num,@num_of_adults)", conn))
-                {
-                    conn.Open();
-                    sqlCommand.Parameters.Add("@booking_id", SqlDbType.Int).Value = bookflight.booking_id;
-                    sqlCommand.Parameters.Add("@flight_id", SqlDbType.Int).Value = bookflight.flight_id;
-                    sqlCommand.Parameters.Add("@u_name", SqlDbType.NVarChar,50).Value = Name;
-                    sqlCommand.Parameters.Add("@e_mail", SqlDbType.NVarChar).Value = bookflight.email;
-                    sqlCommand.Parameters.Add("@dob", SqlDbType.NVarChar,50).Value = DOB;
-                    sqlCommand.Parameters.Add("@seat_num", SqlDbType.NVarChar,50).Value = bookflight.seat_num;
-                    sqlCommand.Parameters.Add("@num_of_adults", SqlDbType.Int).Value = bookflight.num_of_adults;
-                    sqlCommand.ExecuteNonQuery();
-                }
-            }
-            */
-            //JTBDBModel.Database.ExecuteSqlCommand("Insert into bookflight(booking_id,flight_id,username,email,dob,seat_num,num_of_adults) Values(" + bookflight.booking_id + "," + bookflight.flight_id + ",'" + bookflight.username + "','" + bookflight.email + "','" + bookflight.dob + "','" + bookflight.seat_num + "'," + bookflight.num_of_adults.ToString() + ");");
+            JTBDBModel.bookflights.Add(bookflight);//Adds new flight booking to the collection
+            JTBDBModel.SaveChangesAsync().Wait();//Save changes to database
         }
     }
 }

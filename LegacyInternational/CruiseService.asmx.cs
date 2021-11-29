@@ -28,9 +28,9 @@ namespace LegacyInternational
         [WebMethod]
         public List<string> RoomTypes(string CheckIn, string CheckOut)
         {
-            JTBDBModel JTBDBModel = new JTBDBModel();
-            List<string> RoomTypes = new List<string>();
-            if (String.IsNullOrEmpty(CheckIn) || String.IsNullOrEmpty(CheckOut))
+            JTBDBModel JTBDBModel = new JTBDBModel();// Creates and initializes a new instance of the JTBDBModel class
+            List<string> RoomTypes = new List<string>();//Creates and initializes a new list to store the room types
+            if (String.IsNullOrEmpty(CheckIn) || String.IsNullOrEmpty(CheckOut))//Finds room type based on the dates collected
             {
                 if (String.IsNullOrEmpty(CheckIn) && String.IsNullOrEmpty(CheckOut))
                 {
@@ -54,10 +54,10 @@ namespace LegacyInternational
                 JTBDBModel.cruiselists.AsEnumerable().Where(x => x.start_datetime == CheckIn && x.end_datetime == CheckOut)
                     .ToList().ForEach(l => l.cruiserooms.ToList().ForEach(j => RoomTypes.Add(j.type)));
 
-            return RoomTypes;
+            return RoomTypes;//returns the room types
         }
         [WebMethod]
-        public void CreateBooking(string username,string check_in_date, string check_out_date, int cruise_id, int booking_id, int room_num)//Adds a cruise booking to the database
+        public void CreateBooking(string username,string check_in_date, string check_out_date, int cruise_id, int booking_id, int room_num)//Adds a new cruise booking to the database
         {
             JTBDBModel JTBDBModel = new JTBDBModel();
             bookcruise bookcruise = new bookcruise
