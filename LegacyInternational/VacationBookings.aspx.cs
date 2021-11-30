@@ -293,6 +293,7 @@ namespace LegacyInternational
                     ID = p.flight_id.ToString() + ":" + (Increment++).ToString(),
                     CausesValidation = false,
                     UseSubmitBehavior = false,
+                    //Add values to postback url
                     PostBackUrl = "~/Account/Profile.aspx?id=" + (Increment - 1).ToString() + ":" + p.flight_id.ToString() + "&count=" + count.ToString()
                 };
 
@@ -338,6 +339,7 @@ namespace LegacyInternational
                         ID = p.flight_id.ToString() + ":" + (Increment++).ToString(),
                         CausesValidation = false,
                         UseSubmitBehavior = false,
+                        //Add values to postback url
                         PostBackUrl = "~/Account/Profile.aspx?id=" + (Increment - 1).ToString() + ":" + p.flight_id.ToString() + "&count=" + count.ToString()
                     };
 
@@ -395,6 +397,7 @@ namespace LegacyInternational
                             ID = (Increment++).ToString() + ":" + i.room_num.ToString(),
                             CausesValidation = false,
                             UseSubmitBehavior = false,
+                            //Add values to postback url
                             PostBackUrl = "~/Account/Profile.aspx?id=" + (Increment - 1).ToString() + ":" + i.room_num.ToString()
                         };
 
@@ -462,6 +465,7 @@ namespace LegacyInternational
                             ID = (Increment++).ToString() + ":" + i.room_num.ToString(),
                             CausesValidation = false,
                             UseSubmitBehavior = false,
+                            //Add values to postback url
                             PostBackUrl = "~/Account/Profile.aspx?id=" + (Increment - 1).ToString() + ":" + i.room_num.ToString()
                         };
 
