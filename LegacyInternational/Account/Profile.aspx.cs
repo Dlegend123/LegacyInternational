@@ -30,7 +30,7 @@ namespace LegacyInternational.Account
         protected void DFSelect_Click(object sender, EventArgs e)//Event handler for buttons assigned to flight
         {
             jTBDBModel = new JTBDBModel();
-            new AirlineServiceRef.AirlineService().CreateBooking(Int32.Parse(Request.QueryString["id"].Split(':')[0]), jTBDBModel.users.Where(x => x.email == user.UserName).First().username, jTBDBModel.users.Where(x => x.email == user.UserName).First().dob, Int32.Parse(Request.QueryString["count"]));
+            new AirlineServiceRef.AirlineService().CreateBooking(Int32.Parse(Request.QueryString["id"].Split(':')[1].Split('&')[0]), jTBDBModel.users.Where(x => x.email == user.UserName).First().username, jTBDBModel.users.Where(x => x.email == user.UserName).First().dob, Int32.Parse(Request.QueryString["count"]));
         }
 
         protected void CRSelect_Click(object sender, EventArgs e)//event handler for buttons assigned to cruises

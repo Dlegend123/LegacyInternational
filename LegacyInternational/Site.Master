@@ -54,7 +54,7 @@
                       <a class="nav-link active" aria-current="page" href="./" style="font-size:larger" runat="server">Home</a>
                     </li>
                     <li class="nav-item" runat="server" id="BookingsPage" >
-                      <a class="nav-link" href="VacationBookings.aspx" style="font-size:larger" runat="server">VacationBookings</a>
+                      <a class="nav-link" href="VacationBookings.aspx" style="font-size:larger" runat="server">Vacation Bookings</a>
                     </li>
                         <li class="nav-item">
                       <a class="nav-link" href="About" style="font-size:larger" runat="server">About Us</a>

@@ -56,7 +56,7 @@
                 <asp:Table runat="server" CssClass = "table table-dark table-striped table-bordered container">
                     <asp:TableRow>
                         <asp:TableCell>
-                            <asp:Button Text="Add new Booking" runat="server" ID="ABooking" CssClass="btn btn-outline-primary" OnClick="ABooking_Click"/>
+                            <asp:Button Text="Add New Booking" runat="server" ID="ABooking" CssClass="btn btn-outline-primary" OnClick="ABooking_Click"/>
 
                         </asp:TableCell>
                     </asp:TableRow>

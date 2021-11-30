@@ -70,6 +70,7 @@
                 <asp:Table runat="server" CssClass="table table-dark table-striped table-bordered" BorderStyle="Solid" BorderWidth="3px">
                     <asp:TableRow>
                         <asp:TableCell>
+                            <h5 style="text-align:left">Departure Flights</h5>
                         <asp:Table runat="server" ID="DepartureFlights" CssClass="table table-dark table-striped table-bordered" BorderStyle="Solid" ForeColor="WhiteSmoke"  BorderWidth="3px" >
 
                         </asp:Table>
