@@ -27,19 +27,26 @@ namespace LegacyInternational
                 Response.Redirect(url);
             }
             Increment = 0;
-            JTBDBModel = new JTBDBModel();// Initializes an instance of the JTBDBModel class
-            if (!Page.IsPostBack)//Checks if the page is being rendered for the first time
-            {
-                CruiseServiceRef.CruiseService cruiseService1 = new CruiseServiceRef.CruiseService();
+            if(RoomTypes.Items.Count ==0) {
                 DropDownItems("All");
-                JTBDBModel.cruiselists.AsEnumerable().ToList().Where(v=>v.cruiserooms.Count>0).ToList().ForEach(p => QuickFunction(p, 2, Cruises));//Shows all cruises
+                new CruiseServiceRef.CruiseService().RoomTypes(SDate.Text, EDate.Text).ToList().ForEach(x => DropDownItems(x));//Adds the different roomtypes to the roomtypes dropdownlist
+            }
+
+            JTBDBModel = new JTBDBModel();// Initializes an instance of the JTBDBModel class
+
+            if (Session["DF"] == null)//Checks if any data was stored in the sessions
+            {
+                if (!Page.IsPostBack)
+                {
+                    if (RoomTypes.Items.Count > 0)
+                        RoomTypes.Items[0].Selected = true;
+                }
+                JTBDBModel.cruiselists.AsEnumerable().ToList().Where(v => v.cruiserooms.Count > 0).ToList().ForEach(p => QuickFunction(p, 2, Cruises));//Shows all cruises
                 JTBDBModel.flightlists.AsEnumerable().ToList().ForEach(p => QuickFunction(p, 1, ReturnFlights));//Shows all return flights
                 JTBDBModel.flightlists.AsEnumerable().ToList().ForEach(p => QuickFunction(p, 0, DepartureFlights));//Shows all Departure flights
-                cruiseService1.RoomTypes(SDate.Text, EDate.Text).ToList().ForEach(x => DropDownItems(x));//Adds the different roomtypes to the roomtypes dropdownlist
-                if (RoomTypes.Items.Count > 0)
-                    RoomTypes.Items[0].Selected = true;
-            }
-            if (Session["DF"] != null)//Checks if any data was stored in the sessions
+                
+                }
+            else
             {
                 (Session["DF"] as List<flightlist>).ForEach(p => QuickFunction(p, 0, DepartureFlights));//Show the departure flights on the page
                 (Session["RF"] as List<flightlist>).ForEach(p => QuickFunction(p, 1, ReturnFlights));//Show the return flights on the page
@@ -53,7 +60,6 @@ namespace LegacyInternational
                         tableCell.Controls.Add(new LiteralControl("<br/>No Results Found<br/>"));
                         tableRow.Cells.Add(tableCell);
                         Cruises.Rows.Add(tableRow);
-
                     }
                     if (ReturnFlights.Rows.Count == 0)
                     {
@@ -89,24 +95,53 @@ namespace LegacyInternational
                 out DateTime scheduleDate);
             return validDate;
         }
+        void DateIsValid()
+        {
+            var t = DataCollect(1);
+            Session["DF"] = t;
+            //Return Flights
+            var q = DataCollect(2);
+            Session["RF"] = q;
+            //Cruises and Room types
+            var m = DataCollect();
+            Session["CR"] = m;
+            Response.Redirect("~/VacationBookings.aspx", false);
+        }
         protected void SearchSubmit_Click(object sender, EventArgs e)//Search based on user input
         {
-            if ((!string.IsNullOrEmpty(SDate.Text) || !string.IsNullOrEmpty(EDate.Text)) && (!ValidDate(SDate.Text) && !ValidDate(EDate.Text)))
+            if ((!string.IsNullOrEmpty(SDate.Text) || !string.IsNullOrEmpty(EDate.Text)))
             {
-                ErrorMess.Visible = true;
+                if (!string.IsNullOrEmpty(SDate.Text) && !string.IsNullOrEmpty(EDate.Text))
+                {
+                    if (!ValidDate(SDate.Text) && !ValidDate(EDate.Text))
+                        ErrorMess.Visible = true;
+                    else
+                        DateIsValid();
+                }
+                else
+                {
+                    if (!string.IsNullOrEmpty(SDate.Text))
+                    {
+                        if (!ValidDate(SDate.Text))
+                            ErrorMess.Visible = true;
+                        else
+                            DateIsValid();
+                    }
+                    else
+                    {
+                        if (!string.IsNullOrEmpty(EDate.Text))
+                        {
+                            if (!ValidDate(EDate.Text))
+                                ErrorMess.Visible = true;
+                            else
+                                DateIsValid();
+                        }
+                    }
+
+                }
             }
             else
-            {
-                var t = DataCollect(1);
-                Session["DF"] = t;
-                //Return Flights
-                var q = DataCollect(2);
-                Session["RF"] = q;
-                //Cruises and Room types
-                var m = DataCollect();
-                Session["CR"] = m;
-                Response.Redirect("~/VacationBookings.aspx", false);
-            }
+                DateIsValid();
         }
         List<cruiselist> DataCollect()//Retrieves cruises from database
         {
@@ -463,12 +498,24 @@ namespace LegacyInternational
             {
                 Cruises.Rows.Clear();
                 (Session["CR"] as List<cruiselist>).ForEach(p => AddCruiseByType(p));
+                if (Cruises.Rows.Count == 0)
+                {
+                    TableCell tableCell = new TableCell();
+                    TableRow tableRow = new TableRow();
+                    tableCell.Controls.Add(new LiteralControl("<br/>No Results Found<br/>"));
+                    tableRow.Cells.Add(tableCell);
+                    Cruises.Rows.Add(tableRow);
+
+                }
             }
             else
             {
-                JTBDBModel.cruiselists.AsEnumerable().ToList().ForEach(p => AddCruiseByType(p));//Shows all cruises
-                JTBDBModel.flightlists.AsEnumerable().ToList().ForEach(p => QuickFunction(p, 1, ReturnFlights));//Shows all return flights
-                JTBDBModel.flightlists.AsEnumerable().ToList().ForEach(p => QuickFunction(p, 0, DepartureFlights));//Shows all Departure flights
+                if (Session["DF"] == null)//Checks if any data was stored in the sessions
+                { 
+                    JTBDBModel.cruiselists.AsEnumerable().ToList().ForEach(p => AddCruiseByType(p));//Shows all cruises
+                    JTBDBModel.flightlists.AsEnumerable().ToList().ForEach(p => QuickFunction(p, 1, ReturnFlights));//Shows all return flights
+                    JTBDBModel.flightlists.AsEnumerable().ToList().ForEach(p => QuickFunction(p, 0, DepartureFlights));//Shows all Departure flights
+                }
             }
         }
     }

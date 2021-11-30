@@ -8,8 +8,6 @@
         <tr>
             <th class="text-center" ><h1>About Us</h1></th>
         </tr>
-    </table>
-    <table class="table table-dark table-striped table-bordered">
         <tr>
             <td style="padding-bottom:7em">
                 <p style="font-size:medium">
