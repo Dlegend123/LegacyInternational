@@ -86,20 +86,22 @@
                         </asp:TableRow>
                     </asp:Table>
                 <asp:Table runat="server" CssClass="table table-dark table-striped table-bordered" BorderStyle="Solid" BorderWidth="3px">
-                    <asp:TableRow HorizontalAlign="Center">
+                    <asp:TableRow>
                         <asp:TableHeaderCell HorizontalAlign="Left">
                             <h5 style="text-align:left">Cruises and Rooms</h5>
                         </asp:TableHeaderCell>
                         <asp:TableHeaderCell HorizontalAlign="Right">
+                            <p style="text-align:right">
                             <asp:Label runat="server" Font-Bold="true" Font-Size="Medium">Room Types:&nbsp;</asp:Label>
                             
                             <asp:DropDownList ID="RoomTypes" runat="server" CssClass="btn btn-outline-primary dropdown-toggle" AutoPostBack="true" OnSelectedIndexChanged="RoomTypes_SelectedIndexChanged">
 
                             </asp:DropDownList>
+                                </p>
                         </asp:TableHeaderCell>
                     </asp:TableRow>
                     <asp:TableRow>
-                        <asp:TableCell>
+                        <asp:TableCell ColumnSpan="2">
                             
                             <asp:Table runat="server" ID="Cruises" CssClass="table table-dark table-striped table-bordered" BorderStyle="Solid" ForeColor="WhiteSmoke"  BorderWidth="3px" >
 

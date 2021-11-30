@@ -26,7 +26,7 @@ namespace LegacyInternational
     {
 
         [WebMethod]
-        public List<string> RoomTypes(string CheckIn, string CheckOut)
+        public List<string> RoomTypes(string CheckIn, string CheckOut)//Function to get all roomtypes from database
         {
             JTBDBModel JTBDBModel = new JTBDBModel();// Creates and initializes a new instance of the JTBDBModel class
             List<string> RoomTypes = new List<string>();//Creates and initializes a new list to store the room types
